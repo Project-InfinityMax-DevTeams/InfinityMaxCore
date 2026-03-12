@@ -8,14 +8,13 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.config.ModConfigEvent;
 import net.minecraftforge.registries.ForgeRegistries;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 // 設定クラスの例です。必須ではありませんが、設定を整理するために用意しておくことをお勧めします。
 // Forgeの構成APIの使用方法を示す
-@Mod.EventBusSubscriber(modid = ExampleMod.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
+@Mod.EventBusSubscriber(modid = InfinityMaxCore.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class Config
 {
     private static final ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
