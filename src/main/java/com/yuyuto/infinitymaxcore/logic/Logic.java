@@ -1,4 +1,5 @@
 package com.yuyuto.infinitymaxcore.logic;
 
-public class Logic {
+public interface Logic {
+    String id();
 }

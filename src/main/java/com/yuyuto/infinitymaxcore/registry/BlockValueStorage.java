@@ -14,7 +14,7 @@ public class BlockValueStorage {
     private final String blockId;
 
     //MapColor
-    private MapColor mapColor;
+    private MapColor mapColor = MapColor.STONE;
     //耐爆性
     private float resistance = 6.0f;
     //固さ(破壊速度)
@@ -162,6 +162,10 @@ public class BlockValueStorage {
         return tags;
     }
 
+    public void addTag(ResourceLocation tag){
+        this.tags.add(tag);
+    }
+
     public String getLang() {
         return lang;
     }
@@ -176,6 +180,10 @@ public class BlockValueStorage {
 
     public void setLogics(List<Logic> logics) {
         this.logics = logics;
+    }
+
+    public void addLogics(Logic logic){
+        this.logics.add(logic);
     }
 
     public RendererDefinition getRenderer() {
