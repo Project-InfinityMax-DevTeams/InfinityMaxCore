@@ -30,8 +30,7 @@ import org.slf4j.Logger;
 
 // この値は、META-INF/mods.toml ファイル内のエントリと一致する必要があります。
 @Mod(ExampleMod.MODID)
-public class ExampleMod
-{
+public class ExampleMod {
     // すべての参照元が参照できるように、共通の場所でMODIDを定義する
     public static final String MODID = "infinitymaxcore";
     // SLF4Jロガーを直接参照する
@@ -60,8 +59,7 @@ public class ExampleMod
                 output.accept(EXAMPLE_ITEM.get()); // 例示項目をタブに追加します。独自のタブについては、この方法がイベントよりも推奨されます。
             }).build());
 
-    public ExampleMod(FMLJavaModLoadingContext context)
-    {
+    public ExampleMod(FMLJavaModLoadingContext context) {
         IEventBus modEventBus = context.getModEventBus();
 
         // modloading用のcommonSetupメソッドを登録する
@@ -84,8 +82,7 @@ public class ExampleMod
         context.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
     }
 
-    private void commonSetup(final FMLCommonSetupEvent event)
-    {
+    private void commonSetup(final FMLCommonSetupEvent event) {
         // 一般的な設定コード
         LOGGER.info("HELLO FROM COMMON SETUP");
 
@@ -98,27 +95,23 @@ public class ExampleMod
     }
 
     //Example Block項目をビルディングブロックタブに追加する
-    private void addCreative(BuildCreativeModeTabContentsEvent event)
-    {
+    private void addCreative(BuildCreativeModeTabContentsEvent event) {
         if (event.getTabKey() == CreativeModeTabs.BUILDING_BLOCKS)
             event.accept(EXAMPLE_BLOCK_ITEM);
     }
 
     // SubscribeEvent を使用し、イベントバスに呼び出すメソッドを発見させることができます
     @SubscribeEvent
-    public void onServerStarting(ServerStartingEvent event)
-    {
+    public void onServerStarting(ServerStartingEvent event) {
         // サーバー起動時に何かを行う
         LOGGER.info("HELLO from server starting");
     }
 
     // EventBusSubscriberを使用すると、@SubscribeEventアノテーションが付与されたクラス内のすべての静的メソッドを自動的に登録できます。
     @Mod.EventBusSubscriber(modid = MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
-    public static class ClientModEvents
-    {
+    public static class ClientModEvents {
         @SubscribeEvent
-        public static void onClientSetup(FMLClientSetupEvent event)
-        {
+        public static void onClientSetup(FMLClientSetupEvent event) {
             // クライアント設定コードの一部
             LOGGER.info("HELLO FROM CLIENT SETUP");
             LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());
