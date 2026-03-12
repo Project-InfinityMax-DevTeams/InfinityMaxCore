@@ -3,6 +3,7 @@ package com.yuyuto.infinitymaxcore.registry;
 import com.yuyuto.infinitymaxcore.logic.Logic;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.MapColor;
 
@@ -31,13 +32,13 @@ public class BlockValueStorage {
     //溶岩で着火するか
     private boolean ignitedByLava;
     //発光レンダリング(StatePredicate)
-    private Object emissiveRenderer;
+    private BlockBehaviour.StatePredicate emissiveRenderer;
 
     //DataGen関連
     private ModelDefinition model;
     private ResourceLocation texture;
     private LootDefinition loot;
-    private final List<String> tags = new ArrayList<>();
+    private final List<ResourceLocation> tags = new ArrayList<>();
     private String lang;
     private List<Logic> logics = new ArrayList<>();
 
@@ -59,6 +60,114 @@ public class BlockValueStorage {
 
     public void setLogics(List<Logic> logics) {
         this.logics = logics;
+    }
+
+    public float getResistance() {
+        return resistance;
+    }
+
+    public void setResistance(float resistance) {
+        this.resistance = resistance;
+    }
+
+    public float getHardness() {
+        return hardness;
+    }
+
+    public void setHardness(float hardness) {
+        this.hardness = hardness;
+    }
+
+    public int getLightLevel() {
+        return lightLevel;
+    }
+
+    public void setLightLevel(int lightLevel) {
+        this.lightLevel = lightLevel;
+    }
+
+    public SoundType getSoundType() {
+        return soundType;
+    }
+
+    public void setSoundType(SoundType soundType) {
+        this.soundType = soundType;
+    }
+
+    public boolean isRequireToolForDrop() {
+        return requireToolForDrop;
+    }
+
+    public void setRequireToolForDrop(boolean requireToolForDrop) {
+        this.requireToolForDrop = requireToolForDrop;
+    }
+
+    public float getFriction() {
+        return friction;
+    }
+
+    public void setFriction(float friction) {
+        this.friction = friction;
+    }
+
+    public boolean isIgnitedByLava() {
+        return ignitedByLava;
+    }
+
+    public void setIgnitedByLava(boolean ignitedByLava) {
+        this.ignitedByLava = ignitedByLava;
+    }
+
+    public BlockBehaviour.StatePredicate getEmissiveRenderer() {
+        return emissiveRenderer;
+    }
+
+    public void setEmissiveRenderer(BlockBehaviour.StatePredicate emissiveRenderer) {
+        this.emissiveRenderer = emissiveRenderer;
+    }
+
+    public ModelDefinition getModel() {
+        return model;
+    }
+
+    public void setModel(ModelDefinition model) {
+        this.model = model;
+    }
+
+    public ResourceLocation getTexture() {
+        return texture;
+    }
+
+    public void setTexture(ResourceLocation texture) {
+        this.texture = texture;
+    }
+
+    public LootDefinition getLoot() {
+        return loot;
+    }
+
+    public void setLoot(LootDefinition loot) {
+        this.loot = loot;
+    }
+
+    public List<ResourceLocation> getTags() {
+        return tags;
+    }
+
+    public String getLang() {
+        return lang;
+    }
+
+    public void setLang(String lang) {
+        this.lang = lang;
+    }
+
+    public RendererDefinition getRenderer() {
+        return renderer;
+    }
+
+    public void setRenderer(RendererDefinition renderer) {
+        this.renderer = renderer;
     }
 }
 
