@@ -4,35 +4,35 @@ import com.yuyuto.infinitymaxcore.logic.Logic;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.MapColor;
 
 import java.util.*;
-import java.util.function.Function;
 
 public class BlockValueStorage {
 
     //block id
     private final String blockId;
 
-    //MapColor(Function<BlockState,MapColor>)
-    private Function<BlockState, MapColor> mapColor;
+    //MapColor
+    private MapColor mapColor;
     //耐爆性
-    private float resistance;
+    private float resistance = 6.0f;
     //固さ(破壊速度)
-    private float hardness;
+    private float hardness = 3.0f;
     //明るさ(光源)
-    private int lightLevel;
+    private int lightLevel = 0;
     //サウンド(SoundType)
-    private SoundType soundType;
+    private SoundType soundType = SoundType.STONE;
     //最適ツール化
-    private boolean requireToolForDrop;
+    private boolean requireToolForDrop = false;
     //滑りやすさ
-    private float friction;
+    private float friction = 0.6f;
     //溶岩で着火するか
-    private boolean ignitedByLava;
+    private boolean ignitedByLava = false;
     //発光レンダリング(StatePredicate)
     private BlockBehaviour.StatePredicate emissiveRenderer;
+    //BlockItemを作るかどうか
+    private boolean hasBlockItem = true;
 
     //DataGen関連
     private ModelDefinition model;
@@ -40,9 +40,9 @@ public class BlockValueStorage {
     private LootDefinition loot;
     private final List<ResourceLocation> tags = new ArrayList<>();
     private String lang;
-    private List<Logic> logics = new ArrayList<>();
 
-    //アニメーションとかのレンダリング
+    //BlockEntity関連
+    private List<Logic> logics = new ArrayList<>();
     private RendererDefinition renderer;
 
     /* ---ここからメソッド--- */
@@ -54,12 +54,12 @@ public class BlockValueStorage {
         return blockId;
     }
 
-    public List<Logic> getLogics() {
-        return logics;
+    public MapColor getMapColor() {
+        return mapColor;
     }
 
-    public void setLogics(List<Logic> logics) {
-        this.logics = logics;
+    public void setMapColor(MapColor mapColor) {
+        this.mapColor = mapColor;
     }
 
     public float getResistance() {
@@ -126,6 +126,14 @@ public class BlockValueStorage {
         this.emissiveRenderer = emissiveRenderer;
     }
 
+    public boolean isHasBlockItem() {
+        return hasBlockItem;
+    }
+
+    public void setHasBlockItem(boolean hasBlockItem) {
+        this.hasBlockItem = hasBlockItem;
+    }
+
     public ModelDefinition getModel() {
         return model;
     }
@@ -160,6 +168,14 @@ public class BlockValueStorage {
 
     public void setLang(String lang) {
         this.lang = lang;
+    }
+
+    public List<Logic> getLogics() {
+        return logics;
+    }
+
+    public void setLogics(List<Logic> logics) {
+        this.logics = logics;
     }
 
     public RendererDefinition getRenderer() {
