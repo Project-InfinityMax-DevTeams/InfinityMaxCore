@@ -6,7 +6,6 @@ import com.yuyuto.infinitymaxcore.logic.LogicRegistry;
 import com.yuyuto.infinitymaxcore.logic.type.RandomTickLogic;
 import com.yuyuto.infinitymaxcore.logic.type.TickLogic;
 import com.yuyuto.infinitymaxcore.logic.type.UseLogic;
-import com.yuyuto.infinitymaxcore.registry.BlockValueStorage;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;

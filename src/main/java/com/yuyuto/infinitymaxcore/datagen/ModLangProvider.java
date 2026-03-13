@@ -1,0 +1,22 @@
+package com.yuyuto.infinitymaxcore.datagen;
+
+import com.yuyuto.infinitymaxcore.block.BlockStorageRegistry;
+import com.yuyuto.infinitymaxcore.block.BlockValueStorage;
+import net.minecraft.data.PackOutput;
+import net.minecraftforge.common.data.LanguageProvider;
+
+public class ModLangProvider extends LanguageProvider {
+
+    public ModLangProvider(PackOutput output){
+        super(output, "infinitymaxcore", "en_us");
+    }
+
+    @Override
+    protected void addTranslations(){
+        for (BlockValueStorage storage : BlockStorageRegistry.getAll()){
+            if (storage.getLang() != null){
+                add("block.infinitymaxcore." + storage.getBlockId(), storage.getLang());
+            }
+        }
+    }
+}

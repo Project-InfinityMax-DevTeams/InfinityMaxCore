@@ -1,6 +1,9 @@
-package com.yuyuto.infinitymaxcore.registry;
+package com.yuyuto.infinitymaxcore.block;
 
 import com.yuyuto.infinitymaxcore.logic.LogicPhase;
+import com.yuyuto.infinitymaxcore.registry.util.LootDefinition;
+import com.yuyuto.infinitymaxcore.registry.util.ModelDefinition;
+import com.yuyuto.infinitymaxcore.registry.util.RendererDefinition;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;

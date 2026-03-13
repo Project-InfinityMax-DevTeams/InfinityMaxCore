@@ -1,7 +1,8 @@
 package com.yuyuto.infinitymaxcore.dsl
 
+import com.yuyuto.infinitymaxcore.block.BlockStorageRegistry
 import com.yuyuto.infinitymaxcore.logic.LogicPhase
-import com.yuyuto.infinitymaxcore.registry.BlockValueStorage
+import com.yuyuto.infinitymaxcore.block.BlockValueStorage
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.level.block.SoundType
 import net.minecraft.world.level.block.state.BlockBehaviour
@@ -70,6 +71,7 @@ class BlockDSLBuilder(private val storage: BlockValueStorage){
         val builder = BlockDSLBuilder(storage)
 
         builder.init()
+        BlockStorageRegistry.register(storage)
         return storage
     }
 }
