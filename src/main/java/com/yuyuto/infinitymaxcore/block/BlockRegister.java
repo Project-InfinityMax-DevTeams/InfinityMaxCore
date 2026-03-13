@@ -66,13 +66,13 @@ public class BlockRegister extends Block {
         if(ids == null) return;
         for(String id : ids){
             Logic logic = LogicRegistry.get(id);
-            if (logic instanceof TickLogic tick){
+            if (phase == LogicPhase.TICK && logic instanceof TickLogic tick){
                 tick.execute(level,pos,state);
             }
-            if (logic instanceof UseLogic use){
+            if (phase == LogicPhase.USE && logic instanceof UseLogic use){
                 use.execute(player, level, pos, state);
             }
-            if (logic instanceof RandomTickLogic randomLogic){
+            if (phase == LogicPhase.RANDOM_TICK && logic instanceof RandomTickLogic randomLogic){
                 randomLogic.execute((ServerLevel) level, pos, state, random);
             }
         }
