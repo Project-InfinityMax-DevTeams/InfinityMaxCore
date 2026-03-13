@@ -10,10 +10,13 @@ import com.yuyuto.infinitymaxcore.registry.BlockValueStorage;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -22,7 +25,6 @@ public class BlockRegister extends Block {
 
     //Storage参照
     private final BlockValueStorage storage;
-    private Player player;
 
     public BlockRegister(Properties properties, BlockValueStorage storage){
         super(properties);
@@ -32,23 +34,33 @@ public class BlockRegister extends Block {
     //Tickイベント
     @Override
     public void tick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random){
-        runLogic(LogicPhase.TICK, level, pos, state);
+        runLogicTick(level, pos, state);
     }
 
     //Useロジック
-    public void use(Player player, Level level, BlockPos pos, BlockState state){
-        this.player = player;
-        runLogic(LogicPhase.USE,level,pos,state);
+    public @NotNull InteractionResult use(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit){
+        runLogicUse(level,pos,state,player);
+        return InteractionResult.SUCCESS;
     }
 
     //RandomTickイベント
     @Override
     public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random){
-        runLogic(LogicPhase.RANDOM_TICK, level,pos,state);
+        runLogicRandomTick(level,pos,state,random);
+    }
+    //API関数(引数干渉の削減に)
+    private void runLogicTick(Level level, BlockPos pos, BlockState state){
+        runLogic(LogicPhase.TICK,level,pos,state,null,null);
+    }
+    private void runLogicUse(Level level, BlockPos pos, BlockState state, Player player){
+        runLogic(LogicPhase.USE,level,pos,state,player,null);
+    }
+    private void runLogicRandomTick(Level level, BlockPos pos, BlockState state, RandomSource random){
+        runLogic(LogicPhase.RANDOM_TICK,level,pos,state,null,random);
     }
 
     //Logic実行
-    private void runLogic(LogicPhase phase, Level level, BlockPos pos, BlockState state){
+    private void runLogic(LogicPhase phase, Level level, BlockPos pos, BlockState state, Player player, RandomSource random){
         List<String> ids = storage.getLogics().get(phase);
 
         if(ids == null) return;
@@ -60,8 +72,8 @@ public class BlockRegister extends Block {
             if (logic instanceof UseLogic use){
                 use.execute(player, level, pos, state);
             }
-            if (logic instanceof RandomTickLogic random){
-                random.execute((ServerLevel) level, pos, state, (RandomSource) random);
+            if (logic instanceof RandomTickLogic randomLogic){
+                randomLogic.execute((ServerLevel) level, pos, state, random);
             }
         }
 
