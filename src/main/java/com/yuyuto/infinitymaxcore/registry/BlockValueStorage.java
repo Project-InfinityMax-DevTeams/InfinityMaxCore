@@ -42,7 +42,7 @@ public class BlockValueStorage {
     private String lang;
 
     //BlockEntity関連
-    private final  Map<LogicPhase, List<String>> logics = new HashMap<>();
+    private final  Map<LogicPhase, List<String>> logics = new EnumMap<>(LogicPhase.class);
     private RendererDefinition renderer;
 
     /* ---ここからメソッド--- */
@@ -178,7 +178,9 @@ public class BlockValueStorage {
         return logics;
     }
 
-
+    public void addLogic(LogicPhase phase, String logicId){
+        logics.computeIfAbsent(phase,p -> new ArrayList<>()).add(logicId);
+    }
 
     public RendererDefinition getRenderer() {
         return renderer;
