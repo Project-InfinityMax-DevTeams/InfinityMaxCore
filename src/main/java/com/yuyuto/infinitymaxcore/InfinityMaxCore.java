@@ -1,15 +1,16 @@
 package com.yuyuto.infinitymaxcore;
 
 import com.mojang.logging.LogUtils;
-import com.yuyuto.infinitymaxcore.datagen.ModBlockLootProvider;
 import com.yuyuto.infinitymaxcore.datagen.ModBlockStateProvider;
 import com.yuyuto.infinitymaxcore.datagen.ModLangProvider;
+import com.yuyuto.infinitymaxcore.datagen.ModLootTableProvider;
 import com.yuyuto.infinitymaxcore.registry.ModBlocks;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 
 // この値は、META-INF/mods.toml ファイル内のエントリと一致する必要があります。
@@ -26,13 +27,13 @@ public class InfinityMaxCore {
     }
     //DataGen
     @SubscribeEvent
-    public static void gatherData(GatherDataEvent event){
+    public static void gatherData(@NotNull GatherDataEvent event){
 
         DataGenerator gen = event.getGenerator();
         PackOutput output = gen.getPackOutput();
 
         gen.addProvider(event.includeClient(), new ModBlockStateProvider(output, event.getExistingFileHelper()));
-        gen.addProvider(event.includeServer(), new ModBlockLootProvider());
+        gen.addProvider(event.includeServer(), new ModLootTableProvider(output));
         gen.addProvider(event.includeClient(), new ModLangProvider(output));
     }
 

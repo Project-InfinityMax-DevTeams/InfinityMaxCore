@@ -7,6 +7,8 @@ import net.minecraft.world.flag.FeatureFlags;
 
 import java.util.Set;
 
+import static com.yuyuto.infinitymaxcore.registry.ModBlocks.getBlock;
+
 public class ModBlockLootProvider extends BlockLootSubProvider {
 
     public ModBlockLootProvider(){

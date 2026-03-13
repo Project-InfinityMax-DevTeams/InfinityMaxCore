@@ -6,6 +6,8 @@ import net.minecraft.data.PackOutput;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
+import static com.yuyuto.infinitymaxcore.registry.ModBlocks.getBlock;
+
 public class ModBlockStateProvider extends BlockStateProvider {
 
     public ModBlockStateProvider(PackOutput output, ExistingFileHelper helper){
