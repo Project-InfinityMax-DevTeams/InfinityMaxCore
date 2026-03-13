@@ -1,6 +1,6 @@
 package com.yuyuto.infinitymaxcore.registry;
 
-import com.yuyuto.infinitymaxcore.logic.Logic;
+import com.yuyuto.infinitymaxcore.logic.LogicPhase;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -42,7 +42,7 @@ public class BlockValueStorage {
     private String lang;
 
     //BlockEntity関連
-    private List<Logic> logics = new ArrayList<>();
+    private final  Map<LogicPhase, List<String>> logics = new HashMap<>();
     private RendererDefinition renderer;
 
     /* ---ここからメソッド--- */
@@ -174,17 +174,11 @@ public class BlockValueStorage {
         this.lang = lang;
     }
 
-    public List<Logic> getLogics() {
+    public Map<LogicPhase, List<String>> getLogics() {
         return logics;
     }
 
-    public void setLogics(List<Logic> logics) {
-        this.logics = logics;
-    }
 
-    public void addLogics(Logic logic){
-        this.logics.add(logic);
-    }
 
     public RendererDefinition getRenderer() {
         return renderer;
