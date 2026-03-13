@@ -21,12 +21,12 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class BlockRegister extends Block {
+public class BlockDSLConversion extends Block {
 
     //Storage参照
     private final BlockValueStorage storage;
 
-    public BlockRegister(Properties properties, BlockValueStorage storage){
+    public BlockDSLConversion(Properties properties, BlockValueStorage storage){
         super(properties);
         this.storage = storage;
     }
