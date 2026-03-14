@@ -1,9 +1,9 @@
 package com.yuyuto.infinitymaxcore.block;
 
 import com.yuyuto.infinitymaxcore.logic.LogicPhase;
-import com.yuyuto.infinitymaxcore.registry.util.LootDefinition;
-import com.yuyuto.infinitymaxcore.registry.util.ModelDefinition;
-import com.yuyuto.infinitymaxcore.registry.util.RendererDefinition;
+import com.yuyuto.infinitymaxcore.datagen.util.LootDefinition;
+import com.yuyuto.infinitymaxcore.datagen.util.BlockModelDefinition;
+import com.yuyuto.infinitymaxcore.datagen.util.RendererDefinition;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -38,13 +38,13 @@ public class BlockValueStorage {
     private boolean hasBlockItem = true;
 
     //DataGen関連
-    private ModelDefinition model;
+    private BlockModelDefinition model;
     private ResourceLocation texture;
     private LootDefinition loot;
     private final List<ResourceLocation> tags = new ArrayList<>();
     private String lang;
 
-    //BlockEntity関連
+    //ロジック関連
     private final  Map<LogicPhase, List<String>> logics = new EnumMap<>(LogicPhase.class);
     private RendererDefinition renderer;
 
@@ -137,11 +137,11 @@ public class BlockValueStorage {
         this.hasBlockItem = hasBlockItem;
     }
 
-    public ModelDefinition getModel() {
+    public BlockModelDefinition getModel() {
         return model;
     }
 
-    public void setModel(ModelDefinition model) {
+    public void setModel(BlockModelDefinition model) {
         this.model = model;
     }
 

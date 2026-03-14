@@ -3,9 +3,9 @@ package com.yuyuto.infinitymaxcore.dsl
 import com.yuyuto.infinitymaxcore.block.BlockStorageRegistry
 import com.yuyuto.infinitymaxcore.logic.LogicPhase
 import com.yuyuto.infinitymaxcore.block.BlockValueStorage
-import com.yuyuto.infinitymaxcore.registry.util.LootDefinition
-import com.yuyuto.infinitymaxcore.registry.util.ModelDefinition
-import com.yuyuto.infinitymaxcore.registry.util.RendererDefinition
+import com.yuyuto.infinitymaxcore.datagen.util.LootDefinition
+import com.yuyuto.infinitymaxcore.datagen.util.BlockModelDefinition
+import com.yuyuto.infinitymaxcore.datagen.util.RendererDefinition
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.level.block.SoundType
 import net.minecraft.world.level.block.state.BlockBehaviour
@@ -53,7 +53,7 @@ class BlockDSLBuilder(private val storage: BlockValueStorage){
         storage.isHasBlockItem = created
     }
 
-    fun model(model: ModelDefinition){
+    fun model(model: BlockModelDefinition){
         storage.model = model
     }
 

@@ -1,8 +1,7 @@
 package com.yuyuto.infinitymaxcore.item;
 
-import com.yuyuto.infinitymaxcore.registry.util.RecipeDefinition;
-import com.yuyuto.infinitymaxcore.registry.util.ModelDefinition;
-import net.minecraft.world.food.FoodProperties;
+import com.yuyuto.infinitymaxcore.datagen.util.ItemModelDefinition;
+import com.yuyuto.infinitymaxcore.datagen.util.RecipeDefinition;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
 
@@ -24,12 +23,14 @@ public class ItemValueStorage {
     //クラフトに使用した場合に残るかどうか
     private Item craftingRemainingItem;
     //食べ物の設定
-    private FoodProperties foodProperties;
+    private FoodDefinition food;
+    //クリエタブ
+    private String creativeTab;
 
     //DataGen関係
-    private ModelDefinition model;
+    private ItemModelDefinition model;
     private String lang;
-    private RecipeDefinition recipeDefinition;
+    private RecipeDefinition recipe;
 
     /* -----ここからメソッド----- */
     public ItemValueStorage(String id){
@@ -79,19 +80,27 @@ public class ItemValueStorage {
         this.craftingRemainingItem = craftingRemainingItem;
     }
 
-    public FoodProperties getFoodProperties() {
-        return foodProperties;
+    public FoodDefinition getFood() {
+        return food;
     }
 
-    public void setFoodProperties(FoodProperties foodProperties) {
-        this.foodProperties = foodProperties;
+    public void setFood(FoodDefinition food) {
+        this.food = food;
     }
 
-    public ModelDefinition getModel() {
+    public String getCreativeTab() {
+        return creativeTab;
+    }
+
+    public void setCreativeTab(String creativeTab) {
+        this.creativeTab = creativeTab;
+    }
+
+    public ItemModelDefinition getModel() {
         return model;
     }
 
-    public void setModel(ModelDefinition model) {
+    public void setModel(ItemModelDefinition model) {
         this.model = model;
     }
 
@@ -103,11 +112,11 @@ public class ItemValueStorage {
         this.lang = lang;
     }
 
-    public RecipeDefinition getRecipeDefinition() {
-        return recipeDefinition;
+    public RecipeDefinition getRecipe() {
+        return recipe;
     }
 
-    public void setRecipeDefinition(RecipeDefinition recipeDefinition) {
-        this.recipeDefinition = recipeDefinition;
+    public void setRecipe(RecipeDefinition recipe) {
+        this.recipe = recipe;
     }
 }

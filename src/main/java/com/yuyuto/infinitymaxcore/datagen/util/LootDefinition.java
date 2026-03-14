@@ -1,4 +1,4 @@
-package com.yuyuto.infinitymaxcore.registry.util;
+package com.yuyuto.infinitymaxcore.datagen.util;
 
 public enum LootDefinition {
 
