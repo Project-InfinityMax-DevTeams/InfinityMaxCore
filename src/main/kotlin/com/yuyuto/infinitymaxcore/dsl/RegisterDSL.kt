@@ -17,6 +17,9 @@ import net.minecraft.world.level.block.SoundType
 import net.minecraft.world.level.block.state.BlockBehaviour
 import net.minecraft.world.level.material.MapColor
 
+import kotlin.collections.mutableListOf
+import kotlin.collections.mutableMapOf
+
 @DslMarker
 annotation class RegisterDSL
 
