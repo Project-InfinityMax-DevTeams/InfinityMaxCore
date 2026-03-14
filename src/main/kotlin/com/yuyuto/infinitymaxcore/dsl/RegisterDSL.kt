@@ -6,7 +6,6 @@ import com.yuyuto.infinitymaxcore.block.BlockValueStorage
 import com.yuyuto.infinitymaxcore.datagen.util.LootDefinition
 import com.yuyuto.infinitymaxcore.datagen.util.BlockModelDefinition
 import com.yuyuto.infinitymaxcore.datagen.util.ItemModelDefinition
-import com.yuyuto.infinitymaxcore.datagen.util.RecipeDefinition
 import com.yuyuto.infinitymaxcore.datagen.util.RendererDefinition
 import com.yuyuto.infinitymaxcore.item.FoodDefinition
 import com.yuyuto.infinitymaxcore.item.ItemValueStorage
@@ -17,6 +16,10 @@ import net.minecraft.world.level.block.SoundType
 import net.minecraft.world.level.block.state.BlockBehaviour
 import net.minecraft.world.level.material.MapColor
 
+@DslMarker
+annotation class RegisterDSL
+
+@RegisterDSL
 class BlockDSLBuilder(private val storage: BlockValueStorage){
 
     fun hardness(value: Float){
@@ -95,16 +98,19 @@ class BlockDSLBuilder(private val storage: BlockValueStorage){
         storage.addLogic(LogicPhase.RANDOM_TICK,logic)
     }
 
-    fun block(id: String, init: BlockDSLBuilder.() -> Unit): BlockValueStorage{
-        val storage = BlockValueStorage(id)
-        val builder = BlockDSLBuilder(storage)
 
-        builder.init()
-        BlockStorageRegistry.register(storage)
-        return storage
-    }
 }
 
+fun block(id: String, init: BlockDSLBuilder.() -> Unit): BlockValueStorage{
+    val storage = BlockValueStorage(id)
+    val builder = BlockDSLBuilder(storage)
+
+    builder.init()
+    BlockStorageRegistry.register(storage)
+    return storage
+}
+
+@RegisterDSL
 class ItemDSLBuilder(private val storage: ItemValueStorage){
     fun rarity(rarity: Rarity){
         storage.rarity = rarity
@@ -153,16 +159,17 @@ class ItemDSLBuilder(private val storage: ItemValueStorage){
     //Logicはまだ未定なのでここでは割愛。
     //ここでいうLogicはアイテムに埋め込むゲーム処理のことを言う。
     //例:銃火器系、魔法弾発射の杖、マシンリペアツールなど
-
-    fun item(id: String, init: ItemDSLBuilder.() -> Unit): ItemValueStorage{
-        val storage = ItemValueStorage(id)
-        val scope = ItemDSLBuilder(storage)
-        scope.init()
-
-        return storage
-    }
 }
 
+fun item(id: String, init: ItemDSLBuilder.() -> Unit): ItemValueStorage{
+    val storage = ItemValueStorage(id)
+    val scope = ItemDSLBuilder(storage)
+    scope.init()
+
+    return storage
+}
+
+@RegisterDSL
 class FoodScope{
     private val food = FoodDefinition()
 
