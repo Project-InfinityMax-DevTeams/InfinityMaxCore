@@ -20,18 +20,19 @@ public class ItemValueStorage {
     //耐久値
     private int maxDamage;
     //アイテムを火に入れても消えないか
-    private boolean isFireResistance = true;
+    private boolean isFireResistance = false;
     //クラフトに使用した場合に残るかどうか
     private Item craftingRemainingItem;
     //食べ物の設定
     private FoodDefinition food;
     //クリエタブ
-    private String creativeTab;
+    private String creativeTabId;
 
     //DataGen関係
     private ItemModelDefinition model;
     private String lang;
     private RecipeDefinition recipe;
+    private String parentModel = "item/generated";
 
     //Logic関係
     private final Map<LogicPhase, List<String>> logics = new EnumMap<>(LogicPhase.class);
@@ -40,6 +41,7 @@ public class ItemValueStorage {
     public ItemValueStorage(String id){
         this.itemId = Objects.requireNonNull(id);
     }
+
     public String getItemId() {
         return itemId;
     }
@@ -66,6 +68,9 @@ public class ItemValueStorage {
 
     public void setMaxDamage(int maxDamage) {
         this.maxDamage = maxDamage;
+        if (maxDamage > 0){
+            this.maxStack = 1;
+        }
     }
 
     public boolean isFireResistance() {
@@ -92,12 +97,12 @@ public class ItemValueStorage {
         this.food = food;
     }
 
-    public String getCreativeTab() {
-        return creativeTab;
+    public String getCreativeTabId() {
+        return creativeTabId;
     }
 
-    public void setCreativeTab(String creativeTab) {
-        this.creativeTab = creativeTab;
+    public void setCreativeTabId(String creativeTabId) {
+        this.creativeTabId = creativeTabId;
     }
 
     public ItemModelDefinition getModel() {
@@ -122,6 +127,14 @@ public class ItemValueStorage {
 
     public void setRecipe(RecipeDefinition recipe) {
         this.recipe = recipe;
+    }
+
+    public String getParentModel() {
+        return parentModel;
+    }
+
+    public void setParentModel(String parentModel) {
+        this.parentModel = parentModel;
     }
 
     public Map<LogicPhase, List<String>> getLogics() {
