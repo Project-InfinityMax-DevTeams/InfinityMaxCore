@@ -44,8 +44,8 @@ public class BlockValueStorage {
     private final List<ResourceLocation> tags = new ArrayList<>();
     private String lang;
 
-    //ロジック関連
-    private final  Map<LogicPhase, List<String>> logics = new EnumMap<>(LogicPhase.class);
+    //Logic関連
+    private final Map<LogicPhase, List<String>> logics = new EnumMap<>(LogicPhase.class);
     private RendererDefinition renderer;
 
     /* ---ここからメソッド--- */

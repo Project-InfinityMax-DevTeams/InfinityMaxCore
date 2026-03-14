@@ -2,10 +2,11 @@ package com.yuyuto.infinitymaxcore.item;
 
 import com.yuyuto.infinitymaxcore.datagen.util.ItemModelDefinition;
 import com.yuyuto.infinitymaxcore.datagen.util.RecipeDefinition;
+import com.yuyuto.infinitymaxcore.logic.LogicPhase;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
 
-import java.util.Objects;
+import java.util.*;
 
 public class ItemValueStorage {
 
@@ -31,6 +32,9 @@ public class ItemValueStorage {
     private ItemModelDefinition model;
     private String lang;
     private RecipeDefinition recipe;
+
+    //Logic関係
+    private final Map<LogicPhase, List<String>> logics = new EnumMap<>(LogicPhase.class);
 
     /* -----ここからメソッド----- */
     public ItemValueStorage(String id){
@@ -118,5 +122,13 @@ public class ItemValueStorage {
 
     public void setRecipe(RecipeDefinition recipe) {
         this.recipe = recipe;
+    }
+
+    public Map<LogicPhase, List<String>> getLogics() {
+        return logics;
+    }
+
+    public void addLogic(LogicPhase phase, String logicId){
+        logics.computeIfAbsent(phase, p -> new ArrayList<>()).add(logicId);
     }
 }
