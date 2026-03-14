@@ -8,6 +8,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -19,7 +20,7 @@ public class ModBlocks {
     public static void register(){
         BLOCKS.register(FMLJavaModLoadingContext.get().getModEventBus());
     }
-    public static RegistryObject<Block> registerBlock(BlockValueStorage storage){
+    public static RegistryObject<Block> registerBlock(@NotNull BlockValueStorage storage){
 
         RegistryObject<Block> object = ModBlocks.BLOCKS.register(
                 storage.getBlockId(),()
