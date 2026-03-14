@@ -1,4 +1,8 @@
 package com.yuyuto.infinitymaxcore.registry.util;
 
-public class ModelDefinition {
+public enum ModelDefinition {
+    CUBE,
+    PILLAR,
+    SLAB,
+    CUSTOM
 }

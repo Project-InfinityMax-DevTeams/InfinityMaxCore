@@ -1,4 +1,5 @@
 package com.yuyuto.infinitymaxcore.registry.util;
 
-public class RendererDefinition {
+public interface RendererDefinition {
+    void registerRenderer();
 }

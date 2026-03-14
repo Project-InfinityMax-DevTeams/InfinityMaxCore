@@ -2,12 +2,11 @@ package com.yuyuto.infinitymaxcore.datagen;
 
 import com.yuyuto.infinitymaxcore.block.BlockStorageRegistry;
 import com.yuyuto.infinitymaxcore.block.BlockValueStorage;
+import com.yuyuto.infinitymaxcore.registry.ModBlocks;
 import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.world.flag.FeatureFlags;
 
 import java.util.Set;
-
-import static com.yuyuto.infinitymaxcore.registry.ModBlocks.getBlock;
 
 public class ModBlockLootProvider extends BlockLootSubProvider {
 
@@ -18,7 +17,12 @@ public class ModBlockLootProvider extends BlockLootSubProvider {
     @Override
     protected void generate(){
         for(BlockValueStorage storage : BlockStorageRegistry.getAll()){
-            dropSelf(getBlock(storage.getBlockId()));
+
+            switch (storage.getLoot()){
+                case SELF -> dropSelf(ModBlocks.BLOCK_MAP.get(storage.getBlockId()).get());
+                case SILK_ONLY -> dropWhenSilkTouch(ModBlocks.BLOCK_MAP.get(storage.getBlockId()).get());
+                case NONE -> {/* Noneはドロップをしないという設定のため、確実に空実装になる。 */}
+            }
         }
     }
 }

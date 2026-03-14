@@ -1,4 +1,8 @@
 package com.yuyuto.infinitymaxcore.registry.util;
 
-public class LootDefinition {
+public enum LootDefinition {
+
+    SELF,
+    SILK_ONLY,
+    NONE
 }
