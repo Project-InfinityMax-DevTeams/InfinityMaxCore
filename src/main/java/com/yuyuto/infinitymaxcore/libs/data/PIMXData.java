@@ -66,7 +66,6 @@ public class PIMXData {
         }
     }
 
-    @SuppressWarnings("unchecked")
     private Object mergeValue(PIMXEntry<?> oldEntry, PIMXEntry<?> newEntry){
 
         Object oldVal = oldEntry.getValue();

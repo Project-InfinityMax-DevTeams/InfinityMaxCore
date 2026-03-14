@@ -6,6 +6,7 @@ import com.yuyuto.infinitymaxcore.block.BlockValueStorage
 import com.yuyuto.infinitymaxcore.datagen.util.LootDefinition
 import com.yuyuto.infinitymaxcore.datagen.util.BlockModelDefinition
 import com.yuyuto.infinitymaxcore.datagen.util.ItemModelDefinition
+import com.yuyuto.infinitymaxcore.datagen.util.RecipeDefinition
 import com.yuyuto.infinitymaxcore.datagen.util.RendererDefinition
 import com.yuyuto.infinitymaxcore.item.FoodDefinition
 import com.yuyuto.infinitymaxcore.item.ItemValueStorage
@@ -19,6 +20,7 @@ import net.minecraft.world.level.material.MapColor
 @DslMarker
 annotation class RegisterDSL
 
+@Suppress("DEPRECATION")
 @RegisterDSL
 class BlockDSLBuilder(private val storage: BlockValueStorage){
 
@@ -98,7 +100,6 @@ class BlockDSLBuilder(private val storage: BlockValueStorage){
         storage.addLogic(LogicPhase.RANDOM_TICK,logic)
     }
 
-
 }
 
 fun block(id: String, init: BlockDSLBuilder.() -> Unit): BlockValueStorage{
@@ -146,11 +147,15 @@ class ItemDSLBuilder(private val storage: ItemValueStorage){
         storage.model = model
     }
 
+    fun recipe(block: RecipeScope.() -> Unit){
+        val scope = RecipeScope()
+        scope.block()
+        storage.recipe = scope.build()
+    }
+
     fun lang(lang: String){
         storage.lang = lang
     }
-
-    //Recipeは入れるものの、Defを展開するClass記述のレベルが跳ね上がってて自決できないため、くやしいけれどわかるまで省略
 
     fun parentModel(value: String){
         storage.parentModel = value
@@ -197,3 +202,57 @@ class FoodScope{
         return food
     }
 }
+
+@RegisterDSL
+class RecipeScope{
+    private var recipe: RecipeDefinition? = null
+
+    fun shaped(block: ShapedRecipeScope.() -> Unit){
+        val scope = ShapedRecipeScope()
+        scope.block()
+        recipe = scope.build()
+    }
+
+    fun shapeless(block: ShapelessRecipeScope.() -> Unit){
+        val scope = ShapelessRecipeScope()
+        scope.block()
+        recipe = scope.build()
+    }
+
+    fun build(): RecipeDefinition{
+        return recipe ?: throw IllegalStateException("recipe not defined")
+    }
+}
+
+class ShapedRecipeScope {
+
+    private val pattern = mutableListOf<String>()
+    private val keys = mutableMapOf<String, String>()
+
+    fun pattern(vararg rows: String){
+        pattern.addAll(rows)
+    }
+
+    fun key(symbol: String, item: String){
+        keys[symbol] = item
+    }
+
+    fun build(): RecipeDefinition {
+        return RecipeDefinition.Shaped(pattern, keys)
+    }
+}
+
+class ShapelessRecipeScope {
+
+    private val ingredients = mutableListOf<String>()
+
+    fun ingredient(item: String){
+        ingredients.add(item)
+    }
+
+    fun build(): RecipeDefinition {
+        return RecipeDefinition.Shapeless(ingredients)
+    }
+}
+
+/* TODO:CookingRecipe,SmeltingRecipe,BlastingRecipe,SmithingRecipe,StonecuttingRecipe これらをpublic static class Smelting extends RecipeDefinition { }で作る */

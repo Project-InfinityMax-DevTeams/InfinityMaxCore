@@ -32,7 +32,6 @@ package com.yuyuto.infinitymaxcore.libs.physics;
  * 音速は圧力の変化が伝わる速さ。
  * これを超える時間刻みは物理的に破綻します。
  */
-@SuppressWarnings("GrazieInspection")
 public final class StabilityController {
 
     /** セルの大きさ（メートル） */

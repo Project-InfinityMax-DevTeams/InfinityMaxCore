@@ -7,13 +7,11 @@ public class MotionComponent {
     private Vector3d position;
     private Vector3d velocity;
     private Vector3d acceleration;
-    private MovementType movementType;
 
     public MotionComponent(Vector3d position, Vector3d velocity, MovementType movementType) {
 
         this.position = new Vector3d(position);
         this.velocity = new Vector3d(velocity);
-        this.movementType = movementType;
 
         if (movementType == MovementType.PROJECTILE) {
             this.acceleration = new Vector3d(0, -9.81, 0); // 重力

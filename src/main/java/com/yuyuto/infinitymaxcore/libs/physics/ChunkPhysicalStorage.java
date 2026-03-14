@@ -43,11 +43,10 @@ public final class ChunkPhysicalStorage {
 
         if (lodLevel == LODLevel.FULL) {
             this.grid = new CellPhysicalGrid(8, 8, 8, defaultState);
-            this.averagedState = defaultState.copy();
         } else {
             this.grid = null;
-            this.averagedState = defaultState.copy();
         }
+        this.averagedState = defaultState.copy();
     }
 
     public LODLevel getLodLevel() {

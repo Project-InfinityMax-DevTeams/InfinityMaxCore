@@ -1,7 +1,6 @@
 package com.yuyuto.infinitymaxcore.libs.physics;
 
 import java.util.Arrays;
-import java.util.Objects;
 
 /**
  * <h2>Dimension（物理次元クラス）</h2>
