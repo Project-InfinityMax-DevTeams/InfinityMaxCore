@@ -1,5 +1,7 @@
 package com.yuyuto.infinitymaxcore.item;
 
+import net.minecraft.world.food.FoodProperties;
+
 public class FoodDefinition {
 
     //Food関連の情報を集積する
@@ -48,5 +50,22 @@ public class FoodDefinition {
 
     public void setFastFood(boolean fastFood) {
         this.fastFood = fastFood;
+    }
+
+    //Definition -> FoodProperties
+    public FoodProperties toMinecraftFood(){
+        FoodProperties.Builder food = new FoodProperties.Builder()
+                .nutrition(this.nutrition)
+                .saturationMod(this.saturation);
+        if (this.isAlwaysEat()){
+            food.alwaysEat();
+        }
+        if (this.isFastFood()){
+            food.fast();
+        }
+        if (this.isMeat()){
+            food.meat();
+        }
+        return food.build();
     }
 }

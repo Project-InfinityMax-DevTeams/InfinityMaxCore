@@ -9,6 +9,7 @@ import com.yuyuto.infinitymaxcore.datagen.util.ItemModelDefinition
 import com.yuyuto.infinitymaxcore.datagen.util.RecipeDefinition
 import com.yuyuto.infinitymaxcore.datagen.util.RendererDefinition
 import com.yuyuto.infinitymaxcore.item.FoodDefinition
+import com.yuyuto.infinitymaxcore.item.ItemStorageRegistry
 import com.yuyuto.infinitymaxcore.item.ItemValueStorage
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.item.Item
@@ -174,6 +175,7 @@ fun item(id: String, init: ItemDSLBuilder.() -> Unit): ItemValueStorage{
     val scope = ItemDSLBuilder(storage)
     scope.init()
 
+    ItemStorageRegistry.register(storage)
     return storage
 }
 
@@ -222,6 +224,36 @@ class RecipeScope{
         recipe = scope.build()
     }
 
+    fun smelting(block: SmeltingRecipeScope.() -> Unit){
+        val scope = SmeltingRecipeScope()
+        scope.block()
+        recipe = scope.build()
+    }
+
+    fun blasting(block: BlastingRecipeScope.() -> Unit){
+        val scope = BlastingRecipeScope()
+        scope.block()
+        recipe = scope.build()
+    }
+
+    fun smoking(block: SmokingRecipeScope.() -> Unit){
+        val scope = SmokingRecipeScope()
+        scope.block()
+        recipe = scope.build()
+    }
+
+    fun stonecutting(block: StonecuttingRecipeScope.() -> Unit){
+        val scope = StonecuttingRecipeScope()
+        scope.build()
+        recipe = scope.build()
+    }
+
+    fun smithing(block: SmithingRecipeScope.() -> Unit){
+        val scope = SmithingRecipeScope()
+        scope.build()
+        recipe = scope.build()
+    }
+
     fun build(): RecipeDefinition{
         return recipe ?: throw IllegalStateException("recipe not defined")
     }
@@ -255,6 +287,105 @@ class ShapelessRecipeScope {
 
     fun build(): RecipeDefinition {
         return RecipeDefinition.Shapeless(ingredients)
+    }
+}
+
+class SmeltingRecipeScope{
+
+    private var ingredient: String = ""
+    private var experience: Float = 0f
+    private var cookingTime: Int = 200
+
+    fun ingredient(id: String){
+        ingredient = id
+    }
+    fun experience(value: Float){
+        experience = value
+    }
+    fun cookingTime(value: Int){
+        cookingTime = value
+    }
+
+    fun build(): RecipeDefinition{
+        return RecipeDefinition.Smelting(ingredient, experience, cookingTime)
+    }
+
+}
+
+class BlastingRecipeScope{
+
+    private var ingredient: String = ""
+    private var experience: Float = 0f
+    private var cookingTime: Int = 200
+
+    fun ingredient(id: String){
+        ingredient = id
+    }
+    fun experience(value: Float){
+        experience = value
+    }
+    fun cookingTime(value: Int){
+        cookingTime = value
+    }
+
+    fun build(): RecipeDefinition{
+        return RecipeDefinition.Blasting(ingredient, experience, cookingTime)
+    }
+
+}
+
+class SmokingRecipeScope{
+
+    private var ingredient: String = ""
+    private var experience: Float = 0f
+    private var cookingTime: Int = 200
+
+    fun ingredient(id: String){
+        ingredient = id
+    }
+    fun experience(value: Float){
+        experience = value
+    }
+    fun cookingTime(value: Int){
+        cookingTime = value
+    }
+
+    fun build(): RecipeDefinition{
+        return RecipeDefinition.Smoking(ingredient, experience, cookingTime)
+    }
+
+}
+
+class StonecuttingRecipeScope{
+
+    private var ingredient: String = ""
+
+    fun ingredient(id: String){
+        ingredient = id
+    }
+    fun build(): RecipeDefinition{
+        return RecipeDefinition.Stonecutting(ingredient)
+    }
+}
+
+class SmithingRecipeScope{
+
+    private var template: String = ""
+    private var base: String = ""
+    private var addition: String = ""
+
+    fun template(id: String){
+        template = id
+    }
+    fun base(id: String){
+        base = id
+    }
+    fun addition(id: String){
+        addition = id
+    }
+
+    fun build(): RecipeDefinition{
+        return RecipeDefinition.Smithing(template, base, addition)
     }
 }
 

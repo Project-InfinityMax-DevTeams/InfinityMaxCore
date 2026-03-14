@@ -1,11 +1,9 @@
 package com.yuyuto.infinitymaxcore;
 
 import com.mojang.logging.LogUtils;
-import com.yuyuto.infinitymaxcore.datagen.ModBlockStateProvider;
-import com.yuyuto.infinitymaxcore.datagen.ModBlockTagProvider;
-import com.yuyuto.infinitymaxcore.datagen.ModLangProvider;
-import com.yuyuto.infinitymaxcore.datagen.ModLootTableProvider;
+import com.yuyuto.infinitymaxcore.datagen.*;
 import com.yuyuto.infinitymaxcore.registry.ModBlocks;
+import com.yuyuto.infinitymaxcore.registry.ModItems;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
 import net.minecraftforge.data.event.GatherDataEvent;
@@ -25,7 +23,9 @@ public class InfinityMaxCore {
     //登録
     public InfinityMaxCore(){
         ModBlocks.register();
+        ModItems.register();
     }
+
     //DataGen
     @SubscribeEvent
     public static void gatherData(@NotNull GatherDataEvent event){
@@ -37,6 +37,7 @@ public class InfinityMaxCore {
         gen.addProvider(event.includeServer(), new ModLootTableProvider(output));
         gen.addProvider(event.includeClient(), new ModLangProvider(output));
         gen.addProvider(event.includeServer(), new ModBlockTagProvider(output, event.getLookupProvider(), event.getExistingFileHelper()));
+        gen.addProvider(event.includeServer(), new ModRecipeProvider(output));
     }
 
 }

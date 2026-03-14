@@ -8,8 +8,12 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 public class ModItems {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS,"infinitymaxcore");
+    public static final Map<String,RegistryObject<Item>> ITEM_MAP = new LinkedHashMap<>();
     public static void register(){
         ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
     }
