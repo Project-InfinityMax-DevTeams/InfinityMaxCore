@@ -48,6 +48,8 @@ public class BlockValueStorage {
 
     //Logic関連
     private final Map<LogicPhase, List<String>> logics = new EnumMap<>(LogicPhase.class);
+
+    //Renderer
     private RendererDefinition renderer;
 
     /* ---ここからメソッド--- */
