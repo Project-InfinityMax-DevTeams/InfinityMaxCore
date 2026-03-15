@@ -4,9 +4,9 @@ package com.yuyuto.infinitymaxcore.libs.physics;
  * <h2>PhysicalQuantity</h2>
  * 
  * すべての物理量の基底クラス。
- * 
+ * <p>
  * SI単位で値を保持し、次元（Dimension）情報を付与する。
- *
+ * <p>
  * 小学生向け：
  * 「長さや重さや温度など、数字にラベルをつけたもの」
  */

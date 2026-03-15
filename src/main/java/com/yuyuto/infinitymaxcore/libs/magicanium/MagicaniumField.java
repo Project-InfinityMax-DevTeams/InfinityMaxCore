@@ -5,12 +5,12 @@ import java.util.List;
 
 /**
  * MagicaniumField
- *
+ * <p>
  * 空間上に存在するMagicalBodyを管理し、時間発展（tick）を行う
  * - 正密度の自然崩壊
  * - 負密度の減衰
  * - 空間平均化による拡散
- *
+ * <p>
  * dρ⁺/dt = -βρ⁺(1-σ) + ερ⁺² - ζρ⁺³  （非線形暴走項）
  * dρ⁻/dt = -μρ⁻
  */

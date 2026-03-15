@@ -2,7 +2,7 @@ package com.yuyuto.infinitymaxcore.libs.magicanium;
 
 /**
  * MagicalBody
- *
+ * <p>
  * 魔力体の基本クラス。
  * - 正/負のMagicanium密度を保持する
  * - 各種物理量・魔術情報は MagicaniumState で管理
@@ -10,7 +10,7 @@ package com.yuyuto.infinitymaxcore.libs.magicanium;
 public class MagicalBody {
 
     /** この物体の魔力状態 */
-    protected MagicaniumState state;
+    protected final MagicaniumState state;
 
     /**
      * コンストラクタ

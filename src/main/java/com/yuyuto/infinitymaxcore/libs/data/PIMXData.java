@@ -51,13 +51,9 @@ public class PIMXData {
 
         switch (policy){
 
-            case REPLACE -> {
-                dataMap.put(newEntry.getKey(), newEntry);
-            }
+            case REPLACE -> dataMap.put(newEntry.getKey(), newEntry);
 
-            case ERROR -> {
-                throw new IllegalStateException("Conflict detected for key: " + newEntry.getKey());
-            }
+            case ERROR -> throw new IllegalStateException("Conflict detected for key: " + newEntry.getKey());
 
             case MERGE -> {
                 Object merged = PIMXMergeRegistry.merge(newEntry.getType(), existing.getValue(), newEntry.getValue());
@@ -80,7 +76,7 @@ public class PIMXData {
         }
 
         if (oldVal instanceof String){
-            return oldVal.toString() + newVal.toString();
+            return oldVal + newVal.toString();
         }
 
         if (oldVal instanceof Boolean){

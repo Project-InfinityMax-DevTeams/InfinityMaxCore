@@ -19,6 +19,7 @@ public final class PhaseResolver {
      *
      * このクラスは全て静的メソッドで提供されるため、外部からのインスタンス生成を許可しません。
      */
+    @SuppressWarnings("JavadocBlankLines")
     private PhaseResolver() {}
 
     /**

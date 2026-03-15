@@ -2,7 +2,7 @@ package com.yuyuto.infinitymaxcore.libs.magicanium;
 
 /**
  * MagicaniumState
- *
+ * <p>
  * 物体のMagicanium状態を保持
  * - ρ⁺: 正密度（放出傾向）
  * - ρ⁻: 負密度（吸収傾向）

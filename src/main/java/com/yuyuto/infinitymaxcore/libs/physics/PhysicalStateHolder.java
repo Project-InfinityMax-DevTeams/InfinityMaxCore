@@ -4,7 +4,7 @@ package com.yuyuto.infinitymaxcore.libs.physics;
  * <h2>PhysicalStateHolder</h2>
  *
  * 物理状態を保持するオブジェクト用のインターフェース。
- *
+ * <p> <p>
  * 小学生向け：
  * 「魔法の箱（PhysicalState）を持つモノには、このインターフェースをつけよう」
  */

@@ -69,6 +69,10 @@ class BlockDSLBuilder(private val storage: BlockValueStorage){
         storage.isHasBlockItem = created
     }
 
+    fun creativeTab(value: String){
+        storage.creativeTabId = value
+    }
+
     fun model(model: BlockModelDefinition){
         storage.model = model
     }

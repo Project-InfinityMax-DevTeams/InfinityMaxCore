@@ -4,9 +4,9 @@ import java.util.List;
 
 /**
  * SpellInterferenceEngine
- *
+ * <p>
  * 複数魔術の干渉計算（距離依存）
- *
+ * <p>
  * 干渉効果：
  * - 情報ベクトルのコサイン類似度で共鳴・相殺
  * - 距離に応じて指数減衰

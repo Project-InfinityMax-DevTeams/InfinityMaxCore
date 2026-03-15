@@ -2,22 +2,14 @@ package com.yuyuto.infinitymaxcore.libs.magicanium;
 
 /**
  * 3次元ベクトルクラス
- *
+ * <p>
  * 魔術干渉や空間座標計算に利用。
  */
-public class Vector3d {
-
-    public final double x, y, z;
-
-    public Vector3d(double x, double y, double z) {
-        this.x = x;
-        this.y = y;
-        this.z = z;
-    }
+public record Vector3d(double x, double y, double z) {
 
     /**
      * 他のベクトルまでの距離を計算（ユークリッド距離）
-     * 
+     *
      * @param other 目標ベクトル
      * @return 距離
      */

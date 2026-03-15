@@ -19,7 +19,7 @@ package com.yuyuto.infinitymaxcore.libs.physics;
  * <h2>物理的意味</h2>
  * FULL:
  *   空間を小さな立方体に分割して圧力や温度が伝播する。
- *
+ * <p>
  * AVERAGED:
  *   「このチャンク全体は平均的にこういう状態」
  *   として扱う（軽量）。
@@ -60,7 +60,7 @@ public final class ChunkPhysicalStorage {
     /**
      * FULLモード時、
      * グリッド全体の物理量を平均化する。
-     *
+     * <p>
      * 保存則を崩さないように
      * 質量とエネルギーも合算する。
      */
@@ -80,9 +80,9 @@ public final class ChunkPhysicalStorage {
 
                     PhysicalState s = grid.get(x, y, z);
 
-                    totalMass += s.getMass().getSI();
-                    totalEnergy += s.getInternalEnergy().getSI();
-                    totalTemp += s.getTemperature().getSI();
+                    totalMass += s.mass().getSI();
+                    totalEnergy += s.internalEnergy().getSI();
+                    totalTemp += s.temperature().getSI();
 
                     count++;
                 }
@@ -95,7 +95,7 @@ public final class ChunkPhysicalStorage {
         Density avgDensity = new Density(avgMass / cellVolume, Density.KG_PER_M3);
 
         Pressure avgPressure = PhysicalCalculator.calculatePressure(avgDensity, new Temperature(avgTemp, Temperature.KELVIN));
-        Material material = averagedState.getMaterial();
+        Material material = averagedState.material();
 
 
         averagedState = new PhysicalState(
@@ -110,7 +110,7 @@ public final class ChunkPhysicalStorage {
 
     /**
      * 圧力伝播実行。
-     *
+     * <p>
      * CFL制限は外部のStabilityControllerで制御する。
      */
     public void propagatePressure(double deltaTime) {
@@ -124,8 +124,6 @@ public final class ChunkPhysicalStorage {
             updateAverageFromGrid();
         }
 
-        if (lodLevel == LODLevel.AVERAGED) {
-            // 将来：隣接チャンクとの平衡化
-        }
+        // 将来：隣接チャンクとの平衡化
     }
 }

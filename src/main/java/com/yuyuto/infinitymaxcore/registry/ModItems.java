@@ -1,6 +1,8 @@
 package com.yuyuto.infinitymaxcore.registry;
 
 import com.yuyuto.infinitymaxcore.item.ItemValueStorage;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
@@ -23,6 +25,13 @@ public class ModItems {
                 storage.getItemId(),()
                 -> ItemFactory.create(storage)
         );
+        CreativeModeTab.builder()
+                .title(Component.literal("InfinityMax"))
+                .displayItems((params, output) -> {
+                    for (Item blockItem : ModCreativeTab.get("infinitymax")){
+                        output.accept(blockItem);
+                    }
+                });
 
         ITEM_MAP.put(storage.getItemId(),object);
         return object;

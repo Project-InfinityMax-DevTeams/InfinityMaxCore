@@ -6,12 +6,12 @@ package com.yuyuto.infinitymaxcore.libs.physics;
  * 物理現象を表すインターフェース。
  * 与えられた物理状態（PhysicalState）を時間刻み deltaTime で更新して
  * 新しい状態を返す。
- *
+ * <p>
  * 例：
  * - 熱伝導（HeatTransfer）
  * - ジュール加熱（JouleHeating）
  * - 圧力伝播（PressurePropagation）
- *
+ * <p>
  * 小学生向け：
  * 「物理のルールを使って、モノがどう変わるか計算する魔法の箱」です。
  */

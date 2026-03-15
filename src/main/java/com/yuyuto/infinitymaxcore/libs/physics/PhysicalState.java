@@ -4,23 +4,16 @@ import java.util.Objects;
 
 /**
  * <h2>PhysicalState</h2>
- *
+ * <p>
  * 物理状態のパッケージクラス。
  * 温度、圧力、密度、内部エネルギー、相、質量をまとめて保持。
  * 不変クラス（イミュータブル）で、状態更新は新しいインスタンスを返す。
- *
+ * <p>
  * 小学生向け：
  * 「モノの今の状態を1つの箱にまとめて持っておく。温度や圧力も一緒」
  */
-public final class PhysicalState {
-
-    private final Temperature temperature;
-    private final Pressure pressure;
-    private final Density density;
-    private final Energy internalEnergy;
-    private final Phase phase;
-    private final Mass mass;
-    private final Material material;
+public record PhysicalState(Temperature temperature, Pressure pressure, Density density, Energy internalEnergy,
+                            Phase phase, Mass mass, Material material) {
 
     /**
      * コンストラクタ（全て指定）
@@ -38,27 +31,31 @@ public final class PhysicalState {
         validate();
     }
 
-    /** 小学生向けチェック：ありえない物理量を排除 */
+    /**
+     * 小学生向けチェック：ありえない物理量を排除
+     */
     private void validate() {
-        if (temperature.getSI() < 0) 
+        if (temperature.getSI() < 0)
             throw new IllegalArgumentException("Temperature below absolute zero");
-        if (density.getSI() <= 0) 
+        if (density.getSI() <= 0)
             throw new IllegalArgumentException("Density must be positive");
         if (mass.getSI() <= 0)
             throw new IllegalArgumentException("Mass must be positive");
     }
 
-    /** ゲッター群 */
-    public Temperature getTemperature() { return temperature; }
-    public Pressure getPressure() { return pressure; }
-    public Density getDensity() { return density; }
-    public Energy getInternalEnergy() { return internalEnergy; }
-    public Phase getPhase() { return phase; }
-    public Mass getMass() { return mass; }
+    /**
+     * ゲッター群
+     */
+    @Override
+    public Temperature temperature() {
+        return temperature;
+    }
 
-    /** コピー */
+    /**
+     * コピー
+     */
     public PhysicalState copy() {
-        return new PhysicalState(temperature, pressure, density, internalEnergy, phase, mass,material);
+        return new PhysicalState(temperature, pressure, density, internalEnergy, phase, mass, material);
     }
 
     /**
@@ -97,9 +94,10 @@ public final class PhysicalState {
     }
 
     /**
-    * 材料更新
-    */
-    public Material getMaterial() {
+     * 材料更新
+     */
+    @Override
+    public Material material() {
         return material;
     }
 }

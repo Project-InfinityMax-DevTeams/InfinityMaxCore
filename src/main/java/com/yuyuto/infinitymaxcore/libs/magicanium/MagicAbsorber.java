@@ -2,7 +2,7 @@ package com.yuyuto.infinitymaxcore.libs.magicanium;
 
 /**
  * MagicAbsorber
- *
+ * <p>
  * 負密度吸収を行う物体。
  * 上限(maxNegativeDensity)まで負密度を吸収可能。
  */

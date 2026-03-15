@@ -4,9 +4,9 @@ package com.yuyuto.infinitymaxcore.libs.physics;
  * <h2>PhysicalCalculator</h2>
  * 
  * 物理量の基本計算を提供するユーティリティクラス。
- * 
+ * <p>
  * 現状は「空気を想定した理想気体」モデルでの圧力・密度計算をサポート。
- *
+ * <p>
  * 小学生向け：
  * 「温度とモノの量で空気の押し合いを計算する箱」です。
  */

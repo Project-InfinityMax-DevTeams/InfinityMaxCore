@@ -7,7 +7,7 @@ import java.util.List;
  * <h2>PhysicalSimulator</h2>
  *
  * 物理現象をまとめてシミュレーションする管理クラス。
- *
+ * <p>
  * 小学生向け：
  * 「いくつかの魔法の箱（PhysicalPhenomenon）をまとめて、
  * 1秒ごとにモノの状態を変える箱」です。

@@ -12,16 +12,16 @@ public class PIMXTypeRegistry {
     private static final Map<Class<?>, String> CLASS_TO_NAME = new HashMap<>();
 
     static {
-        register("int", Integer.class);
-        register("double", Integer.class);
-        register("string",Integer.class);
-        register("boolean",Integer.class);
-        register("long",Integer.class);
+        register("int");
+        register("double");
+        register("string");
+        register("boolean");
+        register("long");
     }
 
-    private static void register(String name,Class<?> clazz){
-        NAME_TO_CLASS.put(name, clazz);
-        CLASS_TO_NAME.put(clazz,name);
+    private static void register(String name){
+        NAME_TO_CLASS.put(name, Integer.class);
+        CLASS_TO_NAME.put(Integer.class,name);
     }
 
     public static Class<?> getClass(String name){

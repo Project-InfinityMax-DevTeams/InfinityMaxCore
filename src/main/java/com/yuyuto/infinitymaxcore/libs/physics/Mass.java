@@ -16,7 +16,7 @@ package com.yuyuto.infinitymaxcore.libs.physics;
  * ・運動方程式 F = m a
  * ・熱容量 Q = m c ΔT
  * ・密度 ρ = m / V
- *
+ * <p>
  * 小学生向け：
  * どれだけ「たくさん物があるか」です。
  */

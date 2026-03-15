@@ -68,10 +68,10 @@ public final class Dimension {
 
     /**
      * 次元の掛け算。
-     *
+     * <p>
      * 例:
      * 速度(L T^-1) × 時間(T) = 長さ(L)
-     *
+     * <p>
      * 指数は足し算になります。
      */
     public Dimension multiply(Dimension other) {
@@ -88,10 +88,10 @@ public final class Dimension {
 
     /**
      * 次元の割り算。
-     *
+     * <p>
      * 例:
      * 距離(L) ÷ 時間(T) = 速度(L T^-1)
-     *
+     * <p>
      * 指数は引き算になります。
      */
     public Dimension divide(Dimension other) {
@@ -117,8 +117,7 @@ public final class Dimension {
 
     @Override
     public boolean equals(Object o) {
-        if (!(o instanceof Dimension)) return false;
-        Dimension d = (Dimension) o;
+        if (!(o instanceof Dimension d)) return false;
         return Arrays.equals(this.exponents, d.exponents);
     }
 

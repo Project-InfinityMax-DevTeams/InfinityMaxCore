@@ -10,7 +10,7 @@ package com.yuyuto.infinitymaxcore.libs.physics;
  *
  * <h2>式</h2>
  * ρ = m / V
- *
+ * <p>
  * ρ（ロー） = 密度  
  * m = 質量  
  * V = 体積

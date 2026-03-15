@@ -36,6 +36,8 @@ public class BlockValueStorage {
     private BlockBehaviour.StatePredicate emissiveRenderer;
     //BlockItemを作るかどうか
     private boolean hasBlockItem = true;
+    //クリエタブ
+    private String creativeTabId;
 
     //DataGen関連
     private BlockModelDefinition model;
@@ -191,6 +193,14 @@ public class BlockValueStorage {
 
     public void setRenderer(RendererDefinition renderer) {
         this.renderer = renderer;
+    }
+
+    public String getCreativeTabId() {
+        return creativeTabId;
+    }
+
+    public void setCreativeTabId(String creativeTabId) {
+        this.creativeTabId = creativeTabId;
     }
 }
 

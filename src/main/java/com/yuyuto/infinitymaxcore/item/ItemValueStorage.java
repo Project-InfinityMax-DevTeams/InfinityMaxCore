@@ -18,7 +18,7 @@ public class ItemValueStorage {
     //最大スタック
     private int maxStack = 64;
     //耐久値
-    private int maxDamage;
+    private int maxDamage = 0;
     //アイテムを火に入れても消えないか
     private boolean isFireResistance = false;
     //クラフトに使用した場合に残るかどうか
@@ -141,7 +141,4 @@ public class ItemValueStorage {
         return logics;
     }
 
-    public void addLogic(LogicPhase phase, String logicId){
-        logics.computeIfAbsent(phase, p -> new ArrayList<>()).add(logicId);
-    }
 }

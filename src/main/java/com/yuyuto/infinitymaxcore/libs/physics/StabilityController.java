@@ -4,30 +4,30 @@ package com.yuyuto.infinitymaxcore.libs.physics;
  * ===============================================
  * StabilityController
  * ===============================================
- *
+ * <p>
  * 【概要】
  * 数値流体シミュレーションにおける
  * 安定な時間刻み（Δt）を計算するクラスです。
- *
+ * <p>
  * 【なぜ必要？】
  * コンピュータで流体を計算する時、
  * 時間を飛ばしすぎると計算が壊れます。
- *
+ * <p>
  * これを防ぐために CFL条件 を使います。
- *
+ * <p>
  * 【CFL条件とは？】
  * 「1ステップの間に、情報（音速）が1セル以上進んではいけない」
- *
+ * <p>
  * 数式：
- *
+ * <p>
  *    Δt <= Δx / c
- *
+ * <p>
  * c = √(γ R T)
- *
+ * <p>
  * γ = 比熱比
  * R = 気体定数
  * T = 絶対温度[K]
- *
+ * <p>
  * 【物理的意味】
  * 音速は圧力の変化が伝わる速さ。
  * これを超える時間刻みは物理的に破綻します。
@@ -71,7 +71,7 @@ public final class StabilityController {
 
     /**
      * 音速を計算します。
-     *
+     * <p>
      * c = √(γ R T)
      */
     private double computeSoundSpeed(Temperature temperature) {
@@ -86,7 +86,7 @@ public final class StabilityController {
 
     /**
      * CFL条件に基づく最大時間刻みを計算
-     *
+     * <p>
      * Δt = Δx / c
      */
     public double computeMaxTimeStep(Temperature temperature) {
@@ -98,7 +98,7 @@ public final class StabilityController {
 
     /**
      * 要求された時間刻みを安全な範囲に制限します。
-     *
+     * <p>
      * 安全係数を掛けることで
      * 数値誤差による暴走を防ぎます。
      */

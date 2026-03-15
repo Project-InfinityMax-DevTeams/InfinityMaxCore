@@ -2,7 +2,7 @@ package com.yuyuto.infinitymaxcore.libs.magicanium;
 
 /**
  * 時間発展可能オブジェクトのインターフェース
- *
+ * <p>
  * MagicaniumFieldやその他の魔力体シミュレーションで時間発展（tick）を統一的に扱うための契約。
  */
 public interface TimeEvolvable {

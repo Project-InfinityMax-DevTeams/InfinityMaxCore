@@ -10,19 +10,19 @@ package com.yuyuto.infinitymaxcore.libs.physics;
  * <h3>境界条件とは？</h3>
  *
  * 箱の中に空気があるとします。
- *
+ * <p>
  * 箱の壁のところでは
  * ・圧力はどうなる？
  * ・温度はどうなる？
- *
+ * <p>
  * という「ルール」が必要です。
- *
+ * <p>
  * それを決めるのが境界条件です。
  *
  * <h3>このクラスの役割</h3>
  *
  * 壁の圧力を常に一定値に固定します。
- *
+ * <p>
  * 例:
  * ・大気圧（101325 Pa）
  * ・外部とつながっている容器
@@ -30,13 +30,13 @@ package com.yuyuto.infinitymaxcore.libs.physics;
  * <h3>物理的意味</h3>
  *
  * 圧力 P は
- *
+ * <p>
  *     P = F / A
- *
+ * <p>
  * （面積あたりの力）
- *
+ * <p>
  * この境界では、その値を強制的に指定します。
- *
+ * <p>
  * 内部状態の他の値（温度や密度）は維持されます。
  */
 public final class FixedPressureBoundary implements BoundaryCondition {
@@ -72,13 +72,13 @@ public final class FixedPressureBoundary implements BoundaryCondition {
          */
 
         return new PhysicalState(
-                internal.getTemperature(),
+                internal.temperature(),
                 fixedPressure,              // ← 圧力だけ固定
-                internal.getDensity(),
-                internal.getInternalEnergy(),
-                internal.getPhase(),
-                internal.getMass(),
-                internal.getMaterial()
+                internal.density(),
+                internal.internalEnergy(),
+                internal.phase(),
+                internal.mass(),
+                internal.material()
         );
     }
 }

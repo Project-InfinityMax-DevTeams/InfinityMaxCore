@@ -42,7 +42,7 @@ public final class HeatTransfer implements PhysicalPhenomenon {
         /*
          * フーリエの法則
          */
-        double deltaT = state.getTemperature().getSI(); 
+        double deltaT = state.temperature().getSI();
         // 本来は隣接セルとの差を使うべき
 
         double heatFlowRate = thermalConductivity * area * (deltaT / distance);
@@ -52,12 +52,12 @@ public final class HeatTransfer implements PhysicalPhenomenon {
          * 温度変化:
          * ΔT = Q / (m c)
          */
-        double mass = state.getMass().getSI();
+        double mass = state.mass().getSI();
         double temperatureChange = dQ / (mass * specificHeat);
-        double newTempValue = state.getTemperature().getSI() - temperatureChange;
-        Energy newEnergy = new Energy(state.getInternalEnergy().getSI() + dQ,Energy.JOULE);
+        double newTempValue = state.temperature().getSI() - temperatureChange;
+        Energy newEnergy = new Energy(state.internalEnergy().getSI() + dQ,Energy.JOULE);
         Temperature newTemp =new Temperature(newTempValue, Temperature.KELVIN);
 
-        return new PhysicalState(newTemp, state.getPressure(), state.getDensity(), newEnergy, state.getPhase(), state.getMass(),state.getMaterial());
+        return new PhysicalState(newTemp, state.pressure(), state.density(), newEnergy, state.phase(), state.mass(),state.material());
     }
 }

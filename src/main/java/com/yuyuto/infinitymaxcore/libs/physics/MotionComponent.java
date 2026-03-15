@@ -6,7 +6,7 @@ public class MotionComponent {
 
     private Vector3d position;
     private Vector3d velocity;
-    private Vector3d acceleration;
+    private final Vector3d acceleration;
 
     public MotionComponent(Vector3d position, Vector3d velocity, MovementType movementType) {
 

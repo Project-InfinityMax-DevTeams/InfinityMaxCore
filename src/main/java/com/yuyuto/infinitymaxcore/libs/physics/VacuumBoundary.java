@@ -4,17 +4,17 @@ package com.yuyuto.infinitymaxcore.libs.physics;
  * ===============================================
  * VacuumBoundary
  * ===============================================
- *
+ * <p>
  * 【概要】
  * 真空境界条件。
- *
+ * <p>
  * 真空とは：
  * ・圧力ほぼゼロ
  * ・密度ほぼゼロ
  * ・質量ほぼゼロ
- *
+ * <p>
  * 外部が宇宙空間のような状態を表します。
- *
+ * <p>
  * 【物理的意味】
  * 内部流体は外に自由に膨張できます。
  * これは「開放境界」の一種です。
@@ -36,13 +36,13 @@ public final class VacuumBoundary implements BoundaryCondition {
          */
 
         return new PhysicalState(
-                internal.getTemperature(), // 温度は仮保持
+                internal.temperature(), // 温度は仮保持
                 new Pressure(0, Pressure.PASCAL),
                 new Density(EPSILON_DENSITY, Density.KG_PER_M3),
-                internal.getInternalEnergy(),
+                internal.internalEnergy(),
                 Phase.GAS,
                 new Mass(EPSILON_MASS, Mass.KILOGRAM),
-                internal.getMaterial()
+                internal.material()
         );
     }
 }

@@ -5,10 +5,10 @@ import java.util.Map;
 
 /**
  * 多次元情報ベクトルクラス
- *
+ * <p>
  * 魔術の情報（意志・術式構造など）を
  * 多次元ベクトルで表現する。
- *
+ * <p>
  * 干渉計算や共鳴・相殺判定に使用。
  */
 public class InformationVector {

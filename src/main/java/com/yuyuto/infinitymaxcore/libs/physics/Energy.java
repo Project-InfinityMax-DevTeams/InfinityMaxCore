@@ -5,17 +5,17 @@ package com.yuyuto.infinitymaxcore.libs.physics;
  *
  * 内部エネルギーなどを表す物理量クラス。
  * SI単位はジュール（J）。
- *
+ * <p>
  * 【物理的意味】
  * エネルギーとは「仕事をする能力」。
- *
+ * <p>
  * 例：
  * ・熱エネルギー
  * ・運動エネルギー
  * ・位置エネルギー
- *
+ * <p>
  * 単位：J（ジュール）
- *
+ * <p>
  * 1 J = 1 kg·m²/s²
  */
 public final class Energy extends PhysicalQuantity {

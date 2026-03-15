@@ -4,8 +4,8 @@ import org.joml.Vector3d;
 
 public abstract class PhysicsObject {
 
-    protected MotionComponent motion;
-    protected PhysicalState physicalState;
+    protected final MotionComponent motion;
+    protected final PhysicalState physicalState;
 
     public PhysicsObject(MotionComponent motion,
                          PhysicalState physicalState) {

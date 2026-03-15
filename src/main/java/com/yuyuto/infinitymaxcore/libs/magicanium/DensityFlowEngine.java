@@ -2,14 +2,14 @@ package com.yuyuto.infinitymaxcore.libs.magicanium;
 
 /**
  * DensityFlowEngine
- *
+ * <p>
  * 魔力密度の差に基づき、Magicanium（正密度）を
  * 高密度から低密度の物体へ流す処理を行うエンジン。
- *
+ * <p>
  * 式：
  * Δρ = (ρ⁺_source − ρ⁺_target)
  * M_flow = α × Δρ × σ_source
- *
+ * <p>
  * - Δρ : 正密度の差
  * - σ_source : 放出元の安定度（高密度ほど不安定＝流れやすい）
  * - α : 拡散係数（WorldConstantsで定義）

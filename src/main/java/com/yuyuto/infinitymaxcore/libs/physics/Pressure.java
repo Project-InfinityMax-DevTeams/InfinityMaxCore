@@ -3,7 +3,7 @@ package com.yuyuto.infinitymaxcore.libs.physics;
 /**
  * 圧力を表す物理量クラス。
  * SI単位はPa（パスカル）。
- *
+ * <p>
  * 小学生向け：
  * 「空気や水が押してくる力を数値で表す箱」  
  * 足したり引いたりできる。

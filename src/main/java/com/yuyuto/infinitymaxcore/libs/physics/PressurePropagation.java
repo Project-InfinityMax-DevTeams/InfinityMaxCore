@@ -2,10 +2,10 @@ package com.yuyuto.infinitymaxcore.libs.physics;
 
 /**
  * 圧力伝播シミュレーション。
- *
+ * <p>
  * セルごとの圧力差に応じて質量移動を計算し、
  * 密度と圧力を更新する。
- *
+ * <p>
  * 小学生向け：
  * 「高い圧力から低い圧力へ空気や水が動く様子を計算する魔法の箱」
  */
@@ -62,13 +62,13 @@ public final class PressurePropagation {
         PhysicalState s1 = grid.get(x1, y1, z1);
         PhysicalState s2 = grid.get(x2, y2, z2);
 
-        double p1 = s1.getPressure().getSI();
-        double p2 = s2.getPressure().getSI();
+        double p1 = s1.pressure().getSI();
+        double p2 = s2.pressure().getSI();
 
         double flow = computeFlow(p1, p2, dt); // 修正：CFL＋ダンピング適用
 
-        Mass m1 = s1.getMass();
-        Mass m2 = s2.getMass();
+        Mass m1 = s1.mass();
+        Mass m2 = s2.mass();
 
         double newM1 = m1.getSI() - flow;
         double newM2 = m2.getSI() + flow;
@@ -78,31 +78,31 @@ public final class PressurePropagation {
         Density d1 = new Density(newM1 / cellVolume, Density.KG_PER_M3);
         Density d2 = new Density(newM2 / cellVolume, Density.KG_PER_M3);
 
-        Pressure newP1 = PhysicalCalculator.calculatePressure(d1, s1.getTemperature());
-        Pressure newP2 = PhysicalCalculator.calculatePressure(d2, s2.getTemperature());
+        Pressure newP1 = PhysicalCalculator.calculatePressure(d1, s1.temperature());
+        Pressure newP2 = PhysicalCalculator.calculatePressure(d2, s2.temperature());
 
         // 新しい物理状態に置き換え
         grid.set(x1, y1, z1,
                 new PhysicalState(
-                        s1.getTemperature(),
+                        s1.temperature(),
                         newP1,
                         d1,
-                        s1.getInternalEnergy(),
-                        s1.getPhase(),
+                        s1.internalEnergy(),
+                        s1.phase(),
                         new Mass(newM1, Mass.KILOGRAM),
-                        s1.getMaterial()
+                        s1.material()
                 )
         );
 
         grid.set(x2, y2, z2,
                 new PhysicalState(
-                        s2.getTemperature(),
+                        s2.temperature(),
                         newP2,
                         d2,
-                        s2.getInternalEnergy(),
-                        s2.getPhase(),
+                        s2.internalEnergy(),
+                        s2.phase(),
                         new Mass(newM2, Mass.KILOGRAM),
-                        s2.getMaterial()
+                        s2.material()
                 )
         );
     }

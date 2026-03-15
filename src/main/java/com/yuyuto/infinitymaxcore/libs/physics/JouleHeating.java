@@ -19,7 +19,7 @@ public final class JouleHeating implements PhysicalPhenomenon {
 
     /**
      * EnergyAPI の接続情報を使ってジュール熱を計算する。
-     *
+     * <p>
      * EnergyConnection を基にジュール加熱モデルを初期化する。
      *
      * @param connection ジュール熱（電力損失）計算に使用する電力接続情報。接続のポテンシャルと抵抗から消費電力を算出するために用いられる。
@@ -34,15 +34,12 @@ public final class JouleHeating implements PhysicalPhenomenon {
         }
         this.connection = connection;
 
-        if (specificHeat <= 0) {
-            throw new IllegalArgumentException("specificHeat must be positive");
-        }
         this.specificHeat = specificHeat;
     }
 
     /**
      * 既存API互換のために簡易的なエネルギー接続を構築するコンストラクタ。
-     *
+     * <p>
      * 指定した抵抗と電流から供給側・吸収側の EnergyNode を作成して内部の EnergyConnection を初期化し、
      * 与えられた比熱を保存する。
      *
@@ -78,21 +75,21 @@ public final class JouleHeating implements PhysicalPhenomenon {
         );
         double heat = powerLoss * deltaTime;
 
-        double mass = state.getMass().getSI();
+        double mass = state.mass().getSI();
         double temperatureChange = heat / (mass * specificHeat);
-        double newTempValue = state.getTemperature().getSI() + temperatureChange;
+        double newTempValue = state.temperature().getSI() + temperatureChange;
 
-        Energy newEnergy = new Energy(state.getInternalEnergy().getSI() + heat, Energy.JOULE);
+        Energy newEnergy = new Energy(state.internalEnergy().getSI() + heat, Energy.JOULE);
         Temperature newTemp = new Temperature(newTempValue, Temperature.KELVIN);
 
         return new PhysicalState(
                 newTemp,
-                state.getPressure(),
-                state.getDensity(),
+                state.pressure(),
+                state.density(),
                 newEnergy,
-                PhaseResolver.resolve(state.getMaterial(),newTemp),
-                state.getMass(),
-                state.getMaterial()
+                PhaseResolver.resolve(state.material(),newTemp),
+                state.mass(),
+                state.material()
         );
     }
 }

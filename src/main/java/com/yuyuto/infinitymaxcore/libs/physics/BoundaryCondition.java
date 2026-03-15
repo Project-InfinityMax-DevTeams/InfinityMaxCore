@@ -22,7 +22,7 @@ package com.yuyuto.infinitymaxcore.libs.physics;
  * <h2>使い方</h2>
  * internalState = セル内部の状態  
  * externalState = 外側の状態（隣接チャンクや仮想空間）
- *
+ * <p>
  * それをもとに、新しい内部状態を返します。
  *
  * <h2>例</h2>

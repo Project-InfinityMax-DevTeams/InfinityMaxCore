@@ -4,7 +4,7 @@ package com.yuyuto.infinitymaxcore.libs.physics;
  * <h2>Phase（物質の状態）</h2>
  *
  * 固体・液体・気体・プラズマを表す。
- *
+ * <p>
  * 小学生向け：
  * カチカチ、ドロドロ、フワフワ、ビリビリ。
  */

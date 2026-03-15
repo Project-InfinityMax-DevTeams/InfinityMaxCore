@@ -2,13 +2,13 @@ package com.yuyuto.infinitymaxcore.libs.magicanium;
 
 /**
  * SpellEngine
- *
+ * <p> <p>
  * 魔術単体の効果計算
- *
+ * <p> <p>
  * 式：
  * Φ = κ × M_flow × e^(−γρ⁻_target)
  * Φ_final = Φ × (1 + log(1 + Iκ))
- *
+ * <p> <p>
  * - κ : 術式構造係数
  * - M_flow : DensityFlowEngineによる流量
  * - γ : 減衰定数
@@ -32,13 +32,13 @@ public class SpellEngine {
         double flow = DensityFlowEngine.calculateFlow(caster, target);
 
         // ② 基本効果 Φ = κ × M_flow × e^(-γρ⁻)
-        double baseEffect = structure.getKappa() * flow * Math.exp(-WorldConstants.GAMMA * target.getState().getRhoNegative());
+        double baseEffect = structure.kappa() * flow * Math.exp(-WorldConstants.GAMMA * target.getState().getRhoNegative());
 
         // ③ 術式情報と対象情報の相性（内積）
-        double compatibility = Math.max(0, structure.getInfo().dot(targetResponse));
+        double compatibility = Math.max(0, structure.info().dot(targetResponse));
 
         // ④ 情報増幅 Φ_final = Φ × (1 + log(1 + Iκ))
-        double amplification = 1 + Math.log(1 + structure.getKappa() * compatibility);
+        double amplification = 1 + Math.log(1 + structure.kappa() * compatibility);
 
         return baseEffect * amplification;
     }
