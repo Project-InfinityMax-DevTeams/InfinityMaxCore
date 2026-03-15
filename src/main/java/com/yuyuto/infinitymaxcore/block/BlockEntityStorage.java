@@ -34,4 +34,8 @@ public class BlockEntityStorage {
     public BlockEntityStorage(String id){
         this.id = id;
     }
+    
+    public void getBlockEntityId(){
+        return id
+    }
 }
