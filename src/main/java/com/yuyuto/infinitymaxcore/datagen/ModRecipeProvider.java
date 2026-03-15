@@ -6,6 +6,8 @@ import com.yuyuto.infinitymaxcore.datagen.util.RecipeDefinition;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
@@ -35,6 +37,26 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 generateShapeless(storage, shapeless, consumer);
             }
 
+            if (recipe instanceof RecipeDefinition.Smelting smelting){
+                generateSmelting(storage,smelting,consumer);
+            }
+
+            if (recipe instanceof RecipeDefinition.Blasting blasting){
+                generateBlasting(storage, blasting, consumer);
+            }
+
+            if (recipe instanceof RecipeDefinition.Smoking smoking){
+                generateSmoking(storage, smoking, consumer);
+            }
+
+            if (recipe instanceof RecipeDefinition.Stonecutting stonecutting){
+                generatedStonecutting(storage, stonecutting, consumer);
+            }
+
+            if (recipe instanceof RecipeDefinition.Smithing smithing){
+                generatedSmithing(storage, smithing, consumer);
+            }
+
         }
     }
 
@@ -60,5 +82,77 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
 
         builder.unlockedBy("has_item", has(Objects.requireNonNull(ForgeRegistries.ITEMS.getValue(new ResourceLocation(shapeless.getIngredients().get(0))))));
         builder.save(consumer);
+    }
+
+    private void generateSmelting(ItemValueStorage storage, RecipeDefinition.Smelting recipe, Consumer<FinishedRecipe> consumer){
+        Item result = ForgeRegistries.ITEMS.getValue(new ResourceLocation(storage.getItemId()));
+        RecipeCategory category = recipe.getRecipeCategory();
+        Item ingredient = ForgeRegistries.ITEMS.getValue(new ResourceLocation(recipe.getIngredient()));
+
+        SimpleCookingRecipeBuilder.smelting(
+                Ingredient.of(ingredient),
+                category,
+                Objects.requireNonNull(result),
+                recipe.getExperience(),
+                recipe.getCookingTime()
+        ).unlockedBy("has_item", has(Objects.requireNonNull(ingredient))).save(consumer);
+    }
+
+    private void generateBlasting(ItemValueStorage storage, RecipeDefinition.Blasting recipe, Consumer<FinishedRecipe> consumer){
+        Item result = ForgeRegistries.ITEMS.getValue(new ResourceLocation(storage.getItemId()));
+        RecipeCategory category = recipe.getRecipeCategory();
+        Item ingredient = ForgeRegistries.ITEMS.getValue(new ResourceLocation(recipe.getIngredient()));
+
+        SimpleCookingRecipeBuilder.blasting(
+                Ingredient.of(ingredient),
+                category,
+                Objects.requireNonNull(result),
+                recipe.getExperience(),
+                recipe.getCookingTime()
+        ).unlockedBy("has_item", has(Objects.requireNonNull(ingredient))).save(consumer);
+    }
+
+    private void generateSmoking(ItemValueStorage storage, RecipeDefinition.Smoking recipe, Consumer<FinishedRecipe> consumer){
+        Item result = ForgeRegistries.ITEMS.getValue(new ResourceLocation(storage.getItemId()));
+        RecipeCategory category = recipe.getRecipeCategory();
+        Item ingredient = ForgeRegistries.ITEMS.getValue(new ResourceLocation(recipe.getIngredient()));
+
+        SimpleCookingRecipeBuilder.smoking(
+                Ingredient.of(ingredient),
+                category,
+                Objects.requireNonNull(result),
+                recipe.getExperience(),
+                recipe.getCookingTime()
+        ).unlockedBy("has_item", has(Objects.requireNonNull(ingredient))).save(consumer);
+    }
+
+    private void generatedStonecutting(ItemValueStorage storage, RecipeDefinition.Stonecutting recipe, Consumer<FinishedRecipe> consumer){
+        Item result = ForgeRegistries.ITEMS.getValue(new ResourceLocation(storage.getItemId()));
+        Item ingredient = ForgeRegistries.ITEMS.getValue(new ResourceLocation(recipe.getIngredient()));
+        RecipeCategory category = recipe.getCategory();
+        int resultCount = recipe.getResultCount();
+
+        SingleItemRecipeBuilder.stonecutting(
+                Ingredient.of(ingredient),
+                category,
+                Objects.requireNonNull(result),
+                resultCount
+        ).unlockedBy("has_item", has(Objects.requireNonNull(ingredient))).save(consumer);
+    }
+
+    private void generatedSmithing(ItemValueStorage storage, RecipeDefinition.Smithing recipe, Consumer<FinishedRecipe> consumer){
+        Item result = ForgeRegistries.ITEMS.getValue(new ResourceLocation(storage.getItemId()));
+        RecipeCategory category = recipe.getCategory();
+        Item template = ForgeRegistries.ITEMS.getValue(new ResourceLocation(recipe.getTemplate()));
+        Item base = ForgeRegistries.ITEMS.getValue(new ResourceLocation(recipe.getBase()));
+        Item addition = ForgeRegistries.ITEMS.getValue(new ResourceLocation(recipe.getAddition()));
+
+        SmithingTransformRecipeBuilder.smithing(
+                Ingredient.of(template),
+                Ingredient.of(base),
+                Ingredient.of(addition),
+                category,
+                Objects.requireNonNull(result)
+        ).unlocks("has_item", has(Objects.requireNonNull(base))).save(consumer, new ResourceLocation(recipe.getResult()));
     }
 }

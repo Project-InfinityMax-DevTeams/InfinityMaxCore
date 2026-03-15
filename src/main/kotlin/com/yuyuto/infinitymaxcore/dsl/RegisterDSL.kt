@@ -11,6 +11,7 @@ import com.yuyuto.infinitymaxcore.datagen.util.RendererDefinition
 import com.yuyuto.infinitymaxcore.item.FoodDefinition
 import com.yuyuto.infinitymaxcore.item.ItemStorageRegistry
 import com.yuyuto.infinitymaxcore.item.ItemValueStorage
+import net.minecraft.data.recipes.RecipeCategory
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.Rarity
@@ -294,6 +295,7 @@ class SmeltingRecipeScope{
 
     private var ingredient: String = ""
     private var experience: Float = 0f
+    private var category: RecipeCategory = RecipeCategory.MISC
     private var cookingTime: Int = 200
 
     fun ingredient(id: String){
@@ -302,12 +304,15 @@ class SmeltingRecipeScope{
     fun experience(value: Float){
         experience = value
     }
+    fun category(value: RecipeCategory){
+        category = value
+    }
     fun cookingTime(value: Int){
         cookingTime = value
     }
 
     fun build(): RecipeDefinition{
-        return RecipeDefinition.Smelting(ingredient, experience, cookingTime)
+        return RecipeDefinition.Smelting(ingredient, category, experience, cookingTime)
     }
 
 }
@@ -316,6 +321,7 @@ class BlastingRecipeScope{
 
     private var ingredient: String = ""
     private var experience: Float = 0f
+    private var category: RecipeCategory = RecipeCategory.MISC
     private var cookingTime: Int = 200
 
     fun ingredient(id: String){
@@ -324,12 +330,15 @@ class BlastingRecipeScope{
     fun experience(value: Float){
         experience = value
     }
+    fun category(value: RecipeCategory){
+        category = value
+    }
     fun cookingTime(value: Int){
         cookingTime = value
     }
 
     fun build(): RecipeDefinition{
-        return RecipeDefinition.Blasting(ingredient, experience, cookingTime)
+        return RecipeDefinition.Blasting(ingredient, category, experience, cookingTime)
     }
 
 }
@@ -338,6 +347,7 @@ class SmokingRecipeScope{
 
     private var ingredient: String = ""
     private var experience: Float = 0f
+    private var category: RecipeCategory = RecipeCategory.MISC
     private var cookingTime: Int = 200
 
     fun ingredient(id: String){
@@ -346,12 +356,15 @@ class SmokingRecipeScope{
     fun experience(value: Float){
         experience = value
     }
+    fun category(value: RecipeCategory){
+        category = value
+    }
     fun cookingTime(value: Int){
         cookingTime = value
     }
 
     fun build(): RecipeDefinition{
-        return RecipeDefinition.Smoking(ingredient, experience, cookingTime)
+        return RecipeDefinition.Smoking(ingredient, category, experience, cookingTime)
     }
 
 }
@@ -359,23 +372,36 @@ class SmokingRecipeScope{
 class StonecuttingRecipeScope{
 
     private var ingredient: String = ""
+    private var category: RecipeCategory = RecipeCategory.MISC
+    private var resultCount: Int = 2
 
     fun ingredient(id: String){
         ingredient = id
     }
+    fun category(value: RecipeCategory){
+        category = value
+    }
+    fun resultCount(value: Int){
+        resultCount = value
+    }
     fun build(): RecipeDefinition{
-        return RecipeDefinition.Stonecutting(ingredient)
+        return RecipeDefinition.Stonecutting(ingredient, category, resultCount)
     }
 }
 
 class SmithingRecipeScope{
 
     private var template: String = ""
+    private var category: RecipeCategory = RecipeCategory.MISC
     private var base: String = ""
     private var addition: String = ""
+    private var result: String = ""
 
     fun template(id: String){
         template = id
+    }
+    fun category(value: RecipeCategory){
+        category = value
     }
     fun base(id: String){
         base = id
@@ -383,10 +409,11 @@ class SmithingRecipeScope{
     fun addition(id: String){
         addition = id
     }
+    fun result(id: String){
+        result = id
+    }
 
     fun build(): RecipeDefinition{
-        return RecipeDefinition.Smithing(template, base, addition)
+        return RecipeDefinition.Smithing(template, category, base, addition, result)
     }
 }
-
-/* TODO:CookingRecipe,SmeltingRecipe,BlastingRecipe,SmithingRecipe,StonecuttingRecipe これらをpublic static class Smelting extends RecipeDefinition { }で作る */
