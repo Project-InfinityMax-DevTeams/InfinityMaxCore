@@ -3,9 +3,9 @@ package com.yuyuto.infinitymaxcore.block;
 import com.yuyuto.infinitymaxcore.logic.Logic;
 import com.yuyuto.infinitymaxcore.logic.LogicPhase;
 import com.yuyuto.infinitymaxcore.logic.LogicRegistry;
-import com.yuyuto.infinitymaxcore.logic.type.RandomTickLogic;
-import com.yuyuto.infinitymaxcore.logic.type.TickLogic;
-import com.yuyuto.infinitymaxcore.logic.type.UseLogic;
+import com.yuyuto.infinitymaxcore.logic.type.BlockRandomTickLogic;
+import com.yuyuto.infinitymaxcore.logic.type.BlockTickLogic;
+import com.yuyuto.infinitymaxcore.logic.type.BlockUseLogic;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
@@ -20,12 +20,12 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class BlockDSLConversion extends Block {
+public class LogicBlock extends Block {
 
     //Storage参照
     private final BlockValueStorage storage;
 
-    public BlockDSLConversion(Properties properties, BlockValueStorage storage){
+    public LogicBlock(Properties properties, BlockValueStorage storage){
         super(properties);
         this.storage = storage;
     }
@@ -65,13 +65,13 @@ public class BlockDSLConversion extends Block {
         if(ids == null) return;
         for(String id : ids){
             Logic logic = LogicRegistry.get(id);
-            if (phase == LogicPhase.TICK && logic instanceof TickLogic tick){
+            if (phase == LogicPhase.TICK && logic instanceof BlockTickLogic tick){
                 tick.execute(level,pos,state);
             }
-            if (phase == LogicPhase.USE && logic instanceof UseLogic use){
+            if (phase == LogicPhase.USE && logic instanceof BlockUseLogic use){
                 use.execute(player, level, pos, state);
             }
-            if (phase == LogicPhase.RANDOM_TICK && logic instanceof RandomTickLogic randomLogic){
+            if (phase == LogicPhase.RANDOM_TICK && logic instanceof BlockRandomTickLogic randomLogic){
                 randomLogic.execute((ServerLevel) level, pos, state, random);
             }
         }
