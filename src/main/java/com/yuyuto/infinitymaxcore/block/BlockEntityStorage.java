@@ -64,7 +64,7 @@ public class BlockEntityStorage<T extends BlockEntity> {
         this.dataType = dataType;
     }
 
-    public BlockEntityTicker<?> getTicker() {
+    public BlockEntityTicker<T> getTicker() {
         return ticker;
     }
 

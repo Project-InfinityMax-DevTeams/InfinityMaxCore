@@ -81,8 +81,8 @@ class BlockDSLBuilder(private val storage: BlockValueStorage){
         storage.creativeTabId = value
     }
 
-    fun blockEntity(init: BlockEntityBuilder.() -> Unit){
-        val bestorage = BlockEntityStorage(storage.blockId)
+    fun <T: BlockEntity> blockEntity(init: BlockEntityBuilder<T>.() -> Unit){
+        val bestorage = BlockEntityStorage<T>(storage.blockId)
 
         val builder = BlockEntityBuilder(bestorage)
         builder.init()
@@ -147,7 +147,7 @@ class BlockEntityBuilder<T : BlockEntity>(private val storage: BlockEntityStorag
         storage.dataType = types
     }
 
-    fun ticker(tick: BlockEntityTicker<*>){
+    fun ticker(tick: BlockEntityTicker<T>){
         storage.ticker = tick
     }
 

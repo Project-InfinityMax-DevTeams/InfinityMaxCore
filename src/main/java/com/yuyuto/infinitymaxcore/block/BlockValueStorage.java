@@ -49,7 +49,7 @@ public class BlockValueStorage {
     private final Map<LogicPhase, List<String>> logics = new EnumMap<>(LogicPhase.class);
 
     //BlockEntity
-    private BlockEntityStorage blockEntity;
+    private BlockEntityStorage<?> blockEntity;
 
     /* ---ここからメソッド--- */
     public BlockValueStorage(String id){
@@ -196,11 +196,11 @@ public class BlockValueStorage {
         this.creativeTabId = creativeTabId;
     }
 
-    public BlockEntityStorage getBlockEntity() {
+    public BlockEntityStorage<?> getBlockEntity() {
         return blockEntity;
     }
 
-    public void setBlockEntity(BlockEntityStorage blockEntity) {
+    public void setBlockEntity(BlockEntityStorage<?> blockEntity) {
         this.blockEntity = blockEntity;
     }
 }
