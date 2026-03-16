@@ -22,36 +22,36 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
     @Override
     protected void buildRecipes(@NotNull Consumer<FinishedRecipe> consumer) {
 
-        for (RecipeDefinition recipeDef : RecipeRegistry.getAll()) {
+        for (RecipeDefinition recipe : RecipeRegistry.getAll()) {
 
             if (recipe == null) continue;
 
             if (recipe instanceof RecipeDefinition.Shaped shaped) {
-                generateShaped(recipeDef, shaped, consumer);
+                generateShaped(recipe, shaped, consumer);
             }
 
             if (recipe instanceof RecipeDefinition.Shapeless shapeless) {
-                generateShapeless(recipeDef, shapeless, consumer);
+                generateShapeless(recipe, shapeless, consumer);
             }
 
             if (recipe instanceof RecipeDefinition.Smelting smelting){
-                generateSmelting(recipeDef,smelting,consumer);
+                generateSmelting(recipe,smelting,consumer);
             }
 
             if (recipe instanceof RecipeDefinition.Blasting blasting){
-                generateBlasting(recipeDef, blasting, consumer);
+                generateBlasting(recipe, blasting, consumer);
             }
 
             if (recipe instanceof RecipeDefinition.Smoking smoking){
-                generateSmoking(recipeDef, smoking, consumer);
+                generateSmoking(recipe, smoking, consumer);
             }
 
             if (recipe instanceof RecipeDefinition.Stonecutting stonecutting){
-                generatedStonecutting(recipeDef, stonecutting, consumer);
+                generatedStonecutting(recipe, stonecutting, consumer);
             }
 
             if (recipe instanceof RecipeDefinition.Smithing smithing){
-                generatedSmithing(recipeDef, smithing, consumer);
+                generatedSmithing(recipe, smithing, consumer);
             }
 
         }
