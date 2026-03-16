@@ -49,8 +49,8 @@ public class BlockValueStorage {
     //Logic関連
     private final Map<LogicPhase, List<String>> logics = new EnumMap<>(LogicPhase.class);
 
-    //Renderer
-    private RendererDefinition renderer;
+    //BlockEntity
+    private BlockEntityStorage blockEntity;
 
     /* ---ここからメソッド--- */
     public BlockValueStorage(String id){
@@ -189,20 +189,20 @@ public class BlockValueStorage {
         logics.computeIfAbsent(phase,p -> new ArrayList<>()).add(logicId);
     }
 
-    public RendererDefinition getRenderer() {
-        return renderer;
-    }
-
-    public void setRenderer(RendererDefinition renderer) {
-        this.renderer = renderer;
-    }
-
     public String getCreativeTabId() {
         return creativeTabId;
     }
 
     public void setCreativeTabId(String creativeTabId) {
         this.creativeTabId = creativeTabId;
+    }
+
+    public BlockEntityStorage getBlockEntity() {
+        return blockEntity;
+    }
+
+    public void setBlockEntity(BlockEntityStorage blockEntity) {
+        this.blockEntity = blockEntity;
     }
 }
 

@@ -9,7 +9,6 @@ import com.yuyuto.infinitymaxcore.datagen.util.LootDefinition
 import com.yuyuto.infinitymaxcore.datagen.util.BlockModelDefinition
 import com.yuyuto.infinitymaxcore.datagen.util.ItemModelDefinition
 import com.yuyuto.infinitymaxcore.recipe.RecipeDefinition
-import com.yuyuto.infinitymaxcore.datagen.util.RendererDefinition
 import com.yuyuto.infinitymaxcore.item.FoodDefinition
 import com.yuyuto.infinitymaxcore.item.ItemStorageRegistry
 import com.yuyuto.infinitymaxcore.item.ItemValueStorage
@@ -81,6 +80,15 @@ class BlockDSLBuilder(private val storage: BlockValueStorage){
         storage.creativeTabId = value
     }
 
+    fun blockEntity(blockEntity: BlockEntityBuilder.() -> Unit){
+        val storage = BlockEntityStorage(storage.blockId)
+
+        val builder = BlockEntityBuilder(storage)
+        builder.blockEntity()
+
+        //ここわからん:storage.blockEntity = storage
+    }
+
     fun model(model: BlockModelDefinition){
         storage.model = model
     }
@@ -95,10 +103,6 @@ class BlockDSLBuilder(private val storage: BlockValueStorage){
 
     fun lang(text: String){
         storage.lang = text
-    }
-
-    fun renderer(def: RendererDefinition){
-        storage.renderer = def
     }
 
     fun texture(id: String){
@@ -128,7 +132,7 @@ fun block(id: String, init: BlockDSLBuilder.() -> Unit): BlockValueStorage{
     return storage
 }
 
-class BlockEntityDSL(private val storage: BlockEntityStorage){
+class BlockEntityBuilder(private val storage: BlockEntityStorage){
 
     fun supplier(supplier: BlockEntityType.BlockEntitySupplier<*>){
         storage.supplier = supplier
