@@ -1,5 +1,7 @@
 package com.yuyuto.infinitymaxcore.dsl
 
+import com.mojang.datafixers.types.Type
+import com.yuyuto.infinitymaxcore.block.BlockEntityStorage
 import com.yuyuto.infinitymaxcore.block.BlockStorageRegistry
 import com.yuyuto.infinitymaxcore.logic.LogicPhase
 import com.yuyuto.infinitymaxcore.block.BlockValueStorage
@@ -12,11 +14,16 @@ import com.yuyuto.infinitymaxcore.item.FoodDefinition
 import com.yuyuto.infinitymaxcore.item.ItemStorageRegistry
 import com.yuyuto.infinitymaxcore.item.ItemValueStorage
 import com.yuyuto.infinitymaxcore.recipe.RecipeRegistry
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderer
 import net.minecraft.data.recipes.RecipeCategory
 import net.minecraft.resources.ResourceLocation
+import net.minecraft.world.inventory.MenuType
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.Rarity
+import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.SoundType
+import net.minecraft.world.level.block.entity.BlockEntityTicker
+import net.minecraft.world.level.block.entity.BlockEntityType
 import net.minecraft.world.level.block.state.BlockBehaviour
 import net.minecraft.world.level.material.MapColor
 
@@ -119,6 +126,37 @@ fun block(id: String, init: BlockDSLBuilder.() -> Unit): BlockValueStorage{
     builder.init()
     BlockStorageRegistry.register(storage)
     return storage
+}
+
+class BlockEntityDSL(private val storage: BlockEntityStorage){
+
+    fun supplier(supplier: BlockEntityType.BlockEntitySupplier<*>){
+        storage.supplier = supplier
+    }
+
+    fun blocks(blocks: List<Block>){
+        storage.blocks = blocks
+    }
+
+    fun dataType(types: Type<*>){
+        storage.dataType = types
+    }
+
+    fun ticker(tick: BlockEntityTicker<*>){
+        storage.ticker = tick
+    }
+
+    fun renderer(renderer: BlockEntityRenderer<*>){
+        storage.renderer = renderer
+    }
+
+    fun gui(gui: MenuType<*>){
+        storage.menu = gui
+    }
+
+    fun packetSync(){
+        storage.isSync = true
+    }
 }
 
 @RegisterDSL
