@@ -4,33 +4,33 @@ import com.mojang.datafixers.types.Type;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class BlockEntityStorage {
+public class BlockEntityStorage<T extends BlockEntity> {
 
     //BlockEntity登録ID
     private final String id;
 
     //生成状態
-    private BlockEntityType.BlockEntitySupplier<?> supplier;
+    private BlockEntityType.BlockEntitySupplier<T> supplier;
     //対応ブロック
     private List<Block> blocks;
     //データタイプ
     private Type<?> dataType;
     //Tick処理
-    private BlockEntityTicker<?> ticker;
+    private BlockEntityTicker<T> ticker;
     //レンダリング系(ブロックアニメーションなど。)
-    private BlockEntityRenderer<?> renderer;
+    private BlockEntityRenderer<T> renderer;
     //GUI
     private MenuType<?> menu;
     //ネット同期
     private boolean sync = false;
-
-    //DataGen関連は以下に記述。
+    //BlockEntityタイプ
+    private BlockEntityType<T> blockEntityType;
 
     public BlockEntityStorage(String id){
         this.id = id;
@@ -40,11 +40,11 @@ public class BlockEntityStorage {
         return id;
     }
 
-    public BlockEntityType.BlockEntitySupplier<?> getSupplier() {
+    public BlockEntityType.BlockEntitySupplier<T> getSupplier() {
         return supplier;
     }
 
-    public void setSupplier(BlockEntityType.BlockEntitySupplier<?> supplier) {
+    public void setSupplier(BlockEntityType.BlockEntitySupplier<T> supplier) {
         this.supplier = supplier;
     }
 
@@ -68,15 +68,15 @@ public class BlockEntityStorage {
         return ticker;
     }
 
-    public void setTicker(BlockEntityTicker<?> ticker) {
+    public void setTicker(BlockEntityTicker<T> ticker) {
         this.ticker = ticker;
     }
 
-    public BlockEntityRenderer<?> getRenderer() {
-        return renderer;
+    public BlockEntityRenderer<T> getRenderer() {
+        return  renderer;
     }
 
-    public void setRenderer(BlockEntityRenderer<?> renderer) {
+    public void setRenderer(BlockEntityRenderer<T> renderer) {
         this.renderer = renderer;
     }
 
@@ -94,5 +94,13 @@ public class BlockEntityStorage {
 
     public void setSync(boolean sync) {
         this.sync = sync;
+    }
+
+    public BlockEntityType<T> getBlockEntityType() {
+        return blockEntityType;
+    }
+
+    public void setBlockEntityType(BlockEntityType<T> blockEntityType) {
+        this.blockEntityType = blockEntityType;
     }
 }

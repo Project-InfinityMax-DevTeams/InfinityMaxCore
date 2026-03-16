@@ -1,5 +1,6 @@
 package com.yuyuto.infinitymaxcore.registry;
 
+import com.yuyuto.infinitymaxcore.block.BlockEntityRegistry;
 import com.yuyuto.infinitymaxcore.block.BlockValueStorage;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.BlockItem;
@@ -41,6 +42,10 @@ public class ModBlocks {
                            output.accept(blockItem);
                        }
                     });
+        }
+
+        if (storage.getBlockEntity() != null){
+            BlockEntityRegistry.register(storage.getBlockEntity());
         }
 
         BLOCK_MAP.put(storage.getBlockId(),object);

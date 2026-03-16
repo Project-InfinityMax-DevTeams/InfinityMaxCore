@@ -21,6 +21,7 @@ import net.minecraft.world.item.Item
 import net.minecraft.world.item.Rarity
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.SoundType
+import net.minecraft.world.level.block.entity.BlockEntity
 import net.minecraft.world.level.block.entity.BlockEntityTicker
 import net.minecraft.world.level.block.entity.BlockEntityType
 import net.minecraft.world.level.block.state.BlockBehaviour
@@ -80,13 +81,13 @@ class BlockDSLBuilder(private val storage: BlockValueStorage){
         storage.creativeTabId = value
     }
 
-    fun blockEntity(blockEntity: BlockEntityBuilder.() -> Unit){
-        val storage = BlockEntityStorage(storage.blockId)
+    fun blockEntity(init: BlockEntityBuilder.() -> Unit){
+        val bestorage = BlockEntityStorage(storage.blockId)
 
-        val builder = BlockEntityBuilder(storage)
-        builder.blockEntity()
+        val builder = BlockEntityBuilder(bestorage)
+        builder.init()
 
-        //ここわからん:storage.blockEntity = storage
+        storage.blockEntity = bestorage
     }
 
     fun model(model: BlockModelDefinition){
@@ -132,9 +133,9 @@ fun block(id: String, init: BlockDSLBuilder.() -> Unit): BlockValueStorage{
     return storage
 }
 
-class BlockEntityBuilder(private val storage: BlockEntityStorage){
+class BlockEntityBuilder<T : BlockEntity>(private val storage: BlockEntityStorage<T>){
 
-    fun supplier(supplier: BlockEntityType.BlockEntitySupplier<*>){
+    fun supplier(supplier: BlockEntityType.BlockEntitySupplier<T>){
         storage.supplier = supplier
     }
 
@@ -150,7 +151,7 @@ class BlockEntityBuilder(private val storage: BlockEntityStorage){
         storage.ticker = tick
     }
 
-    fun renderer(renderer: BlockEntityRenderer<*>){
+    fun renderer(renderer: BlockEntityRenderer<T>){
         storage.renderer = renderer
     }
 

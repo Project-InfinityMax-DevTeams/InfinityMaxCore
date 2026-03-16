@@ -3,7 +3,6 @@ package com.yuyuto.infinitymaxcore.block;
 import com.yuyuto.infinitymaxcore.logic.LogicPhase;
 import com.yuyuto.infinitymaxcore.datagen.util.LootDefinition;
 import com.yuyuto.infinitymaxcore.datagen.util.BlockModelDefinition;
-import com.yuyuto.infinitymaxcore.datagen.util.RendererDefinition;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
