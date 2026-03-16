@@ -9,13 +9,13 @@ import java.util.Map;
 
 public abstract class RecipeDefinition {
 
-    private final ResourceLocation result;
+    private final String result;
 
-    protected RecipeDefinition(ResourceLocation result){
+    protected RecipeDefinition(String result){
         this.result = result;
     }
 
-    public ResourceLocation getResult() {
+    public String getResult() {
         return result;
     }
 
@@ -25,7 +25,7 @@ public abstract class RecipeDefinition {
         private final List<String> pattern;
         private final Map<String, String> keys;
 
-        public Shaped(ResourceLocation result, List<String> pattern, Map<String, String> keys) {
+        public Shaped(String result, List<String> pattern, Map<String, String> keys) {
             super(result);
             this.pattern = pattern;
             this.keys = keys;
@@ -44,7 +44,7 @@ public abstract class RecipeDefinition {
 
         private final List<String> ingredients;
 
-        public Shapeless(ResourceLocation result, List<String> ingredients) {
+        public Shapeless(String result, List<String> ingredients) {
             super(result);
             this.ingredients = ingredients;
         }
@@ -55,20 +55,20 @@ public abstract class RecipeDefinition {
     }
 
     public static class Blasting extends Cooking {
-        public Blasting(ResourceLocation result, String ingredient, RecipeCategory category, float exp, int time){
+        public Blasting(String result, String ingredient, RecipeCategory category, float exp, int time){
             super(result, ingredient, category, exp, time);
         }
     }
 
     public static class Smelting extends Cooking{
 
-        public Smelting(ResourceLocation result, String ingredient, RecipeCategory category, float exp, int time){
+        public Smelting(String result, String ingredient, RecipeCategory category, float exp, int time){
             super(result, ingredient, category, exp, time);
         }
     }
 
     public static class Smoking extends Cooking{
-        public Smoking(ResourceLocation result, String ingredient, RecipeCategory category, float exp, int time){
+        public Smoking(String result, String ingredient, RecipeCategory category, float exp, int time){
             super(result, ingredient, category, exp, time);
         }
     }
@@ -78,7 +78,7 @@ public abstract class RecipeDefinition {
         private final int resultCount;
         private final RecipeCategory category;
 
-        public Stonecutting(ResourceLocation result, String ingredient, RecipeCategory category, int resultCount){
+        public Stonecutting(String result, String ingredient, RecipeCategory category, int resultCount){
             super(result);
             this.ingredient = ingredient;
             this.resultCount = resultCount;
@@ -106,7 +106,7 @@ public abstract class RecipeDefinition {
         private final String addition;
 
 
-        public Smithing(ResourceLocation result, String template, RecipeCategory category, String base, String addition){
+        public Smithing(String result, String template, RecipeCategory category, String base, String addition){
             super(result);
             this.template = template;
             this.category = category;

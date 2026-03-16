@@ -57,9 +57,9 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
         }
     }
 
-    private void generateShaped(@UnknownNullability ItemValueStorage storage, RecipeDefinition.Shaped shaped, Consumer<FinishedRecipe> consumer) {
+    private void generateShaped(@UnknownNullability RecipeDefinition storage, RecipeDefinition.Shaped shaped, Consumer<FinishedRecipe> consumer) {
 
-        ShapedRecipeBuilder builder = ShapedRecipeBuilder.shaped(RecipeCategory.MISC, Objects.requireNonNull(ForgeRegistries.ITEMS.getValue(new ResourceLocation(storage.getItemId()))));
+        ShapedRecipeBuilder builder = ShapedRecipeBuilder.shaped(RecipeCategory.MISC, Objects.requireNonNull(ForgeRegistries.ITEMS.getValue(new ResourceLocation(storage.getResult()))));
         for(String row : shaped.getPattern()){
             builder.pattern(row);
         }
@@ -70,9 +70,9 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
         builder.save(consumer);
     }
 
-    private void generateShapeless(@UnknownNullability ItemValueStorage storage, RecipeDefinition.Shapeless shapeless, Consumer<FinishedRecipe> consumer) {
+    private void generateShapeless(@UnknownNullability RecipeDefinition storage, RecipeDefinition.Shapeless shapeless, Consumer<FinishedRecipe> consumer) {
 
-        ShapelessRecipeBuilder builder = ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, Objects.requireNonNull(ForgeRegistries.ITEMS.getValue(new ResourceLocation(storage.getItemId()))));
+        ShapelessRecipeBuilder builder = ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, Objects.requireNonNull(ForgeRegistries.ITEMS.getValue(new ResourceLocation(storage.getResult()))));
         for(String ingredient : shapeless.getIngredients()){
             builder.requires(Objects.requireNonNull(ForgeRegistries.ITEMS.getValue(new ResourceLocation(ingredient))));
         }
@@ -81,8 +81,8 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
         builder.save(consumer);
     }
 
-    private void generateSmelting(@UnknownNullability ItemValueStorage storage, RecipeDefinition.Smelting recipe, Consumer<FinishedRecipe> consumer){
-        Item result = ForgeRegistries.ITEMS.getValue(new ResourceLocation(storage.getItemId()));
+    private void generateSmelting(@UnknownNullability RecipeDefinition storage, RecipeDefinition.Smelting recipe, Consumer<FinishedRecipe> consumer){
+        Item result = ForgeRegistries.ITEMS.getValue(new ResourceLocation(storage.getResult()));
         RecipeCategory category = recipe.getRecipeCategory();
         Item ingredient = ForgeRegistries.ITEMS.getValue(new ResourceLocation(recipe.getIngredient()));
 
@@ -95,8 +95,8 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
         ).unlockedBy("has_item", has(Objects.requireNonNull(ingredient))).save(consumer);
     }
 
-    private void generateBlasting(@UnknownNullability ItemValueStorage storage, RecipeDefinition.Blasting recipe, Consumer<FinishedRecipe> consumer){
-        Item result = ForgeRegistries.ITEMS.getValue(new ResourceLocation(storage.getItemId()));
+    private void generateBlasting(@UnknownNullability RecipeDefinition storage, RecipeDefinition.Blasting recipe, Consumer<FinishedRecipe> consumer){
+        Item result = ForgeRegistries.ITEMS.getValue(new ResourceLocation(storage.getResult()));
         RecipeCategory category = recipe.getRecipeCategory();
         Item ingredient = ForgeRegistries.ITEMS.getValue(new ResourceLocation(recipe.getIngredient()));
 
@@ -109,8 +109,8 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
         ).unlockedBy("has_item", has(Objects.requireNonNull(ingredient))).save(consumer);
     }
 
-    private void generateSmoking(@UnknownNullability ItemValueStorage storage, RecipeDefinition.Smoking recipe, Consumer<FinishedRecipe> consumer){
-        Item result = ForgeRegistries.ITEMS.getValue(new ResourceLocation(storage.getItemId()));
+    private void generateSmoking(@UnknownNullability RecipeDefinition storage, RecipeDefinition.Smoking recipe, Consumer<FinishedRecipe> consumer){
+        Item result = ForgeRegistries.ITEMS.getValue(new ResourceLocation(storage.getResult()));
         RecipeCategory category = recipe.getRecipeCategory();
         Item ingredient = ForgeRegistries.ITEMS.getValue(new ResourceLocation(recipe.getIngredient()));
 
@@ -123,8 +123,8 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
         ).unlockedBy("has_item", has(Objects.requireNonNull(ingredient))).save(consumer);
     }
 
-    private void generatedStonecutting(ItemValueStorage storage, RecipeDefinition.Stonecutting recipe, Consumer<FinishedRecipe> consumer){
-        Item result = ForgeRegistries.ITEMS.getValue(new ResourceLocation(storage.getItemId()));
+    private void generatedStonecutting(@UnknownNullability RecipeDefinition storage, RecipeDefinition.Stonecutting recipe, Consumer<FinishedRecipe> consumer){
+        Item result = ForgeRegistries.ITEMS.getValue(new ResourceLocation(storage.getResult()));
         Item ingredient = ForgeRegistries.ITEMS.getValue(new ResourceLocation(recipe.getIngredient()));
         RecipeCategory category = recipe.getCategory();
         int resultCount = recipe.getResultCount();
@@ -137,8 +137,8 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
         ).unlockedBy("has_item", has(Objects.requireNonNull(ingredient))).save(consumer);
     }
 
-    private void generatedSmithing(ItemValueStorage storage, RecipeDefinition.Smithing recipe, Consumer<FinishedRecipe> consumer){
-        Item result = ForgeRegistries.ITEMS.getValue(new ResourceLocation(storage.getItemId()));
+    private void generatedSmithing(@UnknownNullability RecipeDefinition storage, RecipeDefinition.Smithing recipe, Consumer<FinishedRecipe> consumer){
+        Item result = ForgeRegistries.ITEMS.getValue(new ResourceLocation(storage.getResult()));
         RecipeCategory category = recipe.getCategory();
         Item template = ForgeRegistries.ITEMS.getValue(new ResourceLocation(recipe.getTemplate()));
         Item base = ForgeRegistries.ITEMS.getValue(new ResourceLocation(recipe.getBase()));
