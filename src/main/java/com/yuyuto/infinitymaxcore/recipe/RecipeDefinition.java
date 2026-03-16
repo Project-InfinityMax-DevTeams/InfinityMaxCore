@@ -2,19 +2,20 @@ package com.yuyuto.infinitymaxcore.recipe;
 
 import com.yuyuto.infinitymaxcore.datagen.util.Cooking;
 import net.minecraft.data.recipes.RecipeCategory;
+import net.minecraft.resources.ResourceLocation;
 
 import java.util.List;
 import java.util.Map;
 
 public abstract class RecipeDefinition {
 
-    private final String result;
+    private final ResourceLocation result;
 
-    protected RecipeDefinition(String result){
+    protected RecipeDefinition(ResourceLocation result){
         this.result = result;
     }
 
-    public String getResult() {
+    public ResourceLocation getResult() {
         return result;
     }
 
@@ -24,7 +25,8 @@ public abstract class RecipeDefinition {
         private final List<String> pattern;
         private final Map<String, String> keys;
 
-        public Shaped(List<String> pattern, Map<String, String> keys) {
+        public Shaped(ResourceLocation result, List<String> pattern, Map<String, String> keys) {
+            super(result);
             this.pattern = pattern;
             this.keys = keys;
         }
@@ -42,7 +44,8 @@ public abstract class RecipeDefinition {
 
         private final List<String> ingredients;
 
-        public Shapeless(List<String> ingredients) {
+        public Shapeless(ResourceLocation result, List<String> ingredients) {
+            super(result);
             this.ingredients = ingredients;
         }
 
@@ -52,21 +55,21 @@ public abstract class RecipeDefinition {
     }
 
     public static class Blasting extends Cooking {
-        public Blasting(String ingredient, RecipeCategory category, float exp, int time){
-            super(ingredient, category, exp, time);
+        public Blasting(ResourceLocation result, String ingredient, RecipeCategory category, float exp, int time){
+            super(result, ingredient, category, exp, time);
         }
     }
 
     public static class Smelting extends Cooking{
 
-        public Smelting(String ingredient, RecipeCategory category, float exp, int time){
-            super(ingredient, category, exp, time);
+        public Smelting(ResourceLocation result, String ingredient, RecipeCategory category, float exp, int time){
+            super(result, ingredient, category, exp, time);
         }
     }
 
     public static class Smoking extends Cooking{
-        public Smoking(String ingredient, RecipeCategory category, float exp, int time){
-            super(ingredient, category, exp, time);
+        public Smoking(ResourceLocation result, String ingredient, RecipeCategory category, float exp, int time){
+            super(result, ingredient, category, exp, time);
         }
     }
 
@@ -75,7 +78,8 @@ public abstract class RecipeDefinition {
         private final int resultCount;
         private final RecipeCategory category;
 
-        public Stonecutting(String ingredient, RecipeCategory category, int resultCount){
+        public Stonecutting(ResourceLocation result, String ingredient, RecipeCategory category, int resultCount){
+            super(result);
             this.ingredient = ingredient;
             this.resultCount = resultCount;
             this.category = category;
@@ -100,15 +104,14 @@ public abstract class RecipeDefinition {
         private final RecipeCategory category;
         private final String base;
         private final String addition;
-        private final String result;
 
 
-        public Smithing(String template, RecipeCategory category, String base, String addition, String result){
+        public Smithing(ResourceLocation result, String template, RecipeCategory category, String base, String addition){
+            super(result);
             this.template = template;
             this.category = category;
             this.base = base;
             this.addition = addition;
-            this.result = result;
         }
 
         public String getTemplate() {
@@ -121,10 +124,6 @@ public abstract class RecipeDefinition {
 
         public String getAddition() {
             return addition;
-        }
-
-        public String getResult() {
-            return result;
         }
 
         public RecipeCategory getCategory() {

@@ -211,7 +211,6 @@ class FoodScope{
 @RegisterDSL
 class RecipeScope{
     private var recipe: RecipeDefinition? = null
-    private var result: String = ""
 
     fun shaped(block: ShapedRecipeScope.() -> Unit){
         val scope = ShapedRecipeScope()
@@ -245,18 +244,14 @@ class RecipeScope{
 
     fun stonecutting(block: StonecuttingRecipeScope.() -> Unit){
         val scope = StonecuttingRecipeScope()
-        scope.build()
+        scope.block()
         recipe = scope.build()
     }
 
     fun smithing(block: SmithingRecipeScope.() -> Unit){
         val scope = SmithingRecipeScope()
-        scope.build()
+        scope.block()
         recipe = scope.build()
-    }
-
-    fun result(id: String){
-        result = id
     }
 
     fun build(): RecipeDefinition{
@@ -265,12 +260,18 @@ class RecipeScope{
         return r
     }
 }
+fun recipe(block: RecipeScope.() -> Unit){
+    val scope = RecipeScope()
+    scope.block()
+
+    RecipeRegistry.register(scope.build())
+}
 
 class ShapedRecipeScope {
 
     private val pattern = mutableListOf<String>()
     private val keys = mutableMapOf<String, String>()
-    private var result: String = ""
+    private lateinit var result: ResourceLocation
 
     fun pattern(vararg rows: String){
         pattern.addAll(rows)
@@ -280,25 +281,30 @@ class ShapedRecipeScope {
         keys[symbol] = item
     }
 
-    fun result(id: String){
+    fun result(id: ResourceLocation){
         result = id
     }
 
     fun build(): RecipeDefinition {
-        return RecipeDefinition.Shaped(pattern, keys)
+        return RecipeDefinition.Shaped(result,pattern, keys)
     }
 }
 
 class ShapelessRecipeScope {
 
     private val ingredients = mutableListOf<String>()
+    private lateinit var result: ResourceLocation
 
     fun ingredient(item: String){
         ingredients.add(item)
     }
 
+    fun result(id: ResourceLocation){
+        result = id
+    }
+
     fun build(): RecipeDefinition {
-        return RecipeDefinition.Shapeless(ingredients)
+        return RecipeDefinition.Shapeless(result, ingredients)
     }
 }
 
@@ -308,6 +314,7 @@ class SmeltingRecipeScope{
     private var experience: Float = 0f
     private var category: RecipeCategory = RecipeCategory.MISC
     private var cookingTime: Int = 200
+    private lateinit var result: ResourceLocation
 
     fun ingredient(id: String){
         ingredient = id
@@ -321,9 +328,12 @@ class SmeltingRecipeScope{
     fun cookingTime(value: Int){
         cookingTime = value
     }
+    fun result(id: ResourceLocation){
+        result = id
+    }
 
     fun build(): RecipeDefinition{
-        return RecipeDefinition.Smelting(ingredient, category, experience, cookingTime)
+        return RecipeDefinition.Smelting(result, ingredient, category, experience, cookingTime)
     }
 
 }
@@ -334,6 +344,7 @@ class BlastingRecipeScope{
     private var experience: Float = 0f
     private var category: RecipeCategory = RecipeCategory.MISC
     private var cookingTime: Int = 200
+    private lateinit var result: ResourceLocation
 
     fun ingredient(id: String){
         ingredient = id
@@ -347,9 +358,12 @@ class BlastingRecipeScope{
     fun cookingTime(value: Int){
         cookingTime = value
     }
+    fun result(id: ResourceLocation){
+        result = id
+    }
 
     fun build(): RecipeDefinition{
-        return RecipeDefinition.Blasting(ingredient, category, experience, cookingTime)
+        return RecipeDefinition.Blasting(result, ingredient, category, experience, cookingTime)
     }
 
 }
@@ -360,6 +374,7 @@ class SmokingRecipeScope{
     private var experience: Float = 0f
     private var category: RecipeCategory = RecipeCategory.MISC
     private var cookingTime: Int = 200
+    private lateinit var result: ResourceLocation
 
     fun ingredient(id: String){
         ingredient = id
@@ -373,9 +388,12 @@ class SmokingRecipeScope{
     fun cookingTime(value: Int){
         cookingTime = value
     }
+    fun result(id: ResourceLocation){
+        result = id
+    }
 
     fun build(): RecipeDefinition{
-        return RecipeDefinition.Smoking(ingredient, category, experience, cookingTime)
+        return RecipeDefinition.Smoking(result, ingredient, category, experience, cookingTime)
     }
 
 }
@@ -385,6 +403,7 @@ class StonecuttingRecipeScope{
     private var ingredient: String = ""
     private var category: RecipeCategory = RecipeCategory.MISC
     private var resultCount: Int = 2
+    private lateinit var result: ResourceLocation
 
     fun ingredient(id: String){
         ingredient = id
@@ -395,8 +414,12 @@ class StonecuttingRecipeScope{
     fun resultCount(value: Int){
         resultCount = value
     }
+    fun result(id: ResourceLocation){
+        result = id
+    }
+
     fun build(): RecipeDefinition{
-        return RecipeDefinition.Stonecutting(ingredient, category, resultCount)
+        return RecipeDefinition.Stonecutting(result, ingredient, category, resultCount)
     }
 }
 
@@ -406,7 +429,7 @@ class SmithingRecipeScope{
     private var category: RecipeCategory = RecipeCategory.MISC
     private var base: String = ""
     private var addition: String = ""
-    private var result: String = ""
+    private lateinit var result: ResourceLocation
 
     fun template(id: String){
         template = id
@@ -420,11 +443,11 @@ class SmithingRecipeScope{
     fun addition(id: String){
         addition = id
     }
-    fun result(id: String){
+    fun result(id: ResourceLocation){
         result = id
     }
 
     fun build(): RecipeDefinition{
-        return RecipeDefinition.Smithing(template, category, base, addition, result)
+        return RecipeDefinition.Smithing(result, template, category, base, addition)
     }
 }

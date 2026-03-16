@@ -24,7 +24,6 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
 
         for (RecipeDefinition recipeDef : RecipeRegistry.getAll()) {
 
-            RecipeDefinition recipe = RecipeDefinition.getRecipe();
             if (recipe == null) continue;
 
             if (recipe instanceof RecipeDefinition.Shaped shaped) {

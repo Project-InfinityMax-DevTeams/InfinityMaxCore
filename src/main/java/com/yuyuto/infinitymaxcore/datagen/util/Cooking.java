@@ -2,6 +2,7 @@ package com.yuyuto.infinitymaxcore.datagen.util;
 
 import com.yuyuto.infinitymaxcore.recipe.RecipeDefinition;
 import net.minecraft.data.recipes.RecipeCategory;
+import net.minecraft.resources.ResourceLocation;
 
 public abstract class Cooking extends RecipeDefinition {
 
@@ -10,7 +11,8 @@ public abstract class Cooking extends RecipeDefinition {
     private final float experience;
     private final int cookingTime;
 
-    public Cooking(String ingredient, RecipeCategory category, float experience, int cookingTime){
+    public Cooking(ResourceLocation result, String ingredient, RecipeCategory category, float experience, int cookingTime){
+        super(result);
         this.ingredient = ingredient;
         this.category = category;
         this.experience = experience;
