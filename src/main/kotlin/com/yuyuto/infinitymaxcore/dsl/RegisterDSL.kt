@@ -6,11 +6,12 @@ import com.yuyuto.infinitymaxcore.block.BlockValueStorage
 import com.yuyuto.infinitymaxcore.datagen.util.LootDefinition
 import com.yuyuto.infinitymaxcore.datagen.util.BlockModelDefinition
 import com.yuyuto.infinitymaxcore.datagen.util.ItemModelDefinition
-import com.yuyuto.infinitymaxcore.datagen.util.RecipeDefinition
+import com.yuyuto.infinitymaxcore.recipe.RecipeDefinition
 import com.yuyuto.infinitymaxcore.datagen.util.RendererDefinition
 import com.yuyuto.infinitymaxcore.item.FoodDefinition
 import com.yuyuto.infinitymaxcore.item.ItemStorageRegistry
 import com.yuyuto.infinitymaxcore.item.ItemValueStorage
+import com.yuyuto.infinitymaxcore.recipe.RecipeRegistry
 import net.minecraft.data.recipes.RecipeCategory
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.item.Item
@@ -210,6 +211,7 @@ class FoodScope{
 @RegisterDSL
 class RecipeScope{
     private var recipe: RecipeDefinition? = null
+    private var result: String = ""
 
     fun shaped(block: ShapedRecipeScope.() -> Unit){
         val scope = ShapedRecipeScope()
@@ -253,8 +255,14 @@ class RecipeScope{
         recipe = scope.build()
     }
 
+    fun result(id: String){
+        result = id
+    }
+
     fun build(): RecipeDefinition{
-        return recipe ?: throw IllegalStateException("recipe not defined")
+        val r =  recipe ?: throw IllegalStateException("recipe not defined")
+        RecipeRegistry.register(r)
+        return r
     }
 }
 
@@ -262,6 +270,7 @@ class ShapedRecipeScope {
 
     private val pattern = mutableListOf<String>()
     private val keys = mutableMapOf<String, String>()
+    private var result: String = ""
 
     fun pattern(vararg rows: String){
         pattern.addAll(rows)
@@ -269,6 +278,10 @@ class ShapedRecipeScope {
 
     fun key(symbol: String, item: String){
         keys[symbol] = item
+    }
+
+    fun result(id: String){
+        result = id
     }
 
     fun build(): RecipeDefinition {

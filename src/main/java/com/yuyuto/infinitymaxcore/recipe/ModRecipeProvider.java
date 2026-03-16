@@ -1,8 +1,5 @@
-package com.yuyuto.infinitymaxcore.datagen;
+package com.yuyuto.infinitymaxcore.recipe;
 
-import com.yuyuto.infinitymaxcore.item.ItemStorageRegistry;
-import com.yuyuto.infinitymaxcore.item.ItemValueStorage;
-import com.yuyuto.infinitymaxcore.datagen.util.RecipeDefinition;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
 import net.minecraft.resources.ResourceLocation;
@@ -25,37 +22,37 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
     @Override
     protected void buildRecipes(@NotNull Consumer<FinishedRecipe> consumer) {
 
-        for (ItemValueStorage storage : ItemStorageRegistry.getAll()) {
+        for (RecipeDefinition recipeDef : RecipeRegistry.getAll()) {
 
             RecipeDefinition recipe = RecipeDefinition.getRecipe();
             if (recipe == null) continue;
 
             if (recipe instanceof RecipeDefinition.Shaped shaped) {
-                generateShaped(storage, shaped, consumer);
+                generateShaped(recipeDef, shaped, consumer);
             }
 
             if (recipe instanceof RecipeDefinition.Shapeless shapeless) {
-                generateShapeless(storage, shapeless, consumer);
+                generateShapeless(recipeDef, shapeless, consumer);
             }
 
             if (recipe instanceof RecipeDefinition.Smelting smelting){
-                generateSmelting(storage,smelting,consumer);
+                generateSmelting(recipeDef,smelting,consumer);
             }
 
             if (recipe instanceof RecipeDefinition.Blasting blasting){
-                generateBlasting(storage, blasting, consumer);
+                generateBlasting(recipeDef, blasting, consumer);
             }
 
             if (recipe instanceof RecipeDefinition.Smoking smoking){
-                generateSmoking(storage, smoking, consumer);
+                generateSmoking(recipeDef, smoking, consumer);
             }
 
             if (recipe instanceof RecipeDefinition.Stonecutting stonecutting){
-                generatedStonecutting(storage, stonecutting, consumer);
+                generatedStonecutting(recipeDef, stonecutting, consumer);
             }
 
             if (recipe instanceof RecipeDefinition.Smithing smithing){
-                generatedSmithing(storage, smithing, consumer);
+                generatedSmithing(recipeDef, smithing, consumer);
             }
 
         }

@@ -1,8 +1,9 @@
 package com.yuyuto.infinitymaxcore.datagen.util;
 
+import com.yuyuto.infinitymaxcore.recipe.RecipeDefinition;
 import net.minecraft.data.recipes.RecipeCategory;
 
-public abstract class Cooking extends RecipeDefinition{
+public abstract class Cooking extends RecipeDefinition {
 
     private final String ingredient;
     private final RecipeCategory category;

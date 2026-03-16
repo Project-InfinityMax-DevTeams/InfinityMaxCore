@@ -1,5 +1,6 @@
-package com.yuyuto.infinitymaxcore.datagen.util;
+package com.yuyuto.infinitymaxcore.recipe;
 
+import com.yuyuto.infinitymaxcore.datagen.util.Cooking;
 import net.minecraft.data.recipes.RecipeCategory;
 
 import java.util.List;
@@ -7,15 +8,16 @@ import java.util.Map;
 
 public abstract class RecipeDefinition {
 
-    private static RecipeDefinition recipe;
+    private final String result;
 
-    public static RecipeDefinition getRecipe() {
-        return recipe;
+    protected RecipeDefinition(String result){
+        this.result = result;
     }
 
-    public void setRecipe(RecipeDefinition recipe) {
-        RecipeDefinition.recipe = recipe;
+    public String getResult() {
+        return result;
     }
+
 
     public static class Shaped extends RecipeDefinition {
 
@@ -49,7 +51,7 @@ public abstract class RecipeDefinition {
         }
     }
 
-    public static class Blasting extends Cooking{
+    public static class Blasting extends Cooking {
         public Blasting(String ingredient, RecipeCategory category, float exp, int time){
             super(ingredient, category, exp, time);
         }

@@ -2,6 +2,7 @@ package com.yuyuto.infinitymaxcore;
 
 import com.mojang.logging.LogUtils;
 import com.yuyuto.infinitymaxcore.datagen.*;
+import com.yuyuto.infinitymaxcore.recipe.ModRecipeProvider;
 import com.yuyuto.infinitymaxcore.registry.ModBlocks;
 import com.yuyuto.infinitymaxcore.registry.ModItems;
 import net.minecraft.data.DataGenerator;
