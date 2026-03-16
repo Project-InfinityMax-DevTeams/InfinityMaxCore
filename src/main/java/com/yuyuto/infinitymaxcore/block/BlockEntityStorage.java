@@ -35,7 +35,63 @@ public class BlockEntityStorage {
         this.id = id;
     }
     
-    public void getBlockEntityId(){
-        return id
+    public String getBlockEntityId(){
+        return id;
+    }
+
+    public BlockEntityType.BlockEntitySupplier<?> getSupplier() {
+        return supplier;
+    }
+
+    public void setSupplier(BlockEntityType.BlockEntitySupplier<?> supplier) {
+        this.supplier = supplier;
+    }
+
+    public List<Block> getBlocks() {
+        return blocks;
+    }
+
+    public void setBlocks(List<Block> blocks) {
+        this.blocks = blocks;
+    }
+
+    public Type<?> getDataType() {
+        return dataType;
+    }
+
+    public void setDataType(Type<?> dataType) {
+        this.dataType = dataType;
+    }
+
+    public BlockEntityTicker<?> getTicker() {
+        return ticker;
+    }
+
+    public void setTicker(BlockEntityTicker<?> ticker) {
+        this.ticker = ticker;
+    }
+
+    public BlockEntityRenderer<?> getRenderer() {
+        return renderer;
+    }
+
+    public void setRenderer(BlockEntityRenderer<?> renderer) {
+        this.renderer = renderer;
+    }
+
+    public MenuType<?> getMenu() {
+        return menu;
+    }
+
+    public void setMenu(MenuType<?> menu) {
+        this.menu = menu;
+    }
+
+    public boolean isSync() {
+        return sync;
+    }
+
+    public void setSync(boolean sync) {
+        this.sync = sync;
     }
 }

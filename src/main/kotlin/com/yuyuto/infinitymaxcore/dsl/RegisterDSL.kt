@@ -156,12 +156,6 @@ class ItemDSLBuilder(private val storage: ItemValueStorage){
         storage.model = model
     }
 
-    fun recipe(block: RecipeScope.() -> Unit){
-        val scope = RecipeScope()
-        scope.block()
-        storage.recipe = scope.build()
-    }
-
     fun lang(lang: String){
         storage.lang = lang
     }

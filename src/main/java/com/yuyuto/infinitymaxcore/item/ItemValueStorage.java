@@ -1,7 +1,6 @@
 package com.yuyuto.infinitymaxcore.item;
 
 import com.yuyuto.infinitymaxcore.datagen.util.ItemModelDefinition;
-import com.yuyuto.infinitymaxcore.datagen.util.RecipeDefinition;
 import com.yuyuto.infinitymaxcore.logic.LogicPhase;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
@@ -31,7 +30,6 @@ public class ItemValueStorage {
     //DataGen関係
     private ItemModelDefinition model;
     private String lang;
-    private RecipeDefinition recipe;
     private String parentModel = "item/generated";
 
     //Logic関係
@@ -119,14 +117,6 @@ public class ItemValueStorage {
 
     public void setLang(String lang) {
         this.lang = lang;
-    }
-
-    public RecipeDefinition getRecipe() {
-        return recipe;
-    }
-
-    public void setRecipe(RecipeDefinition recipe) {
-        this.recipe = recipe;
     }
 
     public String getParentModel() {

@@ -7,6 +7,16 @@ import java.util.Map;
 
 public abstract class RecipeDefinition {
 
+    private RecipeDefinition recipe;
+
+    public static RecipeDefinition getRecipe() {
+        return recipe;
+    }
+
+    public void setRecipe(RecipeDefinition recipe) {
+        this.recipe = recipe;
+    }
+
     public static class Shaped extends RecipeDefinition {
 
         private final List<String> pattern;
