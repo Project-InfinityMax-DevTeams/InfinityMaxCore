@@ -7,14 +7,14 @@ import java.util.Map;
 
 public abstract class RecipeDefinition {
 
-    private RecipeDefinition recipe;
+    private static RecipeDefinition recipe;
 
     public static RecipeDefinition getRecipe() {
         return recipe;
     }
 
     public void setRecipe(RecipeDefinition recipe) {
-        this.recipe = recipe;
+        RecipeDefinition.recipe = recipe;
     }
 
     public static class Shaped extends RecipeDefinition {
