@@ -8,7 +8,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 
 @OnlyIn(Dist.CLIENT)
-public class BlockEntityClientRegistry {
+public class ModBlockEntityRenderers {
 
     public static <T extends BlockEntity> void register(@NotNull BlockEntityStorage<T> storage){
         if (storage.getRenderer() == null) return;

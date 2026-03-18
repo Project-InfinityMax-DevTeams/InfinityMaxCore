@@ -3,19 +3,26 @@ package com.yuyuto.infinitymaxcore.dsl
 import com.mojang.datafixers.types.Type
 import com.yuyuto.infinitymaxcore.block.BlockEntityStorage
 import com.yuyuto.infinitymaxcore.block.BlockStorageRegistry
-import com.yuyuto.infinitymaxcore.logic.LogicPhase
 import com.yuyuto.infinitymaxcore.block.BlockValueStorage
-import com.yuyuto.infinitymaxcore.datagen.util.LootDefinition
 import com.yuyuto.infinitymaxcore.datagen.util.BlockModelDefinition
 import com.yuyuto.infinitymaxcore.datagen.util.ItemModelDefinition
-import com.yuyuto.infinitymaxcore.recipe.RecipeDefinition
+import com.yuyuto.infinitymaxcore.datagen.util.LootDefinition
+import com.yuyuto.infinitymaxcore.entity.EntityStorageRegistry
+import com.yuyuto.infinitymaxcore.entity.EntityValueStorage
 import com.yuyuto.infinitymaxcore.item.FoodDefinition
 import com.yuyuto.infinitymaxcore.item.ItemStorageRegistry
 import com.yuyuto.infinitymaxcore.item.ItemValueStorage
+import com.yuyuto.infinitymaxcore.logic.LogicPhase
+import com.yuyuto.infinitymaxcore.recipe.RecipeDefinition
 import com.yuyuto.infinitymaxcore.recipe.RecipeRegistry
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer
+import net.minecraft.client.renderer.entity.EntityRendererProvider
 import net.minecraft.data.recipes.RecipeCategory
 import net.minecraft.resources.ResourceLocation
+import net.minecraft.world.entity.Entity
+import net.minecraft.world.entity.EntityType
+import net.minecraft.world.entity.MobCategory
+import net.minecraft.world.entity.ai.attributes.Attribute
 import net.minecraft.world.inventory.MenuType
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.Rarity
@@ -26,9 +33,6 @@ import net.minecraft.world.level.block.entity.BlockEntityTicker
 import net.minecraft.world.level.block.entity.BlockEntityType
 import net.minecraft.world.level.block.state.BlockBehaviour
 import net.minecraft.world.level.material.MapColor
-
-import kotlin.collections.mutableListOf
-import kotlin.collections.mutableMapOf
 
 @DslMarker
 annotation class RegisterDSL
@@ -249,6 +253,86 @@ class FoodScope{
     fun build(): FoodDefinition{
         return food
     }
+}
+
+@RegisterDSL
+class EntityDSLBuilder(private val storage: EntityValueStorage){
+    fun factory(value: EntityType.EntityFactory<out Entity>){
+        storage.factory = value
+    }
+    fun category(value: MobCategory){
+        storage.category = value
+    }
+
+    fun width(value: Float){
+        storage.width = value
+    }
+
+    fun height(value: Float){
+        storage.height = value
+    }
+
+    fun trackingRange(value: Int){
+        storage.trackingRange = value
+    }
+
+    fun updateInterval(value: Int){
+        storage.updateInterval = value
+    }
+
+    fun fireImmune(){
+        storage.isFireImmune = true
+    }
+
+    fun noSummonCommandToSpawn(){
+        storage.isSummonable = false
+    }
+
+    fun saveable(){
+        storage.isSaveable = true
+    }
+
+    fun spawnFarFromPlayer(){
+        storage.isCanSpawnFarFromPlayer = true
+    }
+
+    fun noVelocityUpdate(){
+        storage.isVelocityUpdates = false
+    }
+
+    fun renderer(value: EntityRendererProvider<out Entity>){
+        storage.renderer = value
+    }
+
+    fun texture(id: String){
+        storage.texture = ResourceLocation(id)
+    }
+
+    fun spawnWeight(value: Int){
+        storage.spawnWeight = value
+    }
+
+    fun spawnGroup(min: Int, max: Int){
+        storage.minGroup = min
+        storage.maxGroup = max
+    }
+
+    fun spawnBiomes(value: List<ResourceLocation>){
+        storage.biomes = value
+    }
+
+    fun mobAttribute(value: MutableMap<Attribute, Double>){
+        storage.attribute = value
+    }
+}
+
+fun entity(id: String, init: EntityDSLBuilder.() -> Unit): EntityValueStorage{
+    val storage = EntityValueStorage(id)
+    val scope = EntityDSLBuilder(storage)
+    scope.init()
+
+    EntityStorageRegistry.register(storage)
+    return storage
 }
 
 @RegisterDSL
