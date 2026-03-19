@@ -2,11 +2,22 @@ package com.yuyuto.infinitymaxcore.registry;
 
 import com.yuyuto.infinitymaxcore.block.LogicBlock;
 import com.yuyuto.infinitymaxcore.block.BlockValueStorage;
+import com.yuyuto.infinitymaxcore.logic.Logic;
+import com.yuyuto.infinitymaxcore.logic.LogicPhase;
+import com.yuyuto.infinitymaxcore.logic.LogicRegistry;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
+import java.util.EnumMap;
+import java.util.List;
+import java.util.Map;
 
 public class BlockFactory {
-    public static Block create(BlockValueStorage storage){
+    @Contract("_ -> new")
+    public static @NotNull Block create(@NotNull BlockValueStorage storage){
 
         BlockBehaviour.Properties props = BlockBehaviour.Properties
                 .of()
@@ -28,6 +39,23 @@ public class BlockFactory {
             props.emissiveRendering(storage.getEmissiveRenderer());
         }
 
-        return new LogicBlock(props, storage);
+        Map<LogicPhase, List<Logic>> logicMap = new EnumMap<>(LogicPhase.class);
+
+        storage.getLogics().forEach((phase, ids) -> {
+            List<Logic> list = new ArrayList<>();
+
+            for (String id : ids){
+                Logic logic = LogicRegistry.get(id);
+                if (logic != null){
+                    list.add(logic);
+                } else {
+                    System.err.println("[InfinityMax] Logic not found: " + id);
+                }
+            }
+
+            logicMap.put(phase, list);
+        });
+
+        return new LogicBlock(props, logicMap);
     }
 }

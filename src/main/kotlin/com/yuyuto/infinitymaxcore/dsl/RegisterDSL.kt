@@ -114,16 +114,16 @@ class BlockDSLBuilder(private val storage: BlockValueStorage){
         storage.texture = ResourceLocation(id)
     }
 
-    fun tick(logic: String){
-        storage.addLogic(LogicPhase.TICK, logic)
+    fun blockTick(logic: String){
+        storage.addLogic(LogicPhase.BLOCK_TICK, logic)
     }
 
-    fun use(logic: String){
-        storage.addLogic(LogicPhase.USE,logic)
+    fun blockUse(logic: String){
+        storage.addLogic(LogicPhase.BLOCK_USE,logic)
     }
 
-    fun randomTick(logic: String){
-        storage.addLogic(LogicPhase.RANDOM_TICK,logic)
+    fun blockRandomTick(logic: String){
+        storage.addLogic(LogicPhase.BLOCK_RANDOM_TICK,logic)
     }
 
 }
@@ -212,9 +212,9 @@ class ItemDSLBuilder(private val storage: ItemValueStorage){
         storage.parentModel = value
     }
 
-    //Logicはまだ未定なのでここでは割愛。
-    //ここでいうLogicはアイテムに埋め込むゲーム処理のことを言う。
-    //例:銃火器系、魔法弾発射の杖、マシンリペアツールなど
+    fun itemUse(logic: String){
+        storage.addLogic(LogicPhase.ITEM_USE,logic)
+    }
 }
 
 fun item(id: String, init: ItemDSLBuilder.() -> Unit): ItemValueStorage{

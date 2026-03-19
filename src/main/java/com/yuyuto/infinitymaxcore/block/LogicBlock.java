@@ -2,7 +2,6 @@ package com.yuyuto.infinitymaxcore.block;
 
 import com.yuyuto.infinitymaxcore.logic.Logic;
 import com.yuyuto.infinitymaxcore.logic.LogicPhase;
-import com.yuyuto.infinitymaxcore.logic.LogicRegistry;
 import com.yuyuto.infinitymaxcore.logic.type.BlockRandomTickLogic;
 import com.yuyuto.infinitymaxcore.logic.type.BlockTickLogic;
 import com.yuyuto.infinitymaxcore.logic.type.BlockUseLogic;
@@ -19,15 +18,16 @@ import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
+import java.util.Map;
 
 public class LogicBlock extends Block {
 
     //Storage参照
-    private final BlockValueStorage storage;
+    private final Map<LogicPhase, List<Logic>> logicMap;
 
-    public LogicBlock(Properties properties, BlockValueStorage storage){
+    public LogicBlock(Properties properties, Map<LogicPhase, List<Logic>> logicMap){
         super(properties);
-        this.storage = storage;
+        this.logicMap = logicMap;
     }
 
     //Tickイベント
@@ -49,29 +49,28 @@ public class LogicBlock extends Block {
     }
     //API関数(引数干渉の削減に)
     private void runLogicTick(Level level, BlockPos pos, BlockState state){
-        runLogic(LogicPhase.TICK,level,pos,state,null,null);
+        runLogic(LogicPhase.BLOCK_TICK,level,pos,state,null,null);
     }
     private void runLogicUse(Level level, BlockPos pos, BlockState state, Player player){
-        runLogic(LogicPhase.USE,level,pos,state,player,null);
+        runLogic(LogicPhase.BLOCK_USE,level,pos,state,player,null);
     }
     private void runLogicRandomTick(Level level, BlockPos pos, BlockState state, RandomSource random){
-        runLogic(LogicPhase.RANDOM_TICK,level,pos,state,null,random);
+        runLogic(LogicPhase.BLOCK_RANDOM_TICK,level,pos,state,null,random);
     }
 
     //Logic実行
     private void runLogic(LogicPhase phase, Level level, BlockPos pos, BlockState state, Player player, RandomSource random){
-        List<String> ids = storage.getLogics().get(phase);
+        List<Logic> logics = logicMap.get(phase);
 
-        if(ids == null) return;
-        for(String id : ids){
-            Logic logic = LogicRegistry.get(id);
-            if (phase == LogicPhase.TICK && logic instanceof BlockTickLogic tick){
+        if(logics == null) return;
+        for(Logic logic : logics){
+            if (phase == LogicPhase.BLOCK_TICK && logic instanceof BlockTickLogic tick){
                 tick.execute(level,pos,state);
             }
-            if (phase == LogicPhase.USE && logic instanceof BlockUseLogic use){
+            if (phase == LogicPhase.BLOCK_USE && logic instanceof BlockUseLogic use){
                 use.execute(player, level, pos, state);
             }
-            if (phase == LogicPhase.RANDOM_TICK && logic instanceof BlockRandomTickLogic randomLogic){
+            if (phase == LogicPhase.BLOCK_RANDOM_TICK && logic instanceof BlockRandomTickLogic randomLogic){
                 randomLogic.execute((ServerLevel) level, pos, state, random);
             }
         }

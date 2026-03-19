@@ -131,4 +131,8 @@ public class ItemValueStorage {
         return logics;
     }
 
+    public void addLogic(LogicPhase phase, String logicId){
+        logics.computeIfAbsent(phase,p -> new ArrayList<>()).add(logicId);
+    }
+
 }

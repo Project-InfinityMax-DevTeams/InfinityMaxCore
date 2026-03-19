@@ -27,7 +27,7 @@ public class LogicItem extends Item {
     @Override
     public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level level, @NotNull Player player, @NotNull InteractionHand hand){
 
-        List<Logic> logics = logicMap.get(LogicPhase.USE);
+        List<Logic> logics = logicMap.get(LogicPhase.ITEM_USE);
 
         if (logics != null) {
             for (Logic logic : logics) {
