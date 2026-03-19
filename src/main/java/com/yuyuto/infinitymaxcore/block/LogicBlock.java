@@ -19,6 +19,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class LogicBlock extends Block {
 
@@ -62,15 +63,17 @@ public class LogicBlock extends Block {
     private void runLogic(LogicPhase phase, Level level, BlockPos pos, BlockState state, Player player, RandomSource random){
         List<Logic> logics = logicMap.get(phase);
 
-        if(logics == null) return;
-        for(Logic logic : logics){
+        if(logics == null) {
+            System.err.println("[InfinityMax ErrorCode:X0000f1] No logic was found: " + logics + ". This will be enable when you install the dedicatedMOD. Alternatively, Please implement a Logic class corresponding to the ID. Please send the error code to the support Discord Server or to GitHub.");
+        }
+
+        for(Logic logic : Objects.requireNonNull(logics)){
+
             if (phase == LogicPhase.BLOCK_TICK && logic instanceof BlockTickLogic tick){
                 tick.execute(level,pos,state);
-            }
-            if (phase == LogicPhase.BLOCK_USE && logic instanceof BlockUseLogic use){
+            } else if (phase == LogicPhase.BLOCK_USE && logic instanceof BlockUseLogic use){
                 use.execute(player, level, pos, state);
-            }
-            if (phase == LogicPhase.BLOCK_RANDOM_TICK && logic instanceof BlockRandomTickLogic randomLogic){
+            } else if (phase == LogicPhase.BLOCK_RANDOM_TICK && logic instanceof BlockRandomTickLogic randomLogic){
                 randomLogic.execute((ServerLevel) level, pos, state, random);
             }
         }

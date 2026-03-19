@@ -8,6 +8,7 @@ public enum LogicPhase {
     BLOCK_USE,
     BLOCK_NEIGHBOR_UPDATE,
     BLOCK_ENTITY_INSIDE,
+    BLOCK_STEP_ON,
 
     // ITEM
     ITEM_USE,
@@ -19,9 +20,5 @@ public enum LogicPhase {
     ENTITY_INTERACT,
     ENTITY_TICK,
     ENTITY_HURT,
-    ENTITY_ATTACK,
-
-    //OTHER
-    STEP_ON,
-    ANIMATE
+    ENTITY_ATTACK
 }
