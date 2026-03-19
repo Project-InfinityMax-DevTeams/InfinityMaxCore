@@ -14,20 +14,9 @@ public class ModEntities {
     public static void registerAll(){
         for (EntityValueStorage storage : EntityStorageRegistry.getAll()){
 
-            RegistryObject<EntityType<?>> obj = ENTITIES.register(storage.getId(), () -> {
-               EntityType.Builder<?> builder =
-                       EntityType.Builder.of(storage.getFactory(), storage.getCategory())
-                               .sized(storage.getWidth(), storage.getHeight())
-                               .setTrackingRange(storage.getTrackingRange())
-                               .setUpdateInterval(storage.getUpdateInterval());
-               if (storage.isFireImmune()) builder.fireImmune();
-               if (!storage.isSummonable()) builder.noSummon();
-               if (!storage.isSaveable()) builder.noSave();
-               if (storage.isCanSpawnFarFromPlayer()) builder.canSpawnFarFromPlayer();
-               if (!storage.isVelocityUpdates()) builder.setShouldReceiveVelocityUpdates(false);
-
-               return builder.build(storage.getId());
-            });
+            RegistryObject<EntityType<?>> obj = ENTITIES.register(
+                    storage.getId(),() -> EntityFactory.create(storage)
+            );
 
             storage.setEntityType(obj);
         }

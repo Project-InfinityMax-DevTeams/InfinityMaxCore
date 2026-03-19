@@ -121,9 +121,17 @@ class BlockDSLBuilder(private val storage: BlockValueStorage){
     fun blockUse(logic: String){
         storage.addLogic(LogicPhase.BLOCK_USE,logic)
     }
-
     fun blockRandomTick(logic: String){
         storage.addLogic(LogicPhase.BLOCK_RANDOM_TICK,logic)
+    }
+    fun blockNeighborUpdate(logic: String){
+        storage.addLogic(LogicPhase.BLOCK_NEIGHBOR_UPDATE,logic)
+    }
+    fun blockEntityInside(logic: String){
+        storage.addLogic(LogicPhase.BLOCK_ENTITY_INSIDE,logic)
+    }
+    fun blockStepOn(logic: String){
+        storage.addLogic(LogicPhase.BLOCK_STEP_ON, logic)
     }
 
 }
@@ -214,6 +222,15 @@ class ItemDSLBuilder(private val storage: ItemValueStorage){
 
     fun itemUse(logic: String){
         storage.addLogic(LogicPhase.ITEM_USE,logic)
+    }
+    fun itemTick(logic: String){
+        storage.addLogic(LogicPhase.ITEM_TICK,logic)
+    }
+    fun itemInventoryTick(logic: String){
+        storage.addLogic(LogicPhase.ITEM_INVENTORY_TICK,logic)
+    }
+    fun itemReleaseUse(logic: String){
+        storage.addLogic(LogicPhase.ITEM_RELEASE_USE,logic)
     }
 }
 
@@ -323,6 +340,19 @@ class EntityDSLBuilder(private val storage: EntityValueStorage){
 
     fun mobAttribute(value: MutableMap<Attribute, Double>){
         storage.attribute = value
+    }
+
+    fun entityInteract(logic: String) {
+        storage.addLogic(LogicPhase.ENTITY_INTERACT, logic)
+    }
+    fun entityTick(logic: String){
+        storage.addLogic(LogicPhase.ENTITY_TICK,logic)
+    }
+    fun entityHurt(logic: String){
+        storage.addLogic(LogicPhase.ENTITY_HURT,logic)
+    }
+    fun entityAttack(logic: String){
+        storage.addLogic(LogicPhase.ENTITY_ATTACK,logic)
     }
 }
 

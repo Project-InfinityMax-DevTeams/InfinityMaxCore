@@ -1,5 +1,6 @@
 package com.yuyuto.infinitymaxcore.entity;
 
+import com.yuyuto.infinitymaxcore.logic.LogicPhase;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
@@ -8,9 +9,7 @@ import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraftforge.registries.RegistryObject;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class EntityValueStorage {
 
@@ -53,6 +52,9 @@ public class EntityValueStorage {
 
     //MOB限定の属性設定
     private Map<Attribute,Double> attribute = new HashMap<>();
+
+    //Logic
+    private final Map<LogicPhase, List<String>> logics = new EnumMap<>(LogicPhase.class);
 
     //キャッシュ
     private RegistryObject<EntityType<?>> entityType;
@@ -216,5 +218,13 @@ public class EntityValueStorage {
 
     public void setEntityType(RegistryObject<EntityType<?>> entityType) {
         this.entityType = entityType;
+    }
+
+    public Map<LogicPhase, List<String>> getLogics() {
+        return logics;
+    }
+
+    public void addLogic(LogicPhase phase, String logicId){
+        logics.computeIfAbsent(phase,p -> new ArrayList<>()).add(logicId);
     }
 }
