@@ -27,12 +27,15 @@ public class LogicItem extends Item {
     @Override
     public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level level, @NotNull Player player, @NotNull InteractionHand hand){
 
-        List<Logic> logic = logicMap.get(LogicPhase.USE);
+        List<Logic> logics = logicMap.get(LogicPhase.USE);
 
-        if (logic instanceof ItemUseLogic useLogic){
-            return useLogic.execute(player, level, player.getItemInHand(hand), hand);
+        if (logics != null) {
+            for (Logic logic : logics) {
+                if (logic instanceof ItemUseLogic useLogic) {
+                    return useLogic.execute(player, level, player.getItemInHand(hand), hand);
+                }
+            }
         }
-
         return InteractionResultHolder.pass(player.getItemInHand(hand));
     }
 

@@ -6,6 +6,7 @@ import com.yuyuto.infinitymaxcore.logic.Logic;
 import com.yuyuto.infinitymaxcore.logic.LogicPhase;
 import com.yuyuto.infinitymaxcore.logic.LogicRegistry;
 import net.minecraft.world.item.Item;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.EnumMap;
@@ -13,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 public class ItemFactory {
-    public static Item create(ItemValueStorage storage){
+    public static @NotNull Item create(@NotNull ItemValueStorage storage){
         Item.Properties props = new Item.Properties()
                 .rarity(storage.getRarity())
                 .stacksTo(storage.getMaxStack())
@@ -33,10 +34,15 @@ public class ItemFactory {
         storage.getLogics().forEach((phase, ids) -> {
             List<Logic> list = new ArrayList<>();
 
-            for (String id : ids){
-                list.add(LogicRegistry.get(id));
-            }
+            for (String id : ids) {
+                Logic logic = LogicRegistry.get(id);
 
+                if (logic != null) {
+                    list.add(LogicRegistry.get(id));
+                } else {
+                    System.err.println("[InfinityMax] Logic not found: " + id);
+                }
+            }
             logicMap.put(phase, list);
         });
         Item item = new LogicItem(props, logicMap);
