@@ -3,6 +3,7 @@ package com.yuyuto.infinitymaxcore.registry;
 import com.yuyuto.infinitymaxcore.block.LogicBlock;
 import com.yuyuto.infinitymaxcore.block.BlockValueStorage;
 import com.yuyuto.infinitymaxcore.logic.Logic;
+import com.yuyuto.infinitymaxcore.logic.LogicMapper;
 import com.yuyuto.infinitymaxcore.logic.LogicPhase;
 import com.yuyuto.infinitymaxcore.logic.LogicRegistry;
 import net.minecraft.world.level.block.Block;
@@ -39,22 +40,7 @@ public class BlockFactory {
             props.emissiveRendering(storage.getEmissiveRenderer());
         }
 
-        Map<LogicPhase, List<Logic>> logicMap = new EnumMap<>(LogicPhase.class);
-
-        storage.getLogics().forEach((phase, ids) -> {
-            List<Logic> list = new ArrayList<>();
-
-            for (String id : ids){
-                Logic logic = LogicRegistry.get(id);
-                if (logic != null){
-                    list.add(logic);
-                } else {
-                    System.err.println("[InfinityMax] Logic not found: " + id);
-                }
-            }
-
-            logicMap.put(phase, list);
-        });
+        Map<LogicPhase, List<Logic>> logicMap = LogicMapper.map(storage.getLogics());
 
         return new LogicBlock(props, logicMap);
     }

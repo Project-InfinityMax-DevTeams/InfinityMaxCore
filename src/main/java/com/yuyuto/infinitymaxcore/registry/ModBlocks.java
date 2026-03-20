@@ -2,9 +2,7 @@ package com.yuyuto.infinitymaxcore.registry;
 
 import com.yuyuto.infinitymaxcore.block.BlockEntityRegistry;
 import com.yuyuto.infinitymaxcore.block.BlockValueStorage;
-import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -22,6 +20,7 @@ public class ModBlocks {
     public static final Map<String, RegistryObject<Block>> BLOCK_MAP = new LinkedHashMap<>();
     public static void register(){
         BLOCKS.register(FMLJavaModLoadingContext.get().getModEventBus());
+        ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
     }
     public static RegistryObject<Block> registerBlock(@NotNull BlockValueStorage storage){
 
@@ -35,13 +34,6 @@ public class ModBlocks {
                     storage.getBlockId(),()
                     -> new BlockItem(object.get(), new Item.Properties())
             );
-            CreativeModeTab.builder()
-                    .title(Component.literal("InfinityMax"))
-                    .displayItems((params, output) -> {
-                       for (Item blockItem : ModCreativeTab.get("infinitymax")){
-                           output.accept(blockItem);
-                       }
-                    });
         }
 
         if (storage.getBlockEntity() != null){

@@ -3,13 +3,11 @@ package com.yuyuto.infinitymaxcore.registry;
 import com.yuyuto.infinitymaxcore.item.ItemValueStorage;
 import com.yuyuto.infinitymaxcore.item.LogicItem;
 import com.yuyuto.infinitymaxcore.logic.Logic;
+import com.yuyuto.infinitymaxcore.logic.LogicMapper;
 import com.yuyuto.infinitymaxcore.logic.LogicPhase;
-import com.yuyuto.infinitymaxcore.logic.LogicRegistry;
 import net.minecraft.world.item.Item;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 
@@ -30,25 +28,11 @@ public class ItemFactory {
         }
 
         //logic変換
-        Map<LogicPhase, List<Logic>> logicMap = new EnumMap<>(LogicPhase.class);
-        storage.getLogics().forEach((phase, ids) -> {
-            List<Logic> list = new ArrayList<>();
-
-            for (String id : ids) {
-                Logic logic = LogicRegistry.get(id);
-
-                if (logic != null) {
-                    list.add(LogicRegistry.get(id));
-                } else {
-                    System.err.println("[InfinityMax] Logic not found: " + id);
-                }
-            }
-            logicMap.put(phase, list);
-        });
+        Map<LogicPhase, List<Logic>> logicMap = LogicMapper.map(storage.getLogics());
         Item item = new LogicItem(props, logicMap);
 
         if (storage.getCreativeTabId() != null){
-            ModCreativeTab.add(storage.getCreativeTabId(), item);
+            CreativeTabFactory.add(storage.getCreativeTabId(), item);
         }
 
         return item;
