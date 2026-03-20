@@ -15,6 +15,7 @@ import com.yuyuto.infinitymaxcore.item.ItemValueStorage
 import com.yuyuto.infinitymaxcore.logic.LogicPhase
 import com.yuyuto.infinitymaxcore.recipe.RecipeDefinition
 import com.yuyuto.infinitymaxcore.recipe.RecipeRegistry
+import com.yuyuto.infinitymaxcore.registry.ModEntities
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer
 import net.minecraft.client.renderer.entity.EntityRendererProvider
 import net.minecraft.data.recipes.RecipeCategory
@@ -362,6 +363,7 @@ fun entity(id: String, init: EntityDSLBuilder.() -> Unit): EntityValueStorage{
     scope.init()
 
     EntityStorageRegistry.register(storage)
+    ModEntities.registerEntity(storage)
     return storage
 }
 

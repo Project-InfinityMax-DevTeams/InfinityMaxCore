@@ -4,6 +4,7 @@ import com.mojang.logging.LogUtils;
 import com.yuyuto.infinitymaxcore.datagen.*;
 import com.yuyuto.infinitymaxcore.recipe.ModRecipeProvider;
 import com.yuyuto.infinitymaxcore.registry.ModBlocks;
+import com.yuyuto.infinitymaxcore.registry.ModEntities;
 import com.yuyuto.infinitymaxcore.registry.ModItems;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
@@ -25,6 +26,7 @@ public class InfinityMaxCore {
     public InfinityMaxCore(){
         ModBlocks.register();
         ModItems.register();
+        ModEntities.register();
     }
 
     //DataGen

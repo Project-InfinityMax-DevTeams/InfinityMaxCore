@@ -16,6 +16,7 @@ import java.util.Map;
 
 public class EntityFactory {
 
+    @SuppressWarnings("MismatchedQueryAndUpdateOfCollection")
     public static @NotNull EntityType<?> create(@NotNull EntityValueStorage storage){
 
         Map<LogicPhase, List<Logic>> logicMap = new EnumMap<>(LogicPhase.class);
@@ -32,6 +33,7 @@ public class EntityFactory {
                     System.err.println("[InfinityMax] Logic not found: " + id);
                 }
             }
+            logicMap.put(phase,list);
         });
 
         //Factory
