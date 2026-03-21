@@ -28,6 +28,7 @@ import net.minecraft.world.entity.MobCategory
 import net.minecraft.world.entity.ai.attributes.Attribute
 import net.minecraft.world.inventory.MenuType
 import net.minecraft.world.item.Item
+import net.minecraft.world.item.Items
 import net.minecraft.world.item.Rarity
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.SoundType
@@ -627,6 +628,7 @@ class CreativeTab(private val  tabId: String){
     }
 
     fun build(){
+        val safeIcon = icon ?: { Items.STONE }
         ModCreativeTab.registerTab(tabId,title,icon)
     }
 }
