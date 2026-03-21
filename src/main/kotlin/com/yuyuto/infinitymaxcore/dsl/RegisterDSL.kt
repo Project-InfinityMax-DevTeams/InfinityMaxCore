@@ -15,6 +15,8 @@ import com.yuyuto.infinitymaxcore.item.ItemValueStorage
 import com.yuyuto.infinitymaxcore.logic.LogicPhase
 import com.yuyuto.infinitymaxcore.recipe.RecipeDefinition
 import com.yuyuto.infinitymaxcore.recipe.RecipeRegistry
+import com.yuyuto.infinitymaxcore.registry.CreativeTabFactory
+import com.yuyuto.infinitymaxcore.registry.ModCreativeTab
 import com.yuyuto.infinitymaxcore.registry.ModEntities
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer
 import net.minecraft.client.renderer.entity.EntityRendererProvider
@@ -609,4 +611,28 @@ class SmithingRecipeScope{
     fun build(): RecipeDefinition{
         return RecipeDefinition.Smithing(result, template, category, base, addition)
     }
+}
+
+@RegisterDSL
+class CreativeTab(private val  tabId: String){
+    private var title: String = tabId
+    private var icon: (() -> Item)? = null
+
+    fun title(value: String){
+        title = value
+    }
+
+    fun icon(itemSupplier: () -> Item){
+        icon = itemSupplier
+    }
+
+    fun build(){
+        ModCreativeTab.registerTab(tabId,title,icon)
+    }
+}
+
+fun creativeTab(id: String, init: CreativeTab.() -> Unit){
+    val builder = CreativeTab(id)
+    builder.init()
+    builder.build()
 }
