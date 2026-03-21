@@ -418,10 +418,6 @@ class RecipeScope{
 
     fun build(): RecipeDefinition{
         val r =  recipe ?: throw IllegalStateException("recipe not defined")
-        // TODO(registration): この build() は RecipeDefinition の生成だけでなく RecipeRegistry.register(r) まで実行している。
-        // TODO(registration): 呼び出し元の recipe() でも再度 register しているため、現状はレシピ登録処理が二重実行される問題箇所になっている。
-        RecipeRegistry.register(r)
-        // TODO(registration): build() と recipe() のどちらが登録責務を持つかを一本化し、重複登録を解消すること。
         return r
     }
 }
@@ -429,10 +425,7 @@ fun recipe(block: RecipeScope.() -> Unit){
     val scope = RecipeScope()
     scope.block()
 
-    // TODO(registration): scope.build() の内部で既に RecipeRegistry.register(...) が呼ばれている。
-    // TODO(registration): ここでさらに register すると同じレシピの二重登録になるため、責務整理後にこの呼び出しを見直すこと。
     RecipeRegistry.register(scope.build())
-    // TODO(registration): RecipeDefinition の構築と登録を分離し、登録処理地点を一箇所に限定すること。
 }
 
 class ShapedRecipeScope {
