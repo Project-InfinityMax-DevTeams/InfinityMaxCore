@@ -36,7 +36,7 @@ public class BlockValueStorage {
     //BlockItemを作るかどうか
     private boolean hasBlockItem = true;
     //クリエタブ
-    private String creativeTabId;
+    private String creativeTabKey;
 
     //DataGen関連
     private BlockModelDefinition model;
@@ -188,12 +188,12 @@ public class BlockValueStorage {
         logics.computeIfAbsent(phase,p -> new ArrayList<>()).add(logicId);
     }
 
-    public String getCreativeTabId() {
-        return creativeTabId;
+    public String getCreativeTabKey() {
+        return creativeTabKey;
     }
 
-    public void setCreativeTabId(String creativeTabId) {
-        this.creativeTabId = creativeTabId;
+    public void setCreativeTabKey(String creativeTabKey) {
+        this.creativeTabKey = creativeTabKey;
     }
 
     public BlockEntityStorage<?> getBlockEntity() {

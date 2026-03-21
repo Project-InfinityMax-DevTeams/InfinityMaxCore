@@ -15,9 +15,10 @@ import com.yuyuto.infinitymaxcore.item.ItemValueStorage
 import com.yuyuto.infinitymaxcore.logic.LogicPhase
 import com.yuyuto.infinitymaxcore.recipe.RecipeDefinition
 import com.yuyuto.infinitymaxcore.recipe.RecipeRegistry
-import com.yuyuto.infinitymaxcore.registry.CreativeTabFactory
+import com.yuyuto.infinitymaxcore.registry.ModBlocks
 import com.yuyuto.infinitymaxcore.registry.ModCreativeTab
 import com.yuyuto.infinitymaxcore.registry.ModEntities
+import com.yuyuto.infinitymaxcore.registry.ModItems
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer
 import net.minecraft.client.renderer.entity.EntityRendererProvider
 import net.minecraft.data.recipes.RecipeCategory
@@ -86,7 +87,7 @@ class BlockDSLBuilder(private val storage: BlockValueStorage){
     }
 
     fun creativeTab(value: String){
-        storage.creativeTabId = value
+        storage.creativeTabKey = value
     }
 
     fun <T: BlockEntity> blockEntity(init: BlockEntityBuilder<T>.() -> Unit){
@@ -146,6 +147,7 @@ fun block(id: String, init: BlockDSLBuilder.() -> Unit): BlockValueStorage{
 
     builder.init()
     BlockStorageRegistry.register(storage)
+    ModBlocks.registerBlock(storage)
     return storage
 }
 
@@ -244,6 +246,7 @@ fun item(id: String, init: ItemDSLBuilder.() -> Unit): ItemValueStorage{
     scope.init()
 
     ItemStorageRegistry.register(storage)
+    ModItems.registryItem(storage)
     return storage
 }
 

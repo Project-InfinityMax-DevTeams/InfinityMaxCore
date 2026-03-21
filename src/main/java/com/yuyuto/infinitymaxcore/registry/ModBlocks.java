@@ -31,8 +31,16 @@ public class ModBlocks {
 
         if(storage.isHasBlockItem()){
             ModBlocks.ITEMS.register(
-                    storage.getBlockId(),()
-                    -> new BlockItem(object.get(), new Item.Properties())
+                    storage.getBlockId(),() -> {
+                        BlockItem item = new BlockItem(object.get(), new Item.Properties());
+
+                        if (storage.getCreativeTabKey() != null){
+                            ModCreativeTab.registerTab(storage.getCreativeTabKey(), storage.getCreativeTabKey(), () -> item);
+                            CreativeTabFactory.add(storage.getCreativeTabKey(),item);
+                        }
+
+                        return item;
+                    }
             );
         }
 
