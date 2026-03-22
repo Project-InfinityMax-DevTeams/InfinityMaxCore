@@ -1,59 +1,65 @@
 package com.yuyuto.infinitymaxcore.datagen;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import com.yuyuto.infinitymaxcore.entity.EntityStorageRegistry;
 import com.yuyuto.infinitymaxcore.entity.EntityValueStorage;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.core.HolderSet;
-import net.minecraft.core.registries.Registries;
+import net.minecraft.data.CachedOutput;
+import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
-import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.biome.MobSpawnSettings;
-import net.minecraftforge.common.data.DatapackBuiltinEntriesProvider;
-import net.minecraftforge.common.world.BiomeModifier;
-import net.minecraftforge.common.world.ForgeBiomeModifiers;
+import org.jetbrains.annotations.NotNull;
 
-import java.util.List;
-import java.util.Set;
+import java.nio.file.Path;
 import java.util.concurrent.CompletableFuture;
 
-public class ModBiomeModifierProvider extends DatapackBuiltinEntriesProvider {
+public class ModBiomeModifierProvider implements DataProvider {
 
-    public ModBiomeModifierProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookup){
-        super(output,lookup, Set.of("infinitymaxcore"));
+    private final PackOutput output;
+
+    public ModBiomeModifierProvider(PackOutput output) {
+        this.output = output;
     }
 
     @Override
-    protected void add(HolderLookup.Provider provider){
-        for (EntityValueStorage storage : EntityStorageRegistry.getAll()){
-            if (storage.getBiomes() == null)continue;
+    public @NotNull CompletableFuture<?> run(@NotNull CachedOutput cache) {
 
-            var biomeRegistry = provider.lookupOrThrow(Registries.BIOME);
-            var entityRegistry = provider.lookupOrThrow(Registries.ENTITY_TYPE);
+        var futures = new java.util.ArrayList<CompletableFuture<?>>();
 
-            HolderSet.Named biomes = HolderSet.direct(
-                    storage.getBiomes().stream()
-                            .map(id -> biomeRegistry.getOrThrow(ResourceKey.create(Registries.BIOME,id)))
-                            .toList()
-            );
+        for (EntityValueStorage storage : EntityStorageRegistry.getAll()) {
 
-            var entity = entityRegistry.getOrThrow(
-                    ResourceKey.create(Registries.ENTITY_TYPE,new ResourceLocation("infinitymaxcore", storage.getId()))
-            );
+            if (storage.getBiomes() == null || storage.getBiomes().isEmpty()) continue;
 
-            BiomeModifier modifier = new ForgeBiomeModifiers.AddSpawnsBiomeModifier(
-                    biomes,
-                    List.of(new MobSpawnSettings.SpawnerData(
-                            entity,
-                            storage.getSpawnWeight(),
-                            storage.getMinGroup(),
-                            storage.getMaxGroup()
-                    ))
-            );
+            JsonObject json = new JsonObject();
 
-            this.builder.add(ResourceKey.create(ForgeBiomeModifiers.Keys.ADD_SPAWNS, new ResourceLocation("infinitymaxcore", storage.getId())),
-                    modifier
-            );
+            // type
+            json.addProperty("type", "forge:add_spawns");
+
+            // biomes
+            JsonArray biomes = new JsonArray();
+            storage.getBiomes().forEach(b -> biomes.add(b.toString()));
+            json.add("biomes", biomes);
+
+            // spawner
+            JsonObject spawner = new JsonObject();
+            spawner.addProperty("type", "infinitymaxcore:" + storage.getId());
+            spawner.addProperty("weight", storage.getSpawnWeight());
+            spawner.addProperty("minCount", storage.getMinGroup());
+            spawner.addProperty("maxCount", storage.getMaxGroup());
+
+            json.add("spawners", spawner);
+
+            // 出力パス
+            Path path = output.getOutputFolder(PackOutput.Target.DATA_PACK)
+                    .resolve("data/infinitymaxcore/forge/biome_modifier/" + storage.getId() + ".json");
+
+            futures.add(DataProvider.saveStable(cache, json, path));
         }
+
+        return CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]));
+    }
+
+    @Override
+    public @NotNull String getName() {
+        return "InfinityMax BiomeModifier";
     }
 }

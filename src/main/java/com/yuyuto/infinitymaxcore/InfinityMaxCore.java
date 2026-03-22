@@ -15,7 +15,6 @@ import net.minecraftforge.fml.common.Mod;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 
-// この値は、META-INF/mods.toml ファイル内のエントリと一致する必要があります。
 @Mod(InfinityMaxCore.MODID)
 public class InfinityMaxCore {
     // すべての参照元が参照できるように、共通の場所でMODIDを定義する
@@ -43,7 +42,7 @@ public class InfinityMaxCore {
         gen.addProvider(event.includeClient(), new ModLangProvider(output));
         gen.addProvider(event.includeServer(), new ModBlockTagProvider(output, event.getLookupProvider(), event.getExistingFileHelper()));
         gen.addProvider(event.includeServer(), new ModRecipeProvider(output));
-        gen.addProvider(event.includeServer(), new ModBiomeModifierProvider(output,event.getLookupProvider()));
+        gen.addProvider(event.includeServer(),new ModBiomeModifierProvider(output));
     }
 
 }

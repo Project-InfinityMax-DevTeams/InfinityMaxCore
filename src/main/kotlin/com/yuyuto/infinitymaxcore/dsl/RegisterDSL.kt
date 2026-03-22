@@ -24,7 +24,6 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider
 import net.minecraft.data.recipes.RecipeCategory
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.entity.Entity
-import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.MobCategory
 import net.minecraft.world.entity.ai.attributes.Attribute
 import net.minecraft.world.inventory.MenuType
@@ -281,9 +280,7 @@ class FoodScope{
 
 @RegisterDSL
 class EntityDSLBuilder(private val storage: EntityValueStorage){
-    fun factory(value: EntityType.EntityFactory<out Entity>){
-        storage.factory = value
-    }
+
     fun category(value: MobCategory){
         storage.category = value
     }

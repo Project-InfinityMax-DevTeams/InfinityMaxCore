@@ -15,7 +15,6 @@ public class EntityValueStorage {
 
     //EntityID
     private final String id;
-    private EntityType.EntityFactory<? extends Entity> factory;
 
     //MOBのカテゴリー
     private MobCategory category = MobCategory.MISC;
@@ -66,14 +65,6 @@ public class EntityValueStorage {
 
     public String getId() {
         return id;
-    }
-
-    public EntityType.EntityFactory<? extends Entity> getFactory() {
-        return factory;
-    }
-
-    public void setFactory(EntityType.EntityFactory<? extends Entity> factory) {
-        this.factory = factory;
     }
 
     public MobCategory getCategory() {
