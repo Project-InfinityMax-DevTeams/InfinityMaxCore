@@ -24,5 +24,5 @@ public class ModEntityAttributes {
         }
     }
 
-    //TODO;ModEntitySpawns実装
+    //TODO:ModEntitySpawns実装
 }

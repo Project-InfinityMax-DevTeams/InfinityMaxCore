@@ -43,6 +43,7 @@ public class InfinityMaxCore {
         gen.addProvider(event.includeClient(), new ModLangProvider(output));
         gen.addProvider(event.includeServer(), new ModBlockTagProvider(output, event.getLookupProvider(), event.getExistingFileHelper()));
         gen.addProvider(event.includeServer(), new ModRecipeProvider(output));
+        gen.addProvider(event.includeServer(), new ModBiomeModifierProvider(output,event.getLookupProvider()));
     }
 
 }
