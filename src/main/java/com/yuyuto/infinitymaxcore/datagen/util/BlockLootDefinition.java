@@ -1,6 +1,6 @@
 package com.yuyuto.infinitymaxcore.datagen.util;
 
-public enum LootDefinition {
+public enum BlockLootDefinition {
     SELF,
     SILK_ONLY,
     NONE

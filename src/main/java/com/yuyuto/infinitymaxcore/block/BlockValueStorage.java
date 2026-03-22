@@ -1,7 +1,7 @@
 package com.yuyuto.infinitymaxcore.block;
 
 import com.yuyuto.infinitymaxcore.logic.LogicPhase;
-import com.yuyuto.infinitymaxcore.datagen.util.LootDefinition;
+import com.yuyuto.infinitymaxcore.datagen.util.BlockLootDefinition;
 import com.yuyuto.infinitymaxcore.datagen.util.BlockModelDefinition;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.SoundType;
@@ -41,7 +41,7 @@ public class BlockValueStorage {
     //DataGen関連
     private BlockModelDefinition model;
     private ResourceLocation texture;
-    private LootDefinition loot;
+    private BlockLootDefinition loot;
     private final List<ResourceLocation> tags = new ArrayList<>();
     private String lang;
 
@@ -156,11 +156,11 @@ public class BlockValueStorage {
         this.texture = texture;
     }
 
-    public LootDefinition getLoot() {
+    public BlockLootDefinition getLoot() {
         return loot;
     }
 
-    public void setLoot(LootDefinition loot) {
+    public void setLoot(BlockLootDefinition loot) {
         this.loot = loot;
     }
 

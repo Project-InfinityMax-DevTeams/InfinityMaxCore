@@ -10,6 +10,9 @@ import java.util.Set;
 public class ModLootTableProvider extends LootTableProvider {
 
     public ModLootTableProvider(PackOutput output) {
-        super(output, Set.of(), List.of(new SubProviderEntry(ModBlockLootProvider::new, LootContextParamSets.BLOCK)));
+        super(output, Set.of(), List.of(
+                new SubProviderEntry(ModBlockLootProvider::new, LootContextParamSets.BLOCK),
+                new SubProviderEntry(ModEntityLootProvider::new, LootContextParamSets.ENTITY))
+        );
     }
 }

@@ -6,7 +6,8 @@ import com.yuyuto.infinitymaxcore.block.BlockStorageRegistry
 import com.yuyuto.infinitymaxcore.block.BlockValueStorage
 import com.yuyuto.infinitymaxcore.datagen.util.BlockModelDefinition
 import com.yuyuto.infinitymaxcore.datagen.util.ItemModelDefinition
-import com.yuyuto.infinitymaxcore.datagen.util.LootDefinition
+import com.yuyuto.infinitymaxcore.datagen.util.BlockLootDefinition
+import com.yuyuto.infinitymaxcore.datagen.util.EntityLootDefinition
 import com.yuyuto.infinitymaxcore.entity.EntityStorageRegistry
 import com.yuyuto.infinitymaxcore.entity.EntityValueStorage
 import com.yuyuto.infinitymaxcore.item.FoodDefinition
@@ -102,7 +103,7 @@ class BlockDSLBuilder(private val storage: BlockValueStorage){
         storage.model = model
     }
 
-    fun loot(loot: LootDefinition){
+    fun loot(loot: BlockLootDefinition){
         storage.loot = loot
     }
 
@@ -319,6 +320,10 @@ class EntityDSLBuilder(private val storage: EntityValueStorage){
 
     fun noVelocityUpdate(){
         storage.isVelocityUpdates = false
+    }
+
+    fun loot(item: String,min: Int,max: Int){
+        storage.loot = EntityLootDefinition(item,min,max)
     }
 
     fun renderer(value: EntityRendererProvider<out Entity>){

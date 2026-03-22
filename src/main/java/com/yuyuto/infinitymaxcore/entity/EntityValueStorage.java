@@ -1,5 +1,6 @@
 package com.yuyuto.infinitymaxcore.entity;
 
+import com.yuyuto.infinitymaxcore.datagen.util.EntityLootDefinition;
 import com.yuyuto.infinitymaxcore.logic.LogicPhase;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
@@ -40,6 +41,9 @@ public class EntityValueStorage {
     //見た目系
     private EntityRendererProvider<? extends Entity> renderer;
     private ResourceLocation texture;
+
+    //ドロップテーブル
+    private EntityLootDefinition loot;
 
     //スポーン頻度
     private int spawnWeight = 0;
@@ -217,5 +221,13 @@ public class EntityValueStorage {
 
     public void addLogic(LogicPhase phase, String logicId){
         logics.computeIfAbsent(phase,p -> new ArrayList<>()).add(logicId);
+    }
+
+    public EntityLootDefinition getLoot() {
+        return loot;
+    }
+
+    public void setLoot(EntityLootDefinition loot) {
+        this.loot = loot;
     }
 }
