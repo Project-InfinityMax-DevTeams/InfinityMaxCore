@@ -322,8 +322,9 @@ class EntityDSLBuilder(private val storage: EntityValueStorage){
         storage.isVelocityUpdates = false
     }
 
-    fun loot(item: String,min: Int,max: Int){
-        storage.loot = EntityLootDefinition(item,min,max)
+    fun loot(block: LootScope.() -> Unit){
+        val scope = LootScope(storage)
+        scope.block()
     }
 
     fun renderer(value: EntityRendererProvider<out Entity>){
@@ -615,6 +616,18 @@ class SmithingRecipeScope{
 
     fun build(): RecipeDefinition{
         return RecipeDefinition.Smithing(result, template, category, base, addition)
+    }
+}
+
+class LootScope(private val storage: EntityValueStorage){
+    fun drop(
+        item: String,
+        min: Int,
+        max: Int,
+        weight: Int,
+        chance: Float
+        ){
+        storage.addLoot(EntityLootDefinition(item,min,max,weight,chance))
     }
 }
 

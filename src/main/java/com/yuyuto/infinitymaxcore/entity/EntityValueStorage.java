@@ -43,7 +43,7 @@ public class EntityValueStorage {
     private ResourceLocation texture;
 
     //ドロップテーブル
-    private EntityLootDefinition loot;
+    private final List<EntityLootDefinition> loots = new ArrayList<>();
 
     //スポーン頻度
     private int spawnWeight = 0;
@@ -223,11 +223,11 @@ public class EntityValueStorage {
         logics.computeIfAbsent(phase,p -> new ArrayList<>()).add(logicId);
     }
 
-    public EntityLootDefinition getLoot() {
-        return loot;
+    public List<EntityLootDefinition> getLoots() {
+        return loots;
     }
 
-    public void setLoot(EntityLootDefinition loot) {
-        this.loot = loot;
+    public void addLoot(EntityLootDefinition loot) {
+        this.loots.add(loot);
     }
 }

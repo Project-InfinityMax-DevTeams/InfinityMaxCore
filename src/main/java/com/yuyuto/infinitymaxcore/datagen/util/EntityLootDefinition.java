@@ -1,4 +1,4 @@
 package com.yuyuto.infinitymaxcore.datagen.util;
 
-public record EntityLootDefinition(String itemId, int min, int max) {
+public record EntityLootDefinition(String itemId, int min, int max,int weight,float chance) {
 }
