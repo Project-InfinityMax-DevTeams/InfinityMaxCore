@@ -1,6 +1,7 @@
 package com.yuyuto.infinitymaxcore.dsl
 
 import com.mojang.datafixers.types.Type
+import com.yuyuto.infinitymaxcore.block.BaseBlockEntity
 import com.yuyuto.infinitymaxcore.block.BlockEntityStorage
 import com.yuyuto.infinitymaxcore.block.BlockStorageRegistry
 import com.yuyuto.infinitymaxcore.block.BlockValueStorage
@@ -95,6 +96,12 @@ class BlockDSLBuilder(private val storage: BlockValueStorage){
 
         val builder = BlockEntityBuilder(bestorage)
         builder.init()
+
+        if (bestorage.getSupplier() == null){
+            bestorage.setSupplier{pos, state ->
+                BaseBlockEntity(pos,state,bestorage) as T?
+            }
+        }
 
         storage.blockEntity = bestorage
     }

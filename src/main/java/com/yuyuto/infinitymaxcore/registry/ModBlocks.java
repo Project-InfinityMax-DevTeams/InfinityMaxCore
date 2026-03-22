@@ -51,5 +51,4 @@ public class ModBlocks {
         BLOCK_MAP.put(storage.getBlockId(),object);
         return object;
     }
-
 }

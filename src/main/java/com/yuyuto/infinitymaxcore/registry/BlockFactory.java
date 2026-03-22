@@ -1,5 +1,6 @@
 package com.yuyuto.infinitymaxcore.registry;
 
+import com.yuyuto.infinitymaxcore.block.EntityBlockImpl;
 import com.yuyuto.infinitymaxcore.block.LogicBlock;
 import com.yuyuto.infinitymaxcore.block.BlockValueStorage;
 import com.yuyuto.infinitymaxcore.logic.Logic;
@@ -41,6 +42,10 @@ public class BlockFactory {
         }
 
         Map<LogicPhase, List<Logic>> logicMap = LogicMapper.map(storage.getLogics());
+
+        if (storage.getBlockEntity() != null){
+            return new EntityBlockImpl<>(props, logicMap, storage);
+        }
 
         return new LogicBlock(props, logicMap);
     }
