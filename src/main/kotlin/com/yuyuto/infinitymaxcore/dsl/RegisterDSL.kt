@@ -653,7 +653,7 @@ class CreativeTab(private val  tabId: String){
 
     fun build(){
         val safeIcon = icon ?: { Items.STONE }
-        ModCreativeTab.registerTab(tabId,title,icon)
+        ModCreativeTab.registerTab(tabId,title,safeIcon)
     }
 }
 
