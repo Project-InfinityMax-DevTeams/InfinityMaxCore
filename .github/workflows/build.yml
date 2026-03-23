@@ -18,6 +18,9 @@ jobs:
           java-version: 17
           distribution: temurin
 
+      - name: Fix gradlew line endings
+        run: sed -i 's/\r$//' gradlew
+
       - name: Grant execute permission
         run: chmod +x gradlew
 
