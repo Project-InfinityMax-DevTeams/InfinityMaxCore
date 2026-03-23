@@ -91,15 +91,15 @@ class BlockDSLBuilder(private val storage: BlockValueStorage){
         storage.creativeTabKey = value
     }
 
-    fun <T: BlockEntity> blockEntity(init: BlockEntityBuilder<T>.() -> Unit){
-        val bestorage = BlockEntityStorage<T>(storage.blockId)
+    fun blockEntity(init: BlockEntityBuilder<BlockEntity>.() -> Unit){
+        val bestorage = BlockEntityStorage<BlockEntity>(storage.blockId)
 
         val builder = BlockEntityBuilder(bestorage)
         builder.init()
 
         if (bestorage.getSupplier() == null){
-            bestorage.setSupplier{pos, state ->
-                BaseBlockEntity(pos,state,bestorage) as T?
+            bestorage.setSupplier { pos, state ->
+                BaseBlockEntity(pos, state, bestorage)
             }
         }
 
