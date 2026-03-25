@@ -13,16 +13,34 @@
         <list>
           <option value="InfinityMaxCore" />
           <option value="InfinityMaxCore" />
+          <option value="InfinityMaxCore" />
+          <option value="InfinityMaxCore" />
+          <option value="InfinityMaxCore" />
+          <option value="InfinityMaxCore" />
+          <option value="InfinityMaxCore" />
+          <option value="InfinityMaxCore" />
         </list>
       </option>
       <option name="ignoredPackages">
         <list>
           <option value="com.google.guava:guava:31.1-jre" />
           <option value="commons-io:commons-io:2.11.0" />
+          <option value="io.netty:netty-codec:4.1.82.Final" />
+          <option value="io.netty:netty-common:4.1.82.Final" />
+          <option value="io.netty:netty-handler:4.1.82.Final" />
+          <option value="org.apache.commons:commons-compress:1.21" />
+          <option value="org.apache.commons:commons-lang3:3.12.0" />
+          <option value="org.apache.logging.log4j:log4j-core:2.19.0" />
         </list>
       </option>
       <option name="ignoredReasons">
         <list>
+          <option value="悪用不可能" />
+          <option value="悪用不可能" />
+          <option value="悪用不可能" />
+          <option value="悪用不可能" />
+          <option value="悪用不可能" />
+          <option value="悪用不可能" />
           <option value="悪用不可能" />
           <option value="悪用不可能" />
         </list>
