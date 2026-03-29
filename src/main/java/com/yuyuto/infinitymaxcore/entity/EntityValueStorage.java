@@ -44,6 +44,8 @@ public class EntityValueStorage {
 
     //ドロップテーブル
     private final List<EntityLootDefinition> loots = new ArrayList<>();
+    //名前(lang)
+    private String lang;
 
     //スポーン頻度
     private int spawnWeight = 0;
@@ -229,5 +231,13 @@ public class EntityValueStorage {
 
     public void addLoot(EntityLootDefinition loot) {
         this.loots.add(loot);
+    }
+
+    public String getLang() {
+        return lang;
+    }
+
+    public void setLang(String lang) {
+        this.lang = lang;
     }
 }

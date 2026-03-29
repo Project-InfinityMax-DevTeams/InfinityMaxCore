@@ -355,6 +355,10 @@ class EntityDSLBuilder(private val storage: EntityValueStorage){
         storage.biomes = value
     }
 
+    fun lang(value: String){
+        storage.lang = value
+    }
+
     fun mobAttribute(value: MutableMap<Attribute, Double>){
         storage.attribute = value
     }
