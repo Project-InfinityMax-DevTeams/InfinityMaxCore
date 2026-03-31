@@ -1,14 +1,14 @@
 package com.yuyuto.infinitymaxcore.dsl
 
-import com.mojang.datafixers.types.Type
 import com.yuyuto.infinitymaxcore.block.BaseBlockEntity
 import com.yuyuto.infinitymaxcore.block.BlockEntityStorage
 import com.yuyuto.infinitymaxcore.block.BlockStorageRegistry
 import com.yuyuto.infinitymaxcore.block.BlockValueStorage
-import com.yuyuto.infinitymaxcore.datagen.util.BlockModelDefinition
-import com.yuyuto.infinitymaxcore.datagen.util.ItemModelDefinition
+import com.yuyuto.infinitymaxcore.data.DataType
 import com.yuyuto.infinitymaxcore.datagen.util.BlockLootDefinition
+import com.yuyuto.infinitymaxcore.datagen.util.BlockModelDefinition
 import com.yuyuto.infinitymaxcore.datagen.util.EntityLootDefinition
+import com.yuyuto.infinitymaxcore.datagen.util.ItemModelDefinition
 import com.yuyuto.infinitymaxcore.entity.EntityStorageRegistry
 import com.yuyuto.infinitymaxcore.entity.EntityValueStorage
 import com.yuyuto.infinitymaxcore.item.FoodDefinition
@@ -168,7 +168,7 @@ class BlockEntityBuilder<T : BlockEntity>(private val storage: BlockEntityStorag
         storage.blocks = blocks
     }
 
-    fun dataType(types: Type<*>){
+    fun <T> dataType(types: DataType<T>){
         storage.dataType = types
     }
 

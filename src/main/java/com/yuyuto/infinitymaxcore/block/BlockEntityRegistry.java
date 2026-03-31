@@ -17,7 +17,7 @@ public class BlockEntityRegistry {
                         BlockEntityType.Builder.of(
                                 storage.getSupplier(),
                                  storage.getBlocks().toArray(new Block[0])
-                        ).build(storage.getDataType())
+                        ).build(null)
                 );
         storage.setBlockEntityType(obj.get());
     }

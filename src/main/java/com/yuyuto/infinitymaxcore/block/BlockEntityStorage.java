@@ -1,6 +1,6 @@
 package com.yuyuto.infinitymaxcore.block;
 
-import com.mojang.datafixers.types.Type;
+import com.yuyuto.infinitymaxcore.data.DataType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.level.block.Block;
@@ -20,7 +20,7 @@ public class BlockEntityStorage<T extends BlockEntity> {
     //対応ブロック
     private List<Block> blocks;
     //データタイプ
-    private Type<?> dataType;
+    private DataType<?> dataType;
     //Tick処理
     private BlockEntityTicker<T> ticker;
     //レンダリング系(ブロックアニメーションなど。)
@@ -56,11 +56,11 @@ public class BlockEntityStorage<T extends BlockEntity> {
         this.blocks = blocks;
     }
 
-    public Type<?> getDataType() {
+    public DataType<?> getDataType() {
         return dataType;
     }
 
-    public void setDataType(Type<?> dataType) {
+    public void setDataType(DataType<?> dataType) {
         this.dataType = dataType;
     }
 
