@@ -18,7 +18,7 @@ public class ConnectionState {
     }
 
     public boolean isActive() {
-        return broken;
+        return !broken;
     }
 
     public void evaluate(double vFrom, double vTo, double deltaTime) {
