@@ -11,6 +11,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -81,7 +82,9 @@ public class BaseBlockEntity<T extends BlockEntity> extends BlockEntity {
                 .result();
     }
 
-
+    public Collection<Object> getAllData(){
+        return dataMap.values();
+    }
 
     // Sync
     @Override
