@@ -8,9 +8,40 @@ DSLはKotlinDSLを使用しています。
 DSLで登録できるものは以下の要素です。
 |ゲームオブジェクト|DSLブロック|
 |---|---|
-|Block|block(String: ID){}|
+|Block|block(String: ID){ ItemDSLBuilder}|
+|BlockEntity|blockEntity{ BlockEntityBuilder }|
 |Item|item(String: ID){}|
-|Entity|entity(String: ID){}
-|CreativeTab|creativeTab(String: ID){}|
-|Recipe|recipe(){ child Recipe Unit }|
-|Loot|loot(){ values }|
+|Entity|entity(String: ID){ EntityDSLBuilder }
+|CreativeTab|creativeTab(String: ID){ CreativeTabScpoe }|
+|Recipe|recipe{ child Recipe Unit }|
+|Loot|loot{ drop(Item: item, Int: min, Int max, Int: weight, Float: chance }|
+|Food|food{ FoodScope }|
+
+# DSLの使用方法
+実際にDSLの各オブジェクト別構文を説明します。
+
+## Block
+Blockは以下のように登録できます。
+```
+block(“test_block”){
+    hardness(2.0f)
+    resistance(4.0f)
+    light(4)
+    friction(3.0f)
+    blockIssuance()
+    mapColor(MapColor.COLOR_RED)
+    blockSoundType(SoundType.METAL)
+    breakingToolRequired(true)
+    doLavaFire(true)
+    hasBlockItem(true)
+    creativeTab("infinitymaxtest:test")
+    blockEntity{
+        packetSync()
+        dataType(TestBlockData.TYPE)
+        ticker(TestBlockTicker.INSTANCE)
+    }
+    lang("Test Block")
+    tag("minecraft:mineable_pickel")
+    tag("minecraft:need_iron_pickel")
+}
+```
