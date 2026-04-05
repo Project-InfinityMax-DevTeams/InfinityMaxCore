@@ -1,5 +1,5 @@
 # Logicの書き方
-InfinityMaxシリーズでは、CoreAPI依存のMODとの柔軟な連携のためにLogicを共通管理するシステムを実装しています。\n
+InfinityMaxシリーズでは、CoreAPI依存のMODとの柔軟な連携のためにLogicを共通管理するシステムを実装しています。  
 ※ここで言うLogicとは、Block、ItemおよびEntityに埋め込むカスタムオブジェクトクラスのことを指します。
 
 # Logicの一覧
