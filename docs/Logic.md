@@ -35,7 +35,7 @@ block(“test_block”){
 }
 ```
 なお、blockTick内部のStringIDは他ブロックのIDでも動作します。また、同じInfinityMaxCore依存の他MODのBlockTickLogicのIDでも動作します。
-**このIDが見つからない場合はエラーは出ません。**StringIDのミスを確実に無くしたい場合は以下のようにインスタンスを生成してID指定をしてください。
+**このIDが見つからない場合はエラーは出ません**。StringIDのミスを確実に無くしたい場合は以下のようにインスタンスを生成してID指定をしてください。
 ```
 block(“test_block”){
     blockTick(TestBlockTickLogic.ID) //JavaクラスでIDをStringで定義すること。
