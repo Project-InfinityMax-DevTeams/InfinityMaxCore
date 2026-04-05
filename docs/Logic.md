@@ -60,11 +60,44 @@ public class TestBlockTickLogic implements BlockTickLogic {
 ```
 また、BlockEntityにDataを持たせておき、そのDataをLogicで使用したい場合、このように描きます。
 ```
- @Override
+@Override
 public void execute(Level level, BlockPos pos, BlockState state){
     if(is.ClientSide) return;
     BlockEntity be = level.getBlockEntity(pos);
     if(!(be instanceof BaseBlockEntity base)) return;
-    TestBlockData data = base.gaeData(TestBlockData.TYPE):;
+    TestBlockData data = base.gaeData(TestBlockData.TYPE);
     //ここにLogicを書く
+    base.setChanged();
 }
+```
+そしてTestBlockDataというクラスを作り、以下を入力します。
+```
+public class TestBlockData{
+    public static final DataType<TestBlockData> TYPE =
+            new DataType("test_block",Codec.unit(new TestBlockData()),TestBlockData::new);
+
+    public double a; //Blockに持たせたいDataを書く。ここの変数はゲームでセーブされる。
+}
+```
+これで、Logicを操作した後にBloclEntityのDataTypeに数値情報やboolean値などが記録され、セーブしてもデータが消えなくなります。
+なお、このTypeにHasPhysicalStateをimplementすると、他のBlockの物理情報値PhysicalStateの細かな数値情報を上書きすることができます。
+上書き可能Dataクラスは以下のように書いてください。
+```
+public class TestBlockData implements HasPhysicalState{
+    public static final DataType<TestBlockData> TYPE =
+            new DataType("test_block",Codec.unit(new TestBlockData()),TestBlockData::new);
+
+    //Blockに持たせたいData変数を宣言。ここの変数はゲームでセーブされる。
+    public PhysicsState state;
+
+    @Override
+    public PhysicalState getPhysicsState(){
+        return state;
+    }
+
+    @Override
+    public void SetPhysicalState(PhysicalState state){
+        this.state = state;
+    }
+}
+```
