@@ -8,13 +8,14 @@ Logicを書くには以下のクラスをimplementすることで作ることが
 |---|---|
 |BlockTickLogic|Tickでの呼び出しでの実行(1/20秒での呼び出し)|
 |BlockUseLogic|Blockを右クリックした際に実行|
-|BlockNeighbourUpdateLogic|Blockの隣接や自身の内部に変更が加えられた場合に実行(隣接にブロックを置くなど)|
+|BlockNeighbourUpdateLogic|Blockの隣接に変更が加えられた場合に実行(隣接にブロックを置くなど)|
 |BlockRandomTickLogic|BlockがRandomTickによって抽選された時に実行|
-|BlockEntityInsideLogic|エンティティがブロックにずっと触れている時に実行される|
+|BlockEntityInsideLogic|エンティティがブロックの中にいる時に実行される|
 |BlockStepOnLogic|ブロックにエンティティが乗っている時に実行される|
 |ItemUseLogic|アイテムを持って右クリックした場合を示す|
 |ItemInventoryTickLogic|アイテムを所持している間に実行|
-|ItemReleaseUseLogic|アイテムを捨てた場合に実行|
+|ItemReleaseUseLogic|アイテムを長押ししてる時に実行|
+|ItemTick|メインハンドに持ってた場合に実行|
 |EntityAttackLogic|エンティティが攻撃した際に実行される|
 |EntityHurtLogic|エンティティが攻撃を受けた場合に実行されに実行|
 |EntityInteractLogic|エンティティを右クリックした時に実行される|
