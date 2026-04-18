@@ -236,9 +236,6 @@ class ItemDSLBuilder(private val storage: ItemValueStorage){
     fun itemUse(logic: String){
         storage.addLogic(LogicPhase.ITEM_USE,logic)
     }
-    fun itemTick(logic: String){
-        storage.addLogic(LogicPhase.ITEM_TICK,logic)
-    }
     fun itemInventoryTick(logic: String){
         storage.addLogic(LogicPhase.ITEM_INVENTORY_TICK,logic)
     }

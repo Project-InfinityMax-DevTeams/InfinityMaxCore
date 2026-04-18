@@ -3,7 +3,7 @@ package com.yuyuto.infinitymaxcore.item;
 import com.yuyuto.infinitymaxcore.logic.Logic;
 import com.yuyuto.infinitymaxcore.logic.LogicPhase;
 import com.yuyuto.infinitymaxcore.logic.type.ItemReleaseUseLogic;
-import com.yuyuto.infinitymaxcore.logic.type.ItemTickLogic;
+import com.yuyuto.infinitymaxcore.logic.type.ItemInventoryTickLogic;
 import com.yuyuto.infinitymaxcore.logic.type.ItemUseLogic;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -47,10 +47,10 @@ public class LogicItem extends Item {
     @Override
     public void inventoryTick(@NotNull ItemStack stack, @NotNull Level level, @NotNull Entity entity, int slot, boolean selected){
 
-        List<Logic> logics = logicMap.get(LogicPhase.ITEM_TICK);
+        List<Logic> logics = logicMap.get(LogicPhase.ITEM_INVENTORY_TICK);
         if (logics != null){
             for (Logic logic : logics){
-                if (logic instanceof ItemTickLogic tick){
+                if (logic instanceof ItemInventoryTickLogic tick){
                     tick.execute(level, entity, stack, slot, selected);
                 }
             }

@@ -12,7 +12,6 @@ public enum LogicPhase {
 
     // ITEM
     ITEM_USE,
-    ITEM_TICK,
     ITEM_INVENTORY_TICK,
     ITEM_RELEASE_USE,
 
