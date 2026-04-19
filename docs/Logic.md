@@ -29,14 +29,14 @@ BlockTickLogicは、Blockが置かれている間に1/20秒毎に実行されま
 BlockTickLogicを使用する際はKotlinDSLでBlockにLogicを登録する必要があります。
 block定義コードブロックに以下のメソッド実行文を実装してください。
 ```kotlin
-block(“test_block”){
+block("test_block"){
     blockTick("block_tick")
 }
 ```
 なお、blockTick内部のStringIDは他ブロックのIDでも動作します。また、同じInfinityMaxCore依存の他MODのBlockTickLogicのIDでも動作します。
 **このIDが見つからない場合はエラーは出ません**。StringIDのミスを確実に無くしたい場合は以下のようにインスタンスを生成してID指定をしてください。
 ```kotlin
-block(“test_block”){
+block("test_block"){
     blockTick(TestBlockTickLogic.ID) //JavaクラスでIDをStringで定義すること。
 }
 ```
