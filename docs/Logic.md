@@ -15,7 +15,6 @@ Logicを書くには以下のクラスをimplementすることで作ることが
 |ItemUseLogic|アイテムを持って右クリックした場合を示す|
 |ItemInventoryTickLogic|アイテムを所持している間に実行|
 |ItemReleaseUseLogic|アイテムを長押ししてる時に実行|
-|ItemTick|メインハンドに持ってた場合に実行|
 |EntityAttackLogic|エンティティが攻撃した際に実行される|
 |EntityHurtLogic|エンティティが攻撃を受けた場合に実行されに実行|
 |EntityInteractLogic|エンティティを右クリックした時に実行される|
@@ -99,6 +98,34 @@ public class TestBlockData implements HasPhysicalState{
     @Override
     public void SetPhysicalState(PhysicalState state){
         this.state = state;
+    }
+}
+```
+# BlockUseLogic
+BlockUseLogicでは、ブロックが右クリックされた場合の処理となります。
+例:かまど、作業台、金床
+BlockUseLogicを登録する場合は、該当ブロックのKotlin DSL部分に以下を書く必要があります。
+```kotlin
+block("test_block“){
+    blockUse(”Test_Use“)
+}
+```
+BlockUseの内部はString型になっています。ここではLogicIDを紐づけます。
+Logicクラスは以下のように書きます。
+```Java
+public class TestBlockUseLogic implements BlockUseLogic {
+    
+    public static final String ID = "Test_Use";
+    
+    @Override
+    public String id(){
+        return ID;
+    }
+
+    @Override
+    public InteractionResult execute(Player player, Level level, BlockPos pos, BlockState state, InteractionHand hand){
+        //Logic code
+        return InteractionResult.SUCCESS;
     }
 }
 ```
